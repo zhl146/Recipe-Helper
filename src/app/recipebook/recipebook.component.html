@@ -1,6 +1,7 @@
+<script src="../shoppinglist/shoppinglist.service.ts"></script>
 <div class="row">
   <div class="col-md-5">
-    <app-recipe-list (recipeClick)="onRecipeClick($event)" ></app-recipe-list>
+    <app-recipe-list></app-recipe-list>
   </div>
   <div class="col-md-7">
     <app-recipe-detail *ngIf="currentRecipe" [currentRecipe]="currentRecipe"></app-recipe-detail>

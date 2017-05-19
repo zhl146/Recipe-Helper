@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core"
 import {Recipe} from "./recipe.model";
+import {RecipebookService} from "./recipebook.service";
 
 @Component({
   selector: 'app-recipe-book',
   templateUrl: "./recipebook.component.html",
-  styleUrls:['./recipebook.component.css']
+  styleUrls:['./recipebook.component.css'],
+  providers:[RecipebookService]
 })
 
 export class RecipeBookComponent implements OnInit {
@@ -14,19 +16,15 @@ export class RecipeBookComponent implements OnInit {
 
   currentRecipe: Recipe;
 
-  constructor() {
+  constructor( private recipeService: RecipebookService) {
 
   }
 
   ngOnInit() {
-
-  }
-
-  // listens for a click event from the recipe list component
-  // depending on what recipe the user clicks on, this will set the currently displayed recipe on the right hand pane
-
-  onRecipeClick(recipe: Recipe) {
-    this.currentRecipe = recipe;
+    this.recipeService.recipeSelected.subscribe(
+      (recipe: Recipe)=>{
+        this.currentRecipe = recipe;
+    })
   }
 
 }
