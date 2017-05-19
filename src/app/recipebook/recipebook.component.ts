@@ -9,6 +9,9 @@ import {Recipe} from "./recipe.model";
 
 export class RecipeBookComponent implements OnInit {
 
+  // this is the currently selected recipe that the user is viewing
+  // it starts not defined by default, so the user does not see anything
+
   currentRecipe: Recipe;
 
   constructor() {
@@ -18,6 +21,9 @@ export class RecipeBookComponent implements OnInit {
   ngOnInit() {
 
   }
+
+  // listens for a click event from the recipe list component
+  // depending on what recipe the user clicks on, this will set the currently displayed recipe on the right hand pane
 
   onRecipeClick(recipe: Recipe) {
     this.currentRecipe = recipe;
