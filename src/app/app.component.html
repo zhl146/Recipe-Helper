@@ -2,8 +2,7 @@
   <app-header (linkClicked)="onLinkClicked($event)"></app-header>
   <div class="row">
     <div class="col-md-12">
-      <app-recipe-book *ngIf="recipeActive"></app-recipe-book>
-      <app-shoppinglist *ngIf="!recipeActive"></app-shoppinglist>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

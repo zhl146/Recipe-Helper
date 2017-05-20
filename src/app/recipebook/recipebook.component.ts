@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core"
-import {Recipe} from "./recipe.model";
-import {RecipebookService} from "./recipebook.service";
+import { Component, OnInit } from '@angular/core';
+import {Recipe} from './recipe.model';
+import {RecipebookService} from './recipebook.service';
 
 @Component({
   selector: 'app-recipe-book',
-  templateUrl: "./recipebook.component.html",
-  styleUrls:['./recipebook.component.css'],
-  providers:[RecipebookService]
+  templateUrl: './recipebook.component.html',
+  styleUrls: ['./recipebook.component.css'],
+  providers: [RecipebookService]
 })
 
 export class RecipeBookComponent implements OnInit {
@@ -22,9 +22,9 @@ export class RecipeBookComponent implements OnInit {
 
   ngOnInit() {
     this.recipeService.recipeSelected.subscribe(
-      (recipe: Recipe)=>{
+      (recipe: Recipe) => {
         this.currentRecipe = recipe;
-    })
+    });
   }
 
 }

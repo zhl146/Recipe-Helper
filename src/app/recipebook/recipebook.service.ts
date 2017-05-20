@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {Recipe} from "./recipe.model";
-import {Ingredient} from "../shared/ingredient.model";
+import {Recipe} from './recipe.model';
+import {Ingredient} from '../shared/ingredient.model';
 
 @Injectable()
 export class RecipebookService {
@@ -33,6 +33,10 @@ export class RecipebookService {
 
   getRecipes() {
     return this.recipes.slice();
+  }
+
+  getRecipeByIndex(recIndex: number): Recipe {
+    return this.recipes[recIndex];
   }
 
 
