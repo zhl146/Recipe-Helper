@@ -1,3 +1,2 @@
-<p>
-  recipe-edit works!
-</p>
+<h2 *ngIf="!editMode"> You are currently creating a new recipe</h2>
+<h2 *ngIf="editMode"> You are currently editing recipe {{id}}</h2>

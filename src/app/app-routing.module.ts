@@ -14,15 +14,15 @@ const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'recipes', component: RecipeBookComponent,
     children: [
-      { path: '', component: RecipeStartComponent},
       { path: 'new', component: RecipeEditComponent },
       { path: ':id', component: RecipeDetailComponent },
-      { path: ':id/edit', component: RecipeEditComponent }
+      { path: ':id/edit', component: RecipeEditComponent },
+      { path: '', component: RecipeStartComponent, pathMatch: 'full'}
     ]
   },
   { path: 'shopping', component: ShoppinglistComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home'}
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({
