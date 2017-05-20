@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Recipe} from '../recipe.model';
+import { RecipebookService } from '../recipebook.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -8,13 +9,15 @@ import {Recipe} from '../recipe.model';
 })
 export class RecipeItemComponent implements OnInit {
 
-  // this is here so that the we can display some quick data about the recipe
+  @Input() index: number; // the array index of the recipe item
 
-  @Input() recipeItem: Recipe;
+  recipeItem: Recipe; // the recipe to be displayed
 
-  constructor() { }
+  constructor( private recipeService: RecipebookService ) { }
 
   ngOnInit() {
+    // gets the recipe item from the recipe service by index
+    this.recipeItem = this.recipeService.getRecipeByIndex(this.index);
   }
 
 }

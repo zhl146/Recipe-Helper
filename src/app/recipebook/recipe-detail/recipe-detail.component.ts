@@ -13,6 +13,7 @@ import 'rxjs/add/operator/switchMap';
 export class RecipeDetailComponent implements OnInit {
 
   currentRecipe: Recipe;
+  currentRecipeId: number;
 
   // this is here so that we can display detailed recipe data when the user selects a specific recipe
 
@@ -21,12 +22,23 @@ export class RecipeDetailComponent implements OnInit {
                private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log('params: ' + this.route.snapshot.params['id']);
-    this.currentRecipe = this.recipeService.getRecipeByIndex(+this.route.snapshot.params['id']);
+    // this code would only work on the initial visit since this component will not
+    // necessarily get destroyed before the route changes
 
-    this.route.params.subscribe( (params: Params ) => {
-      this.currentRecipe = this.recipeService.getRecipeByIndex(+params['id']);
-    });
+    // this.currentRecipe = this.recipeService.getRecipeByIndex(+this.route.snapshot.params['id']);
+
+    // gets the id from the parameters of the route
+    // uses this id to grab the recipe from the recipe service
+
+    this.route.params
+      .subscribe( (params: Params ) => {
+        // stores the id for later use
+        // the + operator castes the id string to a number
+        this.currentRecipeId = +params['id'];
+
+        // uses the id to get the recipe from the service
+        this.currentRecipe = this.recipeService.getRecipeByIndex(this.currentRecipeId);
+      });
   }
 
   onAddAllClicked() {

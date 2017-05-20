@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Ingredient} from "../shared/ingredient.model";
-import {Recipe} from "../recipebook/recipe.model";
+import {Ingredient} from '../shared/ingredient.model';
+import {Recipe} from '../recipebook/recipe.model';
 
 @Injectable()
 export class ShoppinglistService {
@@ -22,8 +22,8 @@ export class ShoppinglistService {
   // results in a new ingredient being displayed to the user
   // method should be called when an event is fired from the shopping-edit component
 
-  addIngredient(newIngredient: Ingredient){
-    this.ingredients.push(newIngredient)
+  addIngredient(newIngredient: Ingredient) {
+    this.ingredients.push(newIngredient);
   }
 
   // takes an index of the ingredients array and deletes it
