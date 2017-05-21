@@ -1,11 +1,12 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {Recipe} from './recipe.model';
-import {Ingredient} from '../shared/ingredient.model';
+import { Injectable } from '@angular/core';
+import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class RecipebookService {
 
-  recipeSelected = new EventEmitter<Recipe>();
+  recipeSubject = new Subject<Recipe[]>();
 
   // dummy recipe list
   // will most likely be pulled from a data service that makes http calls to a server
@@ -39,6 +40,18 @@ export class RecipebookService {
     return this.recipes[recIndex];
   }
 
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.broadcastRecipes();
+  }
 
+  editRecipe(changedRecipe: Recipe, recipeIndex: number) {
+    this.recipes[recipeIndex] = changedRecipe;
+    this.broadcastRecipes();
+  }
+
+  broadcastRecipes() {
+    this.recipeSubject.next(this.recipes.slice());
+  }
 
 }

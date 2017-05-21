@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Ingredient} from '../shared/ingredient.model';
 import {Recipe} from '../recipebook/recipe.model';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ShoppinglistService {
+
+  ingredientsSubject = new Subject<Ingredient[]>();
 
   // dummy ingredient array
   // will remove it later and probably move this functionality to a service
@@ -15,7 +18,7 @@ export class ShoppinglistService {
   ];
 
   getIngredients() {
-    return this.ingredients;
+    return this.ingredients.slice();
   }
 
   // adds an ingredient object to the ingredients array
@@ -24,6 +27,7 @@ export class ShoppinglistService {
 
   addIngredient(newIngredient: Ingredient) {
     this.ingredients.push(newIngredient);
+    this.updateSubject();
   }
 
   // takes an index of the ingredients array and deletes it
@@ -32,10 +36,15 @@ export class ShoppinglistService {
 
   deleteIngredient(index: number) {
     this.ingredients.splice(index, 1);
+    this.updateSubject();
   }
 
   addIngredientsFromRecipe(recipe: Recipe){
     this.ingredients.push(...recipe.ingredients);
+    this.updateSubject();
+  }
+  updateSubject() {
+    this.ingredientsSubject.next(this.ingredients.slice());
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Recipe} from './recipe.model';
+
 import {RecipebookService} from './recipebook.service';
 
 @Component({
@@ -11,20 +11,11 @@ import {RecipebookService} from './recipebook.service';
 
 export class RecipeBookComponent implements OnInit {
 
-  // this is the currently selected recipe that the user is viewing
-  // it starts not defined by default, so the user does not see anything
-
-  currentRecipe: Recipe;
-
   constructor( private recipeService: RecipebookService) {
 
   }
 
   ngOnInit() {
-    this.recipeService.recipeSelected.subscribe(
-      (recipe: Recipe) => {
-        this.currentRecipe = recipe;
-    });
   }
 
 }

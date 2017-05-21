@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Ingredient} from "../../shared/ingredient.model";
-import {ShoppinglistService} from "../shoppinglist.service";
+import {Ingredient} from '../../shared/ingredient.model';
+import {ShoppinglistService} from '../shoppinglist.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -9,26 +10,35 @@ import {ShoppinglistService} from "../shoppinglist.service";
 })
 export class ShoppingEditComponent implements OnInit {
 
-  @ViewChild('nameInput') nameInputRef: ElementRef;
-  @ViewChild('amountInput') amountInputRef: ElementRef;
-  @ViewChild('unitInput') unitInputRef: ElementRef;
+  ingredientForm: FormGroup;
 
   constructor( private shoppingService: ShoppinglistService) { }
 
   ngOnInit() {
+    this.ingredientForm = new FormGroup({
+      ingredientName: new FormControl('', [Validators.required]),
+      ingredientAmount: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[1-9]+[0-9]*$')
+      ]),
+      ingredientUnit: new FormControl('')
+    });
   }
 
-  onAddIngredientClick() {
-    const ingName = this.nameInputRef.nativeElement.value;
-    const ingAmount = this.amountInputRef.nativeElement.value;
-    const ingUnit = this.unitInputRef.nativeElement.value;
-    console.log(ingName);
-    const newIngredient = new Ingredient(ingName, ingAmount, ingUnit);
-    console.log(newIngredient);
+  onClear() {
+    this.ingredientForm.patchValue({'ingredientName': ''});
+    this.ingredientForm.patchValue({'ingredientAmount': ''});
+    this.ingredientForm.patchValue({'ingredientUnit': ''});
+  }
+
+  onSubmit() {
+    const name = this.ingredientForm.get('ingredientName').value;
+    const amount = this.ingredientForm.get('ingredientAmount').value;
+    const unit = this.ingredientForm.get('ingredientUnit').value;
+
+    const newIngredient = new Ingredient(name, +amount, unit);
+
     this.shoppingService.addIngredient(newIngredient);
-  }
-
-  onClearIngredientClick() {
   }
 
 }
