@@ -39,10 +39,21 @@ export class ShoppinglistService {
     this.updateSubject();
   }
 
-  addIngredientsFromRecipe(recipe: Recipe){
+  addIngredientsFromRecipe(recipe: Recipe) {
     this.ingredients.push(...recipe.ingredients);
     this.updateSubject();
   }
+
+  addIngredients(ingredients: Ingredient[]) {
+    this.ingredients.push(...ingredients);
+    this.updateSubject();
+  }
+
+  updateIngredients(ingredients: Ingredient[]) {
+    this.ingredients = ingredients;
+    this.updateSubject();
+  }
+
   updateSubject() {
     this.ingredientsSubject.next(this.ingredients.slice());
   }

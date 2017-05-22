@@ -1,21 +1,53 @@
 <div class="row">
   <div class="col-xs-12">
-    <app-shopping-edit></app-shopping-edit>
+    <div class="panel panel-primary">
+      <div class="panel-heading"><h2>Shopping List</h2></div>
+    </div>
     <hr>
     <div class="row">
-      <div class="col-xs-4">
-        <ul class="list-group">
-          <li
-            class="list-group-item"
-            style ="cursor: pointer"
-            *ngFor="let ingredient of ingredients; let i = index">
-            {{ingredient.name}} ({{ingredient.amount}} {{ingredient.unit}})
-            <span class="glyphicon glyphicon-remove-circle pull-right"
-                  aria-hidden="true"
-                  (click)="onDeleteClicked(i)">
-        </span>
-          </li>
-        </ul>
+      <div class="col-xs-12">
+        <form [formGroup]="ingredientForm" novalidate (ngSubmit)="updateIngredients()">
+          <div formArrayName="ingredients">
+            <ul class="list-group">
+              <li class="list-group-item col-md-6"
+                  *ngFor="let ingredientCtrl of ingredientForm.get('ingredients').controls; let i = index"
+                  [formGroupName]="i">
+                <div class="input-group">
+                  <span class="input-group-addon" *ngIf="(!isLastElement(i))">
+                    <input type="checkbox">
+                  </span>
+                  <span class="input-group-addon" *ngIf="(isLastElement(i))">
+                    <span class="glyphicon glyphicon-plus pull-left"
+                          aria-hidden="true"
+                          (click)="addListItem()">
+                    </span>
+                  </span>
+                  <input type="text"
+                         class="form-control"
+                         formControlName="name" (keyup)="autoAddNewItem(i)">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove-circle pull-right"
+                    aria-hidden="true"
+                    (click)="onDeleteClicked(i)">
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <hr>
+              <button class="btn btn-success" type="submit">Submit</button>
+            </div>
+
+          </div>
+
+        </form>
+
+        <!--<p>{{ingredients | json}}</p>-->
+
       </div>
     </div>
   </div>
