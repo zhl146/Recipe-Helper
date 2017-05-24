@@ -12,13 +12,14 @@ import { HeaderComponent } from './header/header.component';
 import { RecipeBookComponent } from './recipebook/recipebook.component';
 import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
 import { RecipeListComponent } from './recipebook/recipe-list/recipe-list.component';
-import { ShoppingEditComponent } from './shoppinglist/shopping-edit/shopping-edit.component';
+import { ShoppingEditComponent } from './Deprecated/shopping-edit/shopping-edit.component';
 import { RecipeDetailComponent } from './recipebook/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipebook/recipe-item/recipe-item.component';
 import { RecipeEditComponent } from './recipebook/recipe-edit/recipe-edit.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { RecipeStartComponent } from './recipebook/recipe-start/recipe-start.component';
 import { ShoppinglistItemComponent } from './shoppinglist/shoppinglist-item/shoppinglist-item.component';
+import { InputListItemComponent } from './shared/input-list-item/input-list-item.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ShoppinglistItemComponent } from './shoppinglist/shoppinglist-item/shop
     RecipeEditComponent,
     HomePageComponent,
     RecipeStartComponent,
-    ShoppinglistItemComponent
+    ShoppinglistItemComponent,
+    InputListItemComponent
   ],
   imports: [
     BrowserModule,

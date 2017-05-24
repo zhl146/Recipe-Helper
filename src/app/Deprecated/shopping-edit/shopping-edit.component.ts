@@ -1,6 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Ingredient} from '../../shared/ingredient.model';
-import {ShoppinglistService} from '../shoppinglist.service';
+import { Component, OnInit } from '@angular/core';
+import { Ingredient } from '../../shared/ingredient.model';
+import { ShoppinglistService } from '../../shoppinglist/shoppinglist.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({

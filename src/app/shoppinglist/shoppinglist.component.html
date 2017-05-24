@@ -6,17 +6,18 @@
     <hr>
     <div class="row">
       <div class="col-xs-12">
-        <form [formGroup]="ingredientForm" novalidate (ngSubmit)="updateIngredients()">
+        <form [formGroup]="formGroup" novalidate (ngSubmit)="updateIngredients()">
           <div formArrayName="ingredients">
             <ul class="list-group">
               <li class="list-group-item col-md-6"
-                  *ngFor="let ingredientCtrl of ingredientForm.get('ingredients').controls; let i = index"
-                  [formGroupName]="i">
+                  *ngFor="let ingredientCtrl of formGroup.get('ingredients').controls; let i = index"
+                  [formGroupName]="i"
+                  [ngClass]="{last: isLastElement(i)}">
                 <div class="input-group">
-                  <span class="input-group-addon" *ngIf="(!isLastElement(i))">
+                  <span class="input-group-addon" *ngIf="!isLastElement(i)">
                     <input type="checkbox">
                   </span>
-                  <span class="input-group-addon" *ngIf="(isLastElement(i))">
+                  <span class="input-group-addon" *ngIf="isLastElement(i)">
                     <span class="glyphicon glyphicon-plus pull-left"
                           aria-hidden="true"
                           (click)="addListItem()">
@@ -25,8 +26,8 @@
                   <input type="text"
                          class="form-control"
                          formControlName="name" (keyup)="autoAddNewItem(i)">
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-remove-circle pull-right"
+                  <span class="input-group-addon" *ngIf="!isLastElement(i)">
+                    <span class="glyphicon glyphicon-remove"
                     aria-hidden="true"
                     (click)="onDeleteClicked(i)">
                     </span>
@@ -41,9 +42,7 @@
               <hr>
               <button class="btn btn-success" type="submit">Submit</button>
             </div>
-
           </div>
-
         </form>
 
         <!--<p>{{ingredients | json}}</p>-->

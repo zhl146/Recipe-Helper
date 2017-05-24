@@ -18,9 +18,10 @@ export class RecipeEditComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = +params['id']; // stores id so that we can use it to get recipe to edit later
-          this.editMode = params['id'] !== null; // sets the editing mode depending on whether we were passed params
+          this.editMode = params['id'] != null; // sets the editing mode depending on whether we were passed params
         }
       );
+
   }
 
 }
