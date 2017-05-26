@@ -3,3 +3,7 @@
 a {
   cursor: pointer;
 }
+
+.last {
+  opacity: 0.3;
+}

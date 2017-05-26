@@ -5,13 +5,20 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class RecipebookService {
+  get recipes(): Recipe[] {
+    return this._recipes;
+  }
+
+  set recipes(value: Recipe[]) {
+    this._recipes = value;
+  }
 
   recipeSubject = new Subject<Recipe[]>();
 
   // dummy recipe list
   // will most likely be pulled from a data service that makes http calls to a server
 
-  private recipes: Recipe[] = [
+  private _recipes: Recipe[] = [
     new Recipe(
       'Recipe 1',
       'Im sure this is something good',
@@ -19,7 +26,15 @@ export class RecipebookService {
       [
         new Ingredient('apple', 3, ''),
         new Ingredient('butter', 3, 'tablespoons')
-      ]
+      ],
+      [
+        'Do thing 1',
+        'Do thing 2',
+        '?????',
+        'Profit'
+      ],
+      15,
+      15
     ),
     new Recipe(
       'Recipe 2',
@@ -28,30 +43,38 @@ export class RecipebookService {
       [
         new Ingredient('pear', 3, ''),
         new Ingredient('butter', 3, 'tablespoons')
-      ]
+      ],
+      [
+        'Do thing 1',
+        'Do thing 2',
+        '?????',
+        'Profit'
+      ],
+      150,
+      30
     )
   ];
 
   getRecipes() {
-    return this.recipes.slice();
+    return this._recipes.slice();
   }
 
   getRecipeByIndex(recIndex: number): Recipe {
-    return this.recipes[recIndex];
+    return this._recipes[recIndex];
   }
 
   addRecipe(recipe: Recipe) {
-    this.recipes.push(recipe);
+    this._recipes.push(recipe);
     this.broadcastRecipes();
   }
 
   editRecipe(changedRecipe: Recipe, recipeIndex: number) {
-    this.recipes[recipeIndex] = changedRecipe;
+    this._recipes[recipeIndex] = changedRecipe;
     this.broadcastRecipes();
   }
 
   broadcastRecipes() {
-    this.recipeSubject.next(this.recipes.slice());
+    this.recipeSubject.next(this._recipes.slice());
   }
 
 }
