@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
-import { Ingredient } from '../shared/ingredient.model';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
@@ -24,8 +23,9 @@ export class RecipebookService {
       'Im sure this is something good',
       'http://maxpixel.freegreatpicture.com/static/photo/1x/Cocktail-Party-Recipe-Alcohol-Drink-Pisco-Sour-833896.jpg',
       [
-        new Ingredient('apple', 3, ''),
-        new Ingredient('butter', 3, 'tablespoons')
+        'Thing 1',
+        'Thing 2',
+        'Thing 3'
       ],
       [
         'Do thing 1',
@@ -41,8 +41,9 @@ export class RecipebookService {
       'Im sure this is something good too',
       'http://maxpixel.freegreatpicture.com/static/photo/1x/Cocktail-Party-Recipe-Alcohol-Drink-Pisco-Sour-833896.jpg',
       [
-        new Ingredient('pear', 3, ''),
-        new Ingredient('butter', 3, 'tablespoons')
+        'Thing 1',
+        'Thing 2',
+        'Thing 3'
       ],
       [
         'Do thing 1',

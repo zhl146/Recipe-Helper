@@ -18,8 +18,6 @@ import { RecipeItemComponent } from './recipebook/recipe-item/recipe-item.compon
 import { RecipeEditComponent } from './recipebook/recipe-edit/recipe-edit.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { RecipeStartComponent } from './recipebook/recipe-start/recipe-start.component';
-import { ShoppinglistItemComponent } from './shoppinglist/shoppinglist-item/shoppinglist-item.component';
-import { InputListItemComponent } from './shared/input-list-item/input-list-item.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +32,7 @@ import { InputListItemComponent } from './shared/input-list-item/input-list-item
     DropdownDirective,
     RecipeEditComponent,
     HomePageComponent,
-    RecipeStartComponent,
-    ShoppinglistItemComponent,
-    InputListItemComponent
+    RecipeStartComponent
   ],
   imports: [
     BrowserModule,

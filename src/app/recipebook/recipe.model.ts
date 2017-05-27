@@ -1,10 +1,8 @@
-import {Ingredient} from '../shared/ingredient.model';
-
 export class Recipe {
   name: string;
   description: string;
   imagePath: string;
-  ingredients: Ingredient[];
+  ingredients: string[];
   steps: string[];
   prepTime: number;
   cookTime: number;
@@ -12,7 +10,7 @@ export class Recipe {
   constructor(name: string,
               description: string,
               imagePath: string,
-              ingredients: Ingredient[],
+              ingredients: string[],
               steps: string[],
               prepTime: number,
               cookTime: number) {

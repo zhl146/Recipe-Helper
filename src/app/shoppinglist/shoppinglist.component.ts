@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import { ShoppinglistService } from './shoppinglist.service';
-import { Ingredient } from '../shared/ingredient.model';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -12,8 +11,8 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
 
-  ingredients: Ingredient[];
-  private subscription: Subscription;
+  ingredients: string[];
+  private ingredientSubscription: Subscription;
 
   formGroup: FormGroup;
   ingredientArray: FormArray;
@@ -23,9 +22,9 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   // component lifecycle hooks
   ngOnInit() {
     this.ingredients = this.shoppingService.getIngredients();
-    this.subscription = this.shoppingService.ingredientsSubject
+    this.ingredientSubscription = this.shoppingService.ingredientsSubject
       .subscribe(
-        (ingredients: Ingredient[]) => {
+        (ingredients: string[]) => {
           this.ingredients = ingredients;
         }
       );
@@ -34,7 +33,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.ingredientSubscription.unsubscribe();
   }
 
   // methods
@@ -49,8 +48,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     for (const ingredient of this.ingredients) {
       this.ingredientArray.push(
         new FormGroup({
-          'name': new FormControl(ingredient.name),
-          'amount': new FormControl(ingredient.amount)
+          text: new FormControl(ingredient)
         })
       );
     }
@@ -75,8 +73,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   addListItem() {
     this.ingredientArray.push(
       new FormGroup({
-        'name': new FormControl(''),
-        'amount': new FormControl(null)
+        'text': new FormControl('')
       })
     );
   }
@@ -88,10 +85,9 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   // creates a bunch of new ingredients so they can be updated in the data service
   updateIngredients() {
-    const newIngredients: Ingredient[] = [];
+    const newIngredients: string[] = [];
     for (const ingredientGroup of (<FormArray>this.formGroup.get('ingredients')).controls) {
-      const newIng: Ingredient = new Ingredient(ingredientGroup.get('name').value, +ingredientGroup.get('amount').value, 'derp');
-      newIngredients.push(newIng);
+      newIngredients.push(ingredientGroup.get('text').value);
     }
 
     newIngredients.pop(); // pops the last (always empty) input

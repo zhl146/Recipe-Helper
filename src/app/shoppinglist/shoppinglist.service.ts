@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import {Ingredient} from '../shared/ingredient.model';
 import {Recipe} from '../recipebook/recipe.model';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ShoppinglistService {
 
-  ingredientsSubject = new Subject<Ingredient[]>();
+  ingredientsSubject = new Subject<string[]>();
 
   // dummy ingredient array
   // will remove it later and probably move this functionality to a service
   // service will most likely http call to a server for ingredient lists
 
-  private ingredients: Ingredient[] = [
-    new Ingredient('mole', 76876, 'mole'),
-    new Ingredient('derp', 123234, 'things')
+  private ingredients: string[] = [
+    'thing 1',
+    'thing 2',
+    'thing 3'
   ];
 
   getIngredients() {
@@ -25,7 +25,7 @@ export class ShoppinglistService {
   // results in a new ingredient being displayed to the user
   // method should be called when an event is fired from the shopping-edit component
 
-  addIngredient(newIngredient: Ingredient) {
+  addIngredient(newIngredient: string) {
     this.ingredients.push(newIngredient);
     this.updateSubject();
   }
@@ -44,12 +44,12 @@ export class ShoppinglistService {
     this.updateSubject();
   }
 
-  addIngredients(ingredients: Ingredient[]) {
+  addIngredients(ingredients: string[]) {
     this.ingredients.push(...ingredients);
     this.updateSubject();
   }
 
-  updateIngredients(ingredients: Ingredient[]) {
+  updateIngredients(ingredients: string[]) {
     this.ingredients = ingredients;
     this.updateSubject();
   }

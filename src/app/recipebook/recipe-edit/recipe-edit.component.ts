@@ -46,7 +46,7 @@ export class RecipeEditComponent implements OnInit {
       for ( const ing of this.recipe.ingredients) {
         recIng.push(
           new FormGroup({
-            text: new FormControl(ing.name)
+            text: new FormControl(ing)
           })
         );
       }
@@ -64,10 +64,10 @@ export class RecipeEditComponent implements OnInit {
       'recName': new FormControl(this.recipe.name),
       'recDescription': new FormControl(this.recipe.description),
       'recImgPath': new FormControl(this.recipe.imagePath),
-      'recIng': recIng,
-      'recStep': recStep,
       'recPrep': new FormControl(this.recipe.prepTime),
-      'recCook': new FormControl(this.recipe.cookTime)
+      'recCook': new FormControl(this.recipe.cookTime),
+      'recIng': recIng,
+      'recStep': recStep
     });
 
     this.addItemFuncFactory('recStep')();
@@ -107,4 +107,37 @@ export class RecipeEditComponent implements OnInit {
     }
   }
 
+  updateDataModel() {
+    const ingredients: string[] = [];
+    const steps: string[] = [];
+
+    for (const ingCtrl of (<FormArray>this.recipeForm.get('recIng')).controls) {
+      ingredients.push(ingCtrl.get('text').value);
+    }
+
+    ingredients.pop();
+
+    for (const stepCtrl of (<FormArray>this.recipeForm.get('recStep')).controls) {
+      steps.push(stepCtrl.get('text').value);
+    }
+
+    steps.pop();
+
+    this.recipe.name = this.recipeForm.get('recName').value;
+    this.recipe.description = this.recipeForm.get('recDescription').value;
+    this.recipe.imagePath = this.recipeForm.get('recImgPath').value;
+    this.recipe.prepTime = this.recipeForm.get('recPrep').value;
+    this.recipe.cookTime = this.recipeForm.get('recCook').value;
+    this.recipe.name = this.recipeForm.get('recName').value;
+    this.recipe.ingredients = ingredients;
+    this.recipe.steps = steps;
+
+    console.log(this.recipe);
+    console.log(this.id);
+    if (this.editMode) {
+      this.recipeService.editRecipe(this.recipe, this.id);
+    } else {
+      this.recipeService.addRecipe(this.recipe);
+    }
+  }
 }

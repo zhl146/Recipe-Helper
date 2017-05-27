@@ -1,19 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {Recipe} from '../recipe.model';
 import {ShoppinglistService} from '../../shoppinglist/shoppinglist.service';
 import { RecipebookService } from '../recipebook.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
 })
-export class RecipeDetailComponent implements OnInit {
+export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   currentRecipe: Recipe;
   currentRecipeId: number;
+  recipeSubscription: Subscription;
 
   // this is here so that we can display detailed recipe data when the user selects a specific recipe
 
@@ -39,10 +40,22 @@ export class RecipeDetailComponent implements OnInit {
         // uses the id to get the recipe from the service
         this.currentRecipe = this.recipeService.getRecipeByIndex(this.currentRecipeId);
       });
+
+    this.recipeSubscription = this.recipeService.recipeSubject
+      .subscribe(
+        (recipes: Recipe[]) => {
+          this.currentRecipe = recipes[this.currentRecipeId];
+          console.log(this.currentRecipe);
+        }
+      );
   }
 
   onAddAllClicked() {
     this.shoppingService.addIngredientsFromRecipe(this.currentRecipe);
+  }
+
+  ngOnDestroy() {
+    this.recipeSubscription.unsubscribe();
   }
 
 }

@@ -1,54 +1,89 @@
-<script src="../../shoppinglist/shoppinglist.service.ts"></script>
 <div class="row">
   <div class="col-xs-12">
-    <img
-      src=""
-      alt=""
-      class="img-responsive"
-    >
+    <div class="col-xs-8">
+      <img
+        src=""
+        alt=""
+        class="img-responsive"
+      >
+    </div>
+
+    <div class="col-xs-4">
+      <div class="btn-group" appDropdown>
+        <button
+          type="button"
+          class="btn btn-primary
+        dropdown-toggle">
+          Manage Recipe<span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu">
+          <li><a (click)="onAddAllClicked()">Add to Shopping List</a></li>
+          <li><a routerLink="edit">Edit Recipe</a></li>
+          <li><a>Delete Recipe</a></li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
   </div>
 </div>
+
+<hr>
 
 <div class="row">
   <div class="col-xs-12">
     <img src="{{currentRecipe.imagePath}}" class="img-responsive">
-    <h1>{{currentRecipe.name}}</h1>
   </div>
 </div>
+
 <div class="row">
   <div class="col-xs-12">
-    <div class="btn-group" appDropdown>
-      <button
-        type="button"
-        class="btn btn-primary
-        dropdown-toggle">
-        Manage <span class="caret"></span>
-      </button>
+    <button class="btn btn-primary">
+      Prep Time
+      <span class="badge">{{currentRecipe.prepTime}}</span>
+    </button>
+    <button class="btn btn-primary">
+      Cook Time
+      <span class="badge">{{currentRecipe.cookTime}}</span>
+    </button>
+  </div>
+</div>
 
-      <ul class="dropdown-menu">
-        <li><a (click)="onAddAllClicked()">Add to Shopping List</a></li>
-        <li><a routerLink="edit">Edit Recipe</a></li>
-        <li><a>Delete Recipe</a></li>
+<hr>
 
-      </ul>
-
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h1 class="panel-title">{{currentRecipe.name}}</h1>
+      </div>
+      <div class="panel-body">
+        <p>{{currentRecipe.description}}</p>
+      </div>
     </div>
   </div>
 </div>
-<hr>
-<div class="row">
-  <div class="col-xs-12">
-    <p>{{currentRecipe.description}}</p>
 
-  </div>
-</div>
-<hr>
 <div class="row">
   <div class="col-xs-12">
     <ul class="list-group">
       <li class="list-group-item"
           *ngFor="let ingredient of currentRecipe.ingredients">
-        {{ingredient.name}}
+        {{ingredient}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="list-group">
+      <li class="list-group-item"
+          *ngFor="let step of currentRecipe.steps">
+        {{step}}
       </li>
     </ul>
   </div>
