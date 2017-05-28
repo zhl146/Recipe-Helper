@@ -69,6 +69,11 @@ export class RecipebookService {
     this.broadcastRecipes();
   }
 
+  deleteRecipe(index: number) {
+    this._recipes.splice(index, 1);
+    this.broadcastRecipes();
+  }
+
   editRecipe(changedRecipe: Recipe, recipeIndex: number) {
     this._recipes[recipeIndex] = changedRecipe;
     this.broadcastRecipes();

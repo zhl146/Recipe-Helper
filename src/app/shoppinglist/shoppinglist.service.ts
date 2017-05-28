@@ -50,6 +50,7 @@ export class ShoppinglistService {
   }
 
   updateIngredients(ingredients: string[]) {
+    console.log('ing updated!');
     this.ingredients = ingredients;
     this.updateSubject();
   }

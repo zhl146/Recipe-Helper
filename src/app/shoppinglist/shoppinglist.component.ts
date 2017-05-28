@@ -83,7 +83,8 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     return (index === this.ingredientArray.length - 1);
   }
 
-  // creates a bunch of new ingredients so they can be updated in the data service
+  // converts control values into a string array
+  // updates ingredients data service with a the array
   updateIngredients() {
     const newIngredients: string[] = [];
     for (const ingredientGroup of (<FormArray>this.formGroup.get('ingredients')).controls) {

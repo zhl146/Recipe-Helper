@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <form [formGroup]="recipeForm" novalidate (ngSubmit)='updateDataModel()'>
+    <form [formGroup]="recipeForm" novalidate (ngSubmit)='onSubmit()'>
 
       <div class="row">
         <div class="col-xs-12">
@@ -52,7 +52,7 @@
                    class="form-control"
                    type="text"
                    formControlName="recPrep">
-            <span  class="input-group-addon">seconds</span>
+            <span  class="input-group-addon">minutes</span>
           </div>
         </div>
 
@@ -63,7 +63,7 @@
                    class="form-control"
                    type="text"
                    formControlName="recCook">
-            <span class="input-group-addon">seconds</span>
+            <span class="input-group-addon">minutes</span>
           </div>
         </div>
 

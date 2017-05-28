@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {Recipe} from '../recipe.model';
 import {ShoppinglistService} from '../../shoppinglist/shoppinglist.service';
 import { RecipebookService } from '../recipebook.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -20,7 +20,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   constructor( private shoppingService: ShoppinglistService,
                private recipeService: RecipebookService,
-               private route: ActivatedRoute) { }
+               private route: ActivatedRoute,
+               private router: Router) { }
 
   ngOnInit() {
     // this code would only work on the initial visit since this component will not
@@ -52,6 +53,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   onAddAllClicked() {
     this.shoppingService.addIngredientsFromRecipe(this.currentRecipe);
+  }
+
+  onDeleteClicked() {
+    this.recipeService.deleteRecipe(this.currentRecipeId);
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   ngOnDestroy() {

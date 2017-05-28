@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import {RecipebookService} from './recipebook.service';
 
@@ -9,13 +9,5 @@ import {RecipebookService} from './recipebook.service';
   providers: [RecipebookService]
 })
 
-export class RecipeBookComponent implements OnInit {
-
-  constructor( private recipeService: RecipebookService) {
-
-  }
-
-  ngOnInit() {
-  }
-
+export class RecipeBookComponent {
 }
