@@ -14,7 +14,7 @@ export class RecipebookService {
 
   recipeSubject = new Subject<Recipe[]>();
 
-  // dummy recipe list
+  // dummy currentRecipe list
   // will most likely be pulled from a data service that makes http calls to a server
 
   private _recipes: Recipe[] = [

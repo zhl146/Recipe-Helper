@@ -16,7 +16,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   currentRecipeId: number;
   recipeSubscription: Subscription;
 
-  // this is here so that we can display detailed recipe data when the user selects a specific recipe
+  // this is here so that we can display detailed currentRecipe data when the user selects a specific currentRecipe
 
   constructor( private shoppingService: ShoppinglistService,
                private recipeService: RecipebookService,
@@ -30,7 +30,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     // this.currentRecipe = this.recipeService.getRecipeByIndex(+this.route.snapshot.params['id']);
 
     // gets the id from the parameters of the route
-    // uses this id to grab the recipe from the recipe service
+    // uses this id to grab the currentRecipe from the currentRecipe service
 
     this.route.params
       .subscribe( (params: Params ) => {
@@ -38,7 +38,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
         // the + operator castes the id string to a number
         this.currentRecipeId = +params['id'];
 
-        // uses the id to get the recipe from the service
+        // uses the id to get the currentRecipe from the service
         this.currentRecipe = this.recipeService.getRecipeByIndex(this.currentRecipeId);
       });
 

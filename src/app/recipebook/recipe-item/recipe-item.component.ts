@@ -10,16 +10,16 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class RecipeItemComponent implements OnInit, OnDestroy {
 
-  @Input() index: number; // the array index of the recipe item
+  @Input() index: number; // the array index of the currentRecipe item
 
-  recipeItem: Recipe; // the recipe to be displayed
+  recipeItem: Recipe; // the currentRecipe to be displayed
 
   recipeSubscription: Subscription;
 
   constructor( private recipeService: RecipebookService ) { }
 
   ngOnInit() {
-    // gets the recipe item from the recipe service by index
+    // gets the currentRecipe item from the currentRecipe service by index
     this.recipeItem = this.recipeService.getRecipeByIndex(this.index);
 
     this.recipeSubscription = this.recipeService.recipeSubject

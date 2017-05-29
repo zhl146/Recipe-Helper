@@ -39,7 +39,7 @@ export class ShoppinglistService {
   }
 
   // uses spread operator to concatenate two arrays
-  // this one takes a recipe
+  // this one takes a currentRecipe
   addIngredientsFromRecipe(recipe: Recipe) {
     this.ingredients.push(...recipe.ingredients);
     this.updateSubject();
