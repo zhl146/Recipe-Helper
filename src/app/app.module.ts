@@ -19,6 +19,7 @@ import { RecipeEditComponent } from './recipebook/recipe-edit/recipe-edit.compon
 import { HomePageComponent } from './home-page/home-page.component';
 import { RecipeStartComponent } from './recipebook/recipe-start/recipe-start.component';
 import { RecipebookService } from './recipebook/recipebook.service';
+import { AppHttpService } from './shared/http.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { RecipebookService } from './recipebook/recipebook.service';
   ],
   providers: [
     ShoppinglistService,
-    RecipebookService
+    RecipebookService,
+    AppHttpService
   ],
   bootstrap: [AppComponent]
 })
