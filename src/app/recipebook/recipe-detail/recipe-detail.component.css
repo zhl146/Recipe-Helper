@@ -1,3 +1,29 @@
-img {
-  max-width: 300px;
+/*img {*/
+  /*max-width: 300px;*/
+/*}*/
+
+.list-group-item {
+  border: 0px;
+}
+
+.time-btn {
+  font-size: 40px;
+  margin-right: 0.1em;
+  color: dimgrey;
+}
+
+.prep {
+  text-align: center;
+}
+
+.cook {
+  text-align: center;
+}
+
+.spacer {
+  opacity: 0;
+}
+
+.grey {
+  text-color: dimgrey;
 }

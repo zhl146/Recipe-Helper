@@ -33,28 +33,38 @@ export class ShoppinglistService {
   // takes an index of the ingredients array and deletes it
   // results in that ingredient being removed from the user view
   // method should be called when an event is fired from the shopping-edit component
-
   deleteIngredient(index: number) {
     this.ingredients.splice(index, 1);
     this.updateSubject();
   }
 
+  // uses spread operator to concatenate two arrays
+  // this one takes a recipe
   addIngredientsFromRecipe(recipe: Recipe) {
     this.ingredients.push(...recipe.ingredients);
     this.updateSubject();
   }
 
+  // uses spread operator to concatenate two arrays
+  // takes the ingredient array directly
   addIngredients(ingredients: string[]) {
     this.ingredients.push(...ingredients);
     this.updateSubject();
   }
 
+  // updates a single ingredient in the array
+  updateIngredient(ingredient: string, index: number) {
+    this.ingredients[index] = ingredient;
+    this.updateSubject();
+  }
+
+  // updates the entire ingredients array
   updateIngredients(ingredients: string[]) {
-    console.log('ing updated!');
     this.ingredients = ingredients;
     this.updateSubject();
   }
 
+  // broadcasts ingredients to all subscribers
   updateSubject() {
     this.ingredientsSubject.next(this.ingredients.slice());
   }

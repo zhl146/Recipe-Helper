@@ -32,6 +32,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     this.formInit();
   }
 
+  // clean up to prevent memory leak
   ngOnDestroy() {
     this.ingredientSubscription.unsubscribe();
   }
@@ -91,8 +92,15 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
       newIngredients.push(ingredientGroup.get('text').value);
     }
 
-    newIngredients.pop(); // pops the last (always empty) input
+    // pops the last (always empty) input
+    newIngredients.pop();
     this.shoppingService.updateIngredients(newIngredients);
+  }
+
+  updateIngredient(index: number) {
+    // pretty convoluted to get the value on the text in input array
+    const updatedIngredient: string = (<FormArray>this.formGroup.get('ingredients')).controls[index].get('text').value;
+    this.shoppingService.updateIngredient(updatedIngredient, index);
   }
 
   // deletes a list item when the x is clicked
