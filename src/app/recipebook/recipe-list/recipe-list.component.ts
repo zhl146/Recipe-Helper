@@ -19,6 +19,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
                private route: ActivatedRoute) { }
 
   ngOnInit() {
+    // get the recipes and keeps it current using a subscription
     this.recipes = this.recipeService.getRecipes();
 
     this.recipeSubscription = this.recipeService.recipeSubject
@@ -29,10 +30,12 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       );
   }
 
+  // shows the current recipe detail
   onSelected(index: number) {
     this.router.navigate([index], {relativeTo: this.route});
   }
 
+  // prevent memory leak
   ngOnDestroy() {
     this.recipeSubscription.unsubscribe();
   }
