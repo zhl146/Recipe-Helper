@@ -22,6 +22,8 @@ export class RecipeItemComponent implements OnInit, OnDestroy {
     // gets the currentRecipe item from the currentRecipe service by index
     this.recipeItem = this.recipeService.getRecipeByIndex(this.index);
 
+    // subscribe to changes in the recipe
+    // we can probably change the service to use a behavior subject to eliminate some code?
     this.recipeSubscription = this.recipeService.recipeSubject
       .subscribe(
         (recipes: Recipe[]) => {
@@ -30,6 +32,7 @@ export class RecipeItemComponent implements OnInit, OnDestroy {
       );
   }
 
+  // prevent memory leak
   ngOnDestroy() {
     this.recipeSubscription.unsubscribe();
   }
