@@ -2,16 +2,10 @@ import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Subject } from 'rxjs/Subject';
 
+// this is the recipe data service
+// it holds the recipes array and shares it among all subscribers
 @Injectable()
 export class RecipebookService {
-  get recipes(): Recipe[] {
-    return this._recipes;
-  }
-
-  set recipes(value: Recipe[]) {
-    this._recipes = value;
-  }
-
   recipeSubject = new Subject<Recipe[]>();
 
   // dummy currentRecipe list
@@ -56,29 +50,35 @@ export class RecipebookService {
     )
   ];
 
+  // returns a copy of the recipe array
   getRecipes() {
     return this._recipes.slice();
   }
 
+  // returns a specific recipe
   getRecipeByIndex(recIndex: number): Recipe {
     return this._recipes[recIndex];
   }
 
+  // adds a recipe to the end of the array and updates all subscribers
   addRecipe(recipe: Recipe) {
     this._recipes.push(recipe);
     this.broadcastRecipes();
   }
 
+  // deletes a recipe out of the array by index and updates all subscribers
   deleteRecipe(index: number) {
     this._recipes.splice(index, 1);
     this.broadcastRecipes();
   }
 
+  // updates a specific recipe in the array by index and updates all subscribers
   editRecipe(changedRecipe: Recipe, recipeIndex: number) {
     this._recipes[recipeIndex] = changedRecipe;
     this.broadcastRecipes();
   }
 
+  // updates all subscribers
   broadcastRecipes() {
     this.recipeSubject.next(this._recipes.slice());
   }
