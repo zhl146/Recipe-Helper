@@ -13,7 +13,6 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   ingredients: string[] = [];
   private ingredientSubscription: Subscription;
-  private initialized: boolean;
 
   formGroup: FormGroup;
   ingredientArray: FormArray;
@@ -23,17 +22,22 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   // LIFECYCLE
 
   ngOnInit() {
-    this.initialized = false;
     this.formInit();
 
     this.ingredientSubscription = this.shoppingService.getShoppingSubject()
       .subscribe(
         (ingredients: string[]) => {
+          // check if we need to initialize the data in the form
+          // by checking if the array is empty or not
+          const initializing = (this.ingredients.length === 0);
+
+          // now update the local array
           this.ingredients = ingredients;
 
           // we only initialize the forms the first time the component is created
           // otherwise, we will have to blow up the entire form every time the data changes
-          if (this.initialized === false) {
+          if (initializing) {
+            this.ingredientArray.removeAt(0);
             // populate input fields with existing ingredients
             for (const ingredient of this.ingredients) {
               this.ingredientArray.push(
@@ -42,14 +46,8 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
                 })
               );
             }
-
             // always have an empty input at the end so user can add more items
             this.addListItem();
-
-            // never have to set this to false again
-            // only needs to be set to false when the user leaves
-            // if that happens, then the component is destroyed
-            this.initialized = true;
           }
         }
       );

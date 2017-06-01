@@ -12,6 +12,7 @@ export class ShoppinglistService {
     this.http.getList()
       .subscribe(
         (data) => {
+          console.log('got data from server: ' + data);
           this.shoppingListSubject.next(data);
         }
       );
