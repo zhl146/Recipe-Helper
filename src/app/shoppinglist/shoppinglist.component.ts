@@ -11,54 +11,65 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
 
-  ingredients: string[];
+  ingredients: string[] = [];
   private ingredientSubscription: Subscription;
+  private initialized: boolean;
 
   formGroup: FormGroup;
   ingredientArray: FormArray;
 
   constructor( private shoppingService: ShoppinglistService ) { }
 
-  // component lifecycle hooks
+  // LIFECYCLE
+
   ngOnInit() {
-    this.ingredients = this.shoppingService.getIngredients();
-    this.ingredientSubscription = this.shoppingService.ingredientsSubject
+    this.initialized = false;
+    this.formInit();
+
+    this.ingredientSubscription = this.shoppingService.getShoppingSubject()
       .subscribe(
         (ingredients: string[]) => {
           this.ingredients = ingredients;
+
+          // we only initialize the forms the first time the component is created
+          // otherwise, we will have to blow up the entire form every time the data changes
+          if (this.initialized === false) {
+            // populate input fields with existing ingredients
+            for (const ingredient of this.ingredients) {
+              this.ingredientArray.push(
+                new FormGroup({
+                  text: new FormControl(ingredient)
+                })
+              );
+            }
+
+            // always have an empty input at the end so user can add more items
+            this.addListItem();
+
+            // never have to set this to false again
+            // only needs to be set to false when the user leaves
+            // if that happens, then the component is destroyed
+            this.initialized = true;
+          }
         }
       );
-
-    this.formInit();
   }
 
   // clean up to prevent memory leak
   ngOnDestroy() {
+    this.shoppingService.updateDatabase();
     this.ingredientSubscription.unsubscribe();
   }
 
-  // methods
+  // METHODS
 
   // initialize the form
   // code is here to shorten ngOnInit
 
   formInit() {
     this.ingredientArray = new FormArray([]);
-
-    // populate input fields with existing ingredients
-    for (const ingredient of this.ingredients) {
-      this.ingredientArray.push(
-        new FormGroup({
-          text: new FormControl(ingredient)
-        })
-      );
-    }
-
-    this.addListItem(); // always have an empty input at the end so user can add more items
-
-    // this formgroup only includes the ingredients array
     this.formGroup = new FormGroup({
-      'ingredients': this.ingredientArray
+      ingredients: this.ingredientArray
     });
   }
 
