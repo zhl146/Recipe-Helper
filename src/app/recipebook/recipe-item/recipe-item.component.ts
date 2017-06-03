@@ -1,40 +1,14 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {Recipe} from '../recipe.model';
-import { RecipebookService } from '../recipebook.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-recipe-item',
   templateUrl: './recipe-item.component.html',
   styleUrls: ['./recipe-item.component.css']
 })
-export class RecipeItemComponent implements OnInit, OnDestroy {
+export class RecipeItemComponent {
 
-  @Input() index: number; // the array index of the currentRecipe item
-
-  recipeItem: Recipe; // the currentRecipe to be displayed
-
-  recipeSubscription: Subscription;
-
-  constructor( private recipeService: RecipebookService ) { }
-
-  ngOnInit() {
-    // gets the currentRecipe item from the currentRecipe service by index
-    this.recipeItem = this.recipeService.getRecipeByIndex(this.index);
-
-    // subscribe to changes in the recipe
-    // we can probably change the service to use a behavior subject to eliminate some code?
-    this.recipeSubscription = this.recipeService.recipeSubject
-      .subscribe(
-        (recipes: Recipe[]) => {
-          this.recipeItem = recipes[this.index];
-        }
-      );
-  }
-
-  // prevent memory leak
-  ngOnDestroy() {
-    this.recipeSubscription.unsubscribe();
-  }
+  @Input() index: number;
+  @Input() recipeItem: Recipe;
 
 }

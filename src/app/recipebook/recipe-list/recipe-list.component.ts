@@ -1,43 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import {RecipebookService} from '../recipebook.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent implements OnInit, OnDestroy {
+export class RecipeListComponent implements OnInit {
 
-  recipes: Recipe[];
-  recipeSubscription: Subscription;
+  recipes: Recipe[] | Observable<Recipe[]>;
 
   constructor( private recipeService: RecipebookService,
                private router: Router,
                private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // get the recipes and keeps it current using a subscription
     this.recipes = this.recipeService.getRecipes();
-
-    this.recipeSubscription = this.recipeService.recipeSubject
-      .subscribe(
-        (recipes: Recipe[]) => {
-          this.recipes = recipes;
-        }
-      );
   }
 
   // shows the current recipe detail
   onSelected(index: number) {
     this.router.navigate([index], {relativeTo: this.route});
-  }
-
-  // prevent memory leak
-  ngOnDestroy() {
-    this.recipeSubscription.unsubscribe();
   }
 
 }

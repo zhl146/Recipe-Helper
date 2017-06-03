@@ -91,9 +91,7 @@ export class RecipeEditComponent implements OnInit {
         new FormGroup({
           text: new FormControl(null)
         })
-      );
-
-      console.log(<FormArray>this.recipeForm.get(arrayName));
+      )
 
     };
   }

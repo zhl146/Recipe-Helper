@@ -3,9 +3,10 @@
 
     <button class="btn btn-success" routerLink="new">New Recipe</button>
 
-    <app-recipe-item *ngFor="let recipe of recipes; let i = index"
+    <app-recipe-item *ngFor="let recipe of recipes | async; let i = index"
                      (click)="onSelected(i)"
-                     [index]="i">
+                     [index]="i"
+                     [recipeItem]="recipe">
     </app-recipe-item>
   </div>
 </div>

@@ -42,10 +42,12 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
         this.currentRecipe = this.recipeService.getRecipeByIndex(this.currentRecipeId);
       });
 
-    this.recipeSubscription = this.recipeService.recipeSubject
+    this.recipeSubscription = this.recipeService.getRecipes()
       .subscribe(
         (recipes: Recipe[]) => {
+          console.log(this.currentRecipeId)
           this.currentRecipe = recipes[this.currentRecipeId];
+          console.log(recipes);
           console.log(this.currentRecipe);
         }
       );

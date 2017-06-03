@@ -5,71 +5,79 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ShoppinglistService {
-  private shoppingListSubject: BehaviorSubject<string[]>;
+  private shoppingList: BehaviorSubject<string[]> = new BehaviorSubject(null);
 
   constructor( private http: AppHttpService ) {
-    this.shoppingListSubject = new BehaviorSubject([]);
+  }
+
+  getServerList() {
     this.http.getList()
       .subscribe(
         (data) => {
-          console.log('got data from server: ' + data);
-          this.shoppingListSubject.next(data);
+          if (data) {
+            console.log('got data from server: ' + data);
+            this.shoppingList.next(data);
+          } else {
+            console.log('no data exists on server');
+            this.shoppingList.next([]);
+          }
         }
       );
   }
 
-  // adds an ingredient object to the ingredients array
-  // results in a new ingredient being displayed to the user
-  // method should be called when an event is fired from the shopping-edit component
-
   getShoppingSubject() {
-    return this.shoppingListSubject;
+    return this.shoppingList;
   }
 
   addIngredient(newIngredient: string) {
-    const updatedList = this.shoppingListSubject.getValue();
+    const updatedList = this.shoppingList.getValue();
     updatedList.push(newIngredient);
-    this.shoppingListSubject.next(updatedList);
+    this.shoppingList.next(updatedList);
   }
 
   // takes an index of the ingredients array and deletes it
   // results in that ingredient being removed from the user view
   // method should be called when an event is fired from the shopping-edit component
   deleteIngredient(index: number) {
-    this.shoppingListSubject.next(this.shoppingListSubject.getValue().splice(index, 1));
+    const updatedList = this.shoppingList.getValue();
+    updatedList.splice(index, 1);
+    this.shoppingList.next(updatedList);
+    this.updateDatabase();
   }
 
   // uses spread operator to concatenate two arrays
   // this one takes a currentRecipe
   addIngredientsFromRecipe(recipe: Recipe) {
-    const updatedList = this.shoppingListSubject.getValue();
+    const updatedList = this.shoppingList.getValue();
     updatedList.push(...recipe.ingredients);
-    this.shoppingListSubject.next(updatedList);
+    this.shoppingList.next(updatedList);
   }
 
   // uses spread operator to concatenate two arrays
   // takes the ingredient array directly
   addIngredients(ingredients: string[]) {
-    const updatedList = this.shoppingListSubject.getValue();
+    const updatedList = this.shoppingList.getValue();
     updatedList.push(...ingredients);
-    this.shoppingListSubject.next(updatedList);
+    this.shoppingList.next(updatedList);
   }
 
   // updates a single ingredient in the array
   updateIngredient(ingredient: string, index: number) {
-    const updatedList = this.shoppingListSubject.getValue();
+    const updatedList = this.shoppingList.getValue();
     updatedList[index] = ingredient;
-    this.shoppingListSubject.next(updatedList);
+    this.shoppingList.next(updatedList);
   }
 
   // updates the entire ingredients array
   updateIngredients(ingredients: string[]) {
-    this.shoppingListSubject.next(ingredients);
+    this.shoppingList.next(ingredients);
   }
 
   // throws data to backend through http call
   updateDatabase() {
-    const currentList = this.shoppingListSubject.getValue();
+    const currentList = this.shoppingList.getValue();
+    console.log(currentList);
+
     this.http.saveList(currentList)
       .subscribe(
         (data) => {

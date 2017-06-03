@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
 
-  ingredients: string[] = [];
+  ingredients: string[];
   private ingredientSubscription: Subscription;
 
   formGroup: FormGroup;
@@ -26,19 +26,20 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
     this.ingredientSubscription = this.shoppingService.getShoppingSubject()
       .subscribe(
-        (ingredients: string[]) => {
-          // check if we need to initialize the data in the form
-          // by checking if the array is empty or not
-          const initializing = (this.ingredients.length === 0);
+        (ingredients: string[] | null) => {
+          let init = false;
 
+          if (!this.ingredients && ingredients) {
+            init = true;
+          }
           // now update the local array
           this.ingredients = ingredients;
 
           // we only initialize the forms the first time the component is created
           // otherwise, we will have to blow up the entire form every time the data changes
-          if (initializing) {
-            this.ingredientArray.removeAt(0);
-            // populate input fields with existing ingredients
+          // this.ingredientArray.removeAt(0);
+          // populate input fields with existing ingredients
+          if (init) {
             for (const ingredient of this.ingredients) {
               this.ingredientArray.push(
                 new FormGroup({
@@ -51,6 +52,9 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
           }
         }
       );
+
+    this.shoppingService.getServerList();
+
   }
 
   // clean up to prevent memory leak
@@ -101,8 +105,6 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
       newIngredients.push(ingredientGroup.get('text').value);
     }
 
-    // pops the last (always empty) input
-    newIngredients.pop();
     this.shoppingService.updateIngredients(newIngredients);
   }
 
