@@ -20,6 +20,9 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { RecipeStartComponent } from './recipebook/recipe-start/recipe-start.component';
 import { RecipebookService } from './recipebook/recipebook.service';
 import { AppHttpService } from './shared/http.service';
+import { AuthComponent } from './auth/auth.component';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { AppHttpService } from './shared/http.service';
     DropdownDirective,
     RecipeEditComponent,
     HomePageComponent,
-    RecipeStartComponent
+    RecipeStartComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ import { AppHttpService } from './shared/http.service';
   providers: [
     ShoppinglistService,
     RecipebookService,
-    AppHttpService
+    AppHttpService,
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,26 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class AppHttpService {
 
+  token: string
   databaseUrl = 'https://recipebook-1b98a.firebaseio.com/';
 
-  constructor(private http: Http) { }
+  constructor( private http: Http,
+               private auth: AuthService) { }
+
+  getUrl(route): string {
+    return this.databaseUrl + route + '.json?auth=' + this.token;
+  }
 
   genericPut(route: string, data: any) {
-    const url = this.databaseUrl + route + '.json';
+    this.token = this.auth.getToken();
+    const url = this.getUrl(route);
     return this.http.put(url, data);
   }
 
   genericPost(route: string, data: any) {
-    const url = this.databaseUrl + route + '.json';
+    this.token = this.auth.getToken();
+    const url = this.getUrl(route);
     return this.http.post(url, data);
   }
 
   genericGet(route: string) {
-    const url = this.databaseUrl + route + '.json';
+    this.token = this.auth.getToken();
+    const url = this.getUrl(route);
     return this.http.get(url);
   }
 

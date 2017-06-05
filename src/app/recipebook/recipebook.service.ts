@@ -64,4 +64,11 @@ export class RecipebookService {
       );
   }
 
+  newUserRecipeInit() {
+    this.http.saveRecipes([])
+      .subscribe(
+        response => console.log(response)
+      );
+  }
+
 }

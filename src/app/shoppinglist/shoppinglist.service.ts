@@ -86,4 +86,11 @@ export class ShoppinglistService {
       );
   }
 
+  newUserListInit() {
+    this.http.saveList([])
+      .subscribe(
+        response => console.log(response)
+      );
+  }
+
 }

@@ -7,8 +7,13 @@
 
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li routerLinkActive="active"><a routerLink="/recipes"> Recipe Book </a></li>
-        <li routerLinkActive="active"><a routerLink="/shopping"> Shopping List </a></li>
+        <ng-template [ngIf]="signedIn">
+          <li routerLinkActive="active"><a routerLink="/recipes"> Recipe Book </a></li>
+          <li routerLinkActive="active"><a routerLink="/shopping"> Shopping List </a></li>
+          <li routerLinkActive="active"><a (click)="onLogOut()">Log Out</a></li>
+        </ng-template>
+        <li *ngIf="!signedIn" routerLinkActive="active"><a routerLink="/login">Log In</a></li>
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <!--<li class="dropdown" appDropdown>-->

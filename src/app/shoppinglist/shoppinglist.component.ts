@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import { ShoppinglistService } from './shoppinglist.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -17,7 +18,8 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   ingredientArray: FormArray;
 
-  constructor( private shoppingService: ShoppinglistService ) { }
+  constructor( private shoppingService: ShoppinglistService,
+               private auth: AuthService ) { }
 
   // LIFECYCLE
 
@@ -54,12 +56,14 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
       );
 
     this.shoppingService.getServerList();
-
   }
 
   // clean up to prevent memory leak
   ngOnDestroy() {
-    this.shoppingService.updateDatabase();
+    if ( this.auth.getToken() ) {
+      console.log(this.auth.getToken());
+      this.shoppingService.updateDatabase();
+    }
     this.ingredientSubscription.unsubscribe();
   }
 

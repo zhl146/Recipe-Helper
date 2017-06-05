@@ -52,7 +52,7 @@ export class RecipeEditComponent implements OnInit {
       for ( const ing of this.currentRecipe.ingredients) {
         recIng.push(
           new FormGroup({
-            text: new FormControl(ing)
+            text: new FormControl(ing, Validators.required)
           })
         );
       }
@@ -60,7 +60,7 @@ export class RecipeEditComponent implements OnInit {
       for ( const step of this.currentRecipe.steps) {
         recStep.push(
           new FormGroup({
-            text: new FormControl(step)
+            text: new FormControl(step, Validators.required)
           })
         );
       }
@@ -91,8 +91,7 @@ export class RecipeEditComponent implements OnInit {
         new FormGroup({
           text: new FormControl(null)
         })
-      )
-
+      );
     };
   }
 
