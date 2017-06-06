@@ -11,6 +11,7 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe-item/recipe-item.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { TimePipe } from './time.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RecipeStartComponent } from './recipe-start/recipe-start.component';
     RecipeDetailComponent,
     RecipeItemComponent,
     RecipeListComponent,
-    RecipeStartComponent
+    RecipeStartComponent,
+    TimePipe
   ],
   imports: [
     CommonModule,

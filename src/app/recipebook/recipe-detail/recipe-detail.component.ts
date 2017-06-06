@@ -5,6 +5,7 @@ import { RecipebookService } from '../recipebook.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
+
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
@@ -21,7 +22,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   constructor( private shoppingService: ShoppinglistService,
                private recipeService: RecipebookService,
                private route: ActivatedRoute,
-               private router: Router) { }
+               private router: Router ) { }
 
   ngOnInit() {
     // this code would only work on the initial visit since this component will not

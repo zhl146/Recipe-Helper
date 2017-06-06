@@ -65,13 +65,19 @@
               <div class="col-xs-3 cook">
                 <p>Cook</p>
               </div>
+              <div class="col-xs-3 cook">
+                <p>Done in</p>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-3 prep">
-                <p>{{currentRecipe.prepTime}} m</p>
+                <p>{{currentRecipe.prepTime | timePipe}}</p>
               </div>
               <div class="col-xs-3 cook">
-                <p>{{currentRecipe.cookTime}} m</p>
+                <p>{{currentRecipe.cookTime | timePipe}}</p>
+              </div>
+              <div class="col-xs-3 cook">
+                <p>{{currentRecipe.cookTime + currentRecipe.prepTime | timePipe}}</p>
               </div>
             </div>
           </div>

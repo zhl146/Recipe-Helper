@@ -88,7 +88,7 @@ export class RecipebookService {
         'Stir in cream cheese just before serving'
       ],
       prepTime: 10,
-      cookTime: 8
+      cookTime: 480
     }
   ];
 
