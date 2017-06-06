@@ -25,6 +25,9 @@ export class AuthService {
     return this.signedIn.getValue();
   }
 
+  getUserEmail() {
+    return firebase.auth().currentUser.email;
+  }
 
   // users firebase sdk to create a new user on the firebase server
   // then sets our sign in state to true

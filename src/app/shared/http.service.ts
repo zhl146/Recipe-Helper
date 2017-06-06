@@ -6,14 +6,17 @@ import { AuthService } from '../auth/auth.service';
 @Injectable()
 export class AppHttpService {
 
-  token: string
+  token: string;
   databaseUrl = 'https://recipebook-1b98a.firebaseio.com/';
 
   constructor( private http: Http,
                private auth: AuthService) { }
 
+  // not the most secure way to do it, but this allows each user to have their own
+  // database files
   getUrl(route): string {
-    return this.databaseUrl + route + '.json?auth=' + this.token;
+    const userEmail = this.auth.getUserEmail();
+    return this.databaseUrl + userEmail + route + '.json?auth=' + this.token;
   }
 
   genericPut(route: string, data: any) {

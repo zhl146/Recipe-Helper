@@ -1,58 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { RecipeBookModule } from './recipebook/recipebook.module';
 import { AppRoutingModule } from './app-routing.module';
-import { DropdownDirective } from './shared/dropdown.directive';
-import { ShoppinglistService } from './shoppinglist/shoppinglist.service';
+import { ShoppingListModule } from './shoppinglist/shoppinglist.module';
+import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { RecipeBookComponent } from './recipebook/recipebook.component';
-import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
-import { RecipeListComponent } from './recipebook/recipe-list/recipe-list.component';
-import { ShoppingEditComponent } from './Deprecated/shopping-edit/shopping-edit.component';
-import { RecipeDetailComponent } from './recipebook/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipebook/recipe-item/recipe-item.component';
-import { RecipeEditComponent } from './recipebook/recipe-edit/recipe-edit.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { RecipeStartComponent } from './recipebook/recipe-start/recipe-start.component';
-import { RecipebookService } from './recipebook/recipebook.service';
-import { AppHttpService } from './shared/http.service';
-import { AuthComponent } from './auth/auth.component';
-import { AuthService } from './auth/auth.service';
-import { AuthGuard } from './auth/auth-guard.service';
+import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    RecipeBookComponent,
-    ShoppinglistComponent,
-    RecipeListComponent,
-    ShoppingEditComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
-    DropdownDirective,
-    RecipeEditComponent,
-    HomePageComponent,
-    RecipeStartComponent,
-    AuthComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RecipeBookModule,
+    ShoppingListModule,
+    AuthModule,
+    CoreModule,
+    SharedModule
   ],
-  providers: [
-    ShoppinglistService,
-    RecipebookService,
-    AppHttpService,
-    AuthService,
-    AuthGuard
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

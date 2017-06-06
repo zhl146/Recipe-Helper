@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Subscription } from 'rxjs/Subscription';
-import { ShoppinglistService } from '../shoppinglist/shoppinglist.service';
+import { ShoppinglistService } from '../../shoppinglist/shoppinglist.service';
 
 @Component({
   selector: 'app-header',
