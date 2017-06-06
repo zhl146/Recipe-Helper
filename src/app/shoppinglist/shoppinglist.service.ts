@@ -51,10 +51,15 @@ export class ShoppinglistService {
 
   // uses spread operator to concatenate two arrays
   // this one takes a currentRecipe
+  // since this call is most likely coming from the recipe service
+  // we need to update the server immediately
+  // otherwise, a user that navigates to the shopping module
+  // will overwrite these changes by pulling down a new list from the server
   addIngredientsFromRecipe(recipe: Recipe) {
     const updatedList = this.shoppingList.getValue();
     updatedList.push(...recipe.ingredients);
     this.shoppingList.next(updatedList);
+    this.updateDatabase();
   }
 
   // uses spread operator to concatenate two arrays
@@ -87,13 +92,6 @@ export class ShoppinglistService {
         (data) => {
           console.log(data);
         }
-      );
-  }
-
-  newUserListInit() {
-    this.http.saveList([])
-      .subscribe(
-        response => console.log(response)
       );
   }
 

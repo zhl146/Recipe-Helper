@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { ShoppinglistService } from './shoppinglist.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -15,16 +15,17 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   ingredients: string[];
   private ingredientSubscription: Subscription;
 
-  formGroup: FormGroup;
+  ingForm: FormGroup;
   ingredientArray: FormArray;
 
   constructor( private shoppingService: ShoppinglistService,
-               private auth: AuthService ) { }
+               private auth: AuthService,
+               private fb: FormBuilder ) { }
 
   // LIFECYCLE
 
   ngOnInit() {
-    this.formInit();
+    this.createForm();
 
     this.ingredientSubscription = this.shoppingService.getShoppingSubject()
       .subscribe(
@@ -72,9 +73,9 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   // initialize the form
   // code is here to shorten ngOnInit
 
-  formInit() {
-    this.ingredientArray = new FormArray([]);
-    this.formGroup = new FormGroup({
+  createForm() {
+    this.ingredientArray = this.fb.array([]);
+    this.ingForm = this.fb.group({
       ingredients: this.ingredientArray
     });
   }
@@ -90,8 +91,8 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   // adds an empty input at the end of the array
   addListItem() {
     this.ingredientArray.push(
-      new FormGroup({
-        'text': new FormControl('')
+      this.fb.group({
+        text: ''
       })
     );
   }
@@ -105,7 +106,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   // updates ingredients data service with a the array
   updateIngredients() {
     const newIngredients: string[] = [];
-    for (const ingredientGroup of (<FormArray>this.formGroup.get('ingredients')).controls) {
+    for (const ingredientGroup of (<FormArray>this.ingForm.get('ingredients')).controls) {
       newIngredients.push(ingredientGroup.get('text').value);
     }
 
@@ -114,7 +115,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   updateIngredient(index: number) {
     // pretty convoluted to get the value on the text in input array
-    const updatedIngredient: string = (<FormArray>this.formGroup.get('ingredients')).controls[index].get('text').value;
+    const updatedIngredient: string = (<FormArray>this.ingForm.get('ingredients')).controls[index].get('text').value;
     this.shoppingService.updateIngredient(updatedIngredient, index);
   }
 

@@ -1,16 +1,14 @@
 <div class="row">
   <div class="col-xs-12">
-    <div class="panel panel-primary">
-      <div class="panel-heading"><h2>Shopping List</h2></div>
-    </div>
+    <h3>Shopping List</h3>
     <hr>
     <div class="row">
-      <div class="col-xs-12">
-        <form [formGroup]="formGroup" novalidate (ngSubmit)="updateIngredients()">
+      <div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+        <form [formGroup]="ingForm" novalidate (ngSubmit)="updateIngredients()">
           <div formArrayName="ingredients">
             <ul class="list-group">
-              <li class="list-group-item col-md-6"
-                  *ngFor="let ingredientCtrl of formGroup.get('ingredients').controls; let i = index"
+              <li class="list-group-item col-xs-12"
+                  *ngFor="let ingredientCtrl of ingForm.get('ingredients').controls; let i = index"
                   [formGroupName]="i"
                   [ngClass]="{last: isLastElement(i)}">
                 <div class="input-group">
