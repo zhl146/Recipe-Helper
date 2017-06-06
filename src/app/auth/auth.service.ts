@@ -11,11 +11,14 @@ export class AuthService {
   // this is the user authentication token
   private token: string;
 
+  // keeps track of a new user
+  isNewUser = false;
+
   // currently keeps track of the server error message
   // we display it directly to the user for now
   errorMessage: string;
 
-  constructor( private router: Router) {}
+  constructor( private router: Router ) {}
 
   getSignedIn() {
     return this.signedIn.asObservable();
@@ -34,12 +37,9 @@ export class AuthService {
   signUpUser(email: string, password: string) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(
-        (token: string) => {
-          this.token = token;
-          if (this.token) {
-            this.signedIn.next(true);
-            this.router.navigate([ '/' ]);
-          }
+        () => {
+          this.isNewUser = true;
+          this.signInUser(email, password);
         }
       )
       .catch(
@@ -62,7 +62,7 @@ export class AuthService {
                 this.token = token;
                 if (this.token) {
                   this.signedIn.next(true);
-                  this.router.navigate(['/']);
+                  this.router.navigate(['/recipes']);
                 }
               }
             );

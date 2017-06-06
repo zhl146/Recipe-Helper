@@ -10,6 +10,10 @@ export class ShoppinglistService {
   constructor( private http: AppHttpService ) {
   }
 
+  initializeEmptyList() {
+    this.http.saveList([]);
+  }
+
   getServerList() {
     this.http.getList()
       .subscribe(

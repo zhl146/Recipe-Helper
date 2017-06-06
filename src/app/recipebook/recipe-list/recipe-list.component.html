@@ -3,6 +3,8 @@
 
     <button class="btn btn-success" routerLink="new">New Recipe</button>
 
+    <div class="vertical-spacer"></div>
+
     <app-recipe-item *ngFor="let recipe of recipes | async; let i = index"
                      (click)="onSelected(i)"
                      [index]="i"

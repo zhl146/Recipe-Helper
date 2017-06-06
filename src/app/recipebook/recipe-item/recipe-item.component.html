@@ -2,12 +2,11 @@
   class="list-group-item clearfix"
   [routerLink]="[index]"
   routerLinkActive="active">
-  <div class="pull-left">
+  <div class="pull-left col-xs-8 vcenter">
     <h4 class="list-group-item-heading">{{recipeItem.name}}</h4>
-    <p class="list-group-item-text">{{recipeItem.description}}</p>
   </div>
 
-  <span class="pull-right">
+  <span class="pull-right col-xs-4">
         <img
           src="{{recipeItem.imagePath}}"
           alt="{{recipeItem.name}}"
