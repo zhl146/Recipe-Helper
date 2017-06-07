@@ -1,13 +1,10 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h3>Recipes</h3>
-    <hr>
+<div fxLayout="row" fxLayoutAlign="center">
 
-    <div class="col-md-5">
-      <app-recipe-list></app-recipe-list>
-    </div>
-    <div class="col-md-7">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+      <div fxFlex="30">
+        <app-recipe-list></app-recipe-list>
+      </div>
+      <div fxFlex="50">
+        <router-outlet></router-outlet>
+      </div>
+
 </div>

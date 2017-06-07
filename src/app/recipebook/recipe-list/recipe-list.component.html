@@ -1,16 +1,21 @@
-<div class="row">
-  <div class="col-xs-12">
+<div fxLayoutAlign="center" fxLayout="row" fxLayoutWrap>
 
-    <button class="btn btn-success" routerLink="new">New Recipe</button>
+  <button md-raised-button
+          class="new-recipe-btn"
+          color="accent"
+          routerLink="new"
+          fxFlex="100">
+    Create New Recipe
+  </button>
 
-    <div class="vertical-spacer"></div>
+  <div class="vertical-spacer"></div>
 
-    <app-recipe-item *ngFor="let recipe of recipes | async; let i = index"
-                     (click)="onSelected(i)"
-                     [index]="i"
-                     [recipeItem]="recipe">
-    </app-recipe-item>
-  </div>
+  <app-recipe-item *ngFor="let recipe of recipes | async; let i = index"
+                   (click)="onSelected(i)"
+                   [index]="i"
+                   [recipeItem]="recipe">
+  </app-recipe-item>
+
 </div>
 
 

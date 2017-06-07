@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'app-shoppinglist',
   templateUrl: './shoppinglist.component.html',
-  styleUrls: ['./shoppinglist.component.css']
+  styleUrls: ['./shoppinglist.component.scss']
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
 

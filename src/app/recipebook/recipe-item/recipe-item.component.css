@@ -1,6 +1,12 @@
+img {
+  max-width:100%;
+  height:auto;
+}
 
-.vcenter {
-  display: inline-block;
-  vertical-align: middle;
-  float: none;
+.card {
+  margin-bottom: 7px;
+}
+
+h4, p {
+  margin: 3px;
 }

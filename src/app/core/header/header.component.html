@@ -1,21 +1,22 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand">Recipe Book</a>
+<md-toolbar color="primary" class="toolbar" fxlayout="row" class="mat-toolbar">
+    <a fxLayoutAlign="start" fxFlex="20">Recipe Book</a>
+
+    <div fxFlex="80" fxLayoutAlign="end">
+      <button md-button
+
+              class="nav-link"
+              *ngFor="let nav of navigation"
+              [routerLink]="nav.route"
+              routerLinkActive="active">
+        {{nav.text}}
+      </button>
+      <button md-button
+              class="nav-link"
+              *ngIf="signedIn"
+              routerLinkActive="active"
+              (click)="onLogOut()">
+        Sign out
+      </button>
     </div>
 
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <ng-template [ngIf]="signedIn">
-          <li routerLinkActive="active"><a routerLink="/recipes"> Recipe Book </a></li>
-          <li routerLinkActive="active"><a routerLink="/shopping"> Shopping List </a></li>
-          <li routerLinkActive="active"><a (click)="onLogOut()">Log Out</a></li>
-        </ng-template>
-        <li *ngIf="!signedIn" routerLinkActive="active"><a routerLink="/login">Log In</a></li>
-
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-      </ul>
-    </div>
-  </div>
-</nav>
+</md-toolbar>

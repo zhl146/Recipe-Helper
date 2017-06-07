@@ -1,4 +1,4 @@
-import { Directive, HostBinding, HostListener } from "@angular/core";
+import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appDropdown]'
@@ -10,6 +10,8 @@ import { Directive, HostBinding, HostListener } from "@angular/core";
 
 export class DropdownDirective {
 
+  constructor( private eref: ElementRef) {}
+
   // binds our local boolean to the open class on the element this directive
   // is attached to
 
@@ -20,4 +22,11 @@ export class DropdownDirective {
   @HostListener('click') toggleMenu() {
     this.openClass = !this.openClass;
   }
+
+  @HostListener('document: click') closeMenu() {
+    if (!this.eref.nativeElement.contains(event.target)) {
+      this.openClass = false;
+    }
+  }
+
 }

@@ -14,14 +14,14 @@ import { AuthGuard } from '../auth/auth-guard.service';
 import { AppHttpService } from '../shared/http.service';
 
 @NgModule({
+  declarations: [
+    HeaderComponent,
+    HomeComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
     AppRoutingModule
-  ],
-  declarations: [
-    HeaderComponent,
-    HomeComponent
   ],
   exports: [
     AppRoutingModule,
