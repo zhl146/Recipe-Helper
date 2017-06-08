@@ -84,9 +84,11 @@ export class ShoppinglistService {
 
   // throws data to backend through http call
   updateDatabase() {
-    const currentList = this.shoppingList.getValue();
+    let currentList = this.shoppingList.getValue();
     console.log(currentList);
-
+    if (!currentList) {
+      currentList = [];
+    }
     this.http.saveList(currentList)
       .subscribe(
         (data) => {

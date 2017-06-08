@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { AuthService } from '../auth/auth.service';
+import { Recipe } from '../recipebook/recipe.model';
 
 @Injectable()
 export class AppHttpService {
@@ -37,8 +38,8 @@ export class AppHttpService {
     return this.http.get(url);
   }
 
-  saveRecipes(data) {
-    return this.genericPut('recipes', data);
+  saveRecipes(data: Recipe[]) {
+      return this.genericPut('recipes', data);
   }
 
   getRecipes() {
@@ -52,8 +53,8 @@ export class AppHttpService {
       );
   }
 
-  saveList(data) {
-    return this.genericPut('list', data);
+  saveList(data: string[]) {
+      return this.genericPut('list', data);
   }
 
   getList() {

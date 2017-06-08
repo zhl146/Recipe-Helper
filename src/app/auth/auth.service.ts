@@ -32,6 +32,10 @@ export class AuthService {
     return firebase.auth().currentUser.email;
   }
 
+  // --------------------------------------------------------------------------
+  // SIGN IN AND OUT
+  // --------------------------------------------------------------------------
+
   // users firebase sdk to create a new user on the firebase server
   // then sets our sign in state to true
   signUpUser(email: string, password: string) {
@@ -83,10 +87,45 @@ export class AuthService {
       .then(
         () => {
           this.signedIn.next(false);
-          this.router.navigate(['/login']);
+          this.router.navigate(['/auth', 'signin']);
         }
       );
   }
+  // --------------------------------------------------------------------------
+  // PASSWORD PROBLEMS
+  // --------------------------------------------------------------------------
+
+  sendPasswordEmail(email: string) {
+    firebase.auth().sendPasswordResetEmail(email)
+      .then(
+        () => {
+          this.router.navigate(['/auth', 'reset']);
+        }
+      );
+  }
+  createNewPassword(code: string, newPassword: string) {
+    firebase.auth().confirmPasswordReset(code, newPassword)
+      .then(
+        () => {
+          this.router.navigate(['/auth', 'signin']);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  // --------------------------------------------------------------------------
+  // GUEST LOGIN
+  // --------------------------------------------------------------------------
+
+  signInAsGuest() {
+    this.signInUser('guest@guest.com', '123456');
+  }
+
+  // --------------------------------------------------------------------------
+  // TOKEN
+  // --------------------------------------------------------------------------
 
   // if the user is logged in, this refreshes (I think?) the token
   // stores the token to be used by us in this service

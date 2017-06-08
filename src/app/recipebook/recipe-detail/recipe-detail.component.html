@@ -1,117 +1,100 @@
-<div class="row" [@deletionState]="deletionState">
-  <div class="col-xs-12">
+<div class="recipe-detail-container">
 
-    <div class="col-xs-6">
-      <h2>{{currentRecipe.name}}</h2>
+  <md-card>
+    <md-card-header>
+      <md-card-title>
+        <h2>{{currentRecipe.name}}</h2>
+      </md-card-title>
+    </md-card-header>
+
+    <img md-card-image src="{{currentRecipe.imagePath}}">
+
+    <md-card-content>
       <p>{{currentRecipe.description}}</p>
-        <div class="btn-group" appDropdown>
-          <button
-            type="button"
-            class="btn btn-warning
-        dropdown-toggle">
-            Manage Recipe <span class="caret"></span>
-          </button>
+    </md-card-content>
 
-          <ul class="dropdown-menu">
-            <li><a routerLink="edit">Edit Recipe</a></li>
-            <li><a (click)="onDeleteIntent()">Delete Recipe</a></li>
+    <md-card-actions>
+      <button md-button
+              routerLink="edit">
+        Edit Recipe
+      </button>
 
-          </ul>
+      <button md-button
+              *ngIf="!markedForDeletion"
+              (click)="onDeleteIntent()">
+        Delete Recipe
+      </button>
 
-      </div>
+      <button md-button
+              *ngIf="markedForDeletion"
+              (click)="onDeleteCancel()">
+        Cancel Deletion
+      </button>
 
-    </div>
+      <button md-button
+              color="accent"
+              *ngIf="markedForDeletion"
+              (click)="onDeleteConfirm()">
+        Confirm Deletion
+      </button>
 
-    <div class="col-xs-6">
-      <img src="{{currentRecipe.imagePath}}" class="img-responsive">
-    </div>
+    </md-card-actions>
 
-  </div>
-</div>
-<hr class="spacer">
+  </md-card>
 
-<div class="row"
-     [@deletionPrompt]
-     *ngIf="markedForDeletion">
-  <div class="col-xs-12" [@deletionPrompt]>
-    <p>You are about to delete this recipe!</p>
-    <button class="btn btn-default" (click)="onDeleteCancel()">
-      Cancel
-    </button>
-    <button class="btn btn-danger" (click)="onDeleteConfirm()">
-      Confirm
-    </button>
-  </div>
-</div>
+  <md-card>
+    <md-card-header>
+      <md-card-title>
+        <h3>Ingredients</h3>
+      </md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <md-list>
+        <md-list-item *ngFor="let ingredient of currentRecipe.ingredients">
+          <md-icon md-list-icon class="recipe-icon">restaurant</md-icon>
+          <p>{{ingredient}}</p>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button
+              (click)="onAddAllClicked()">
+        Add all ingredients to list
+      </button>
+    </md-card-actions>
+  </md-card>
 
-<hr class="spacer">
+  <md-card>
+    <md-card-header>
+      <md-card-title>
 
-<div [@deletionState]="deletionState">
-  <div class="row">
-    <div class="col-xs-12">
-      <h3>Ingredients</h3>
-
-      <hr>
-
-      <ul class="list-group">
-        <li class="list-group-item">
-          <button class="btn btn-success"
-                  (click)="onAddAllClicked()">
-            Add all ingredients to list
-          </button>
-        </li>
-        <li class="list-group-item"
-            *ngFor="let ingredient of currentRecipe.ingredients">
-          <span class="glyphicon glyphicon-asterisk"></span>  {{ingredient}}
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-xs-12">
-      <h3>Directions</h3>
-      <hr>
-      <div class="row">
-        <div>
-          <div class="row">
-            <div class="col-xs-1 time-btn">
-              <span class="glyphicon glyphicon-time"></span>
-            </div>
-            <div class="col-xs-6">
-              <div class="row">
-                <div class="col-xs-3 prep">
-                  <p>Prep</p>
-                </div>
-                <div class="col-xs-3 cook">
-                  <p>Cook</p>
-                </div>
-                <div class="col-xs-3 cook">
-                  <p>Done in</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-3 prep">
-                  <p>{{currentRecipe.prepTime | timePipe}}</p>
-                </div>
-                <div class="col-xs-3 cook">
-                  <p>{{currentRecipe.cookTime | timePipe}}</p>
-                </div>
-                <div class="col-xs-3 cook">
-                  <p>{{currentRecipe.cookTime + currentRecipe.prepTime | timePipe}}</p>
-                </div>
-              </div>
-            </div>
+        <h3>Directions</h3>
+        <div fxLayout="row" fxLayoutAlign="center" class="center-text">
+          <md-icon class="time-btn">restaurant</md-icon>
+          <div fxLayout="column" fxFlex="40">
+            <p fxFlex>Prep</p>
+            <p fxFlex>{{currentRecipe.prepTime | timePipe}}</p>
+          </div>
+          <div fxLayout="column" fxFlex="40">
+            <p fxFlex>Cook</p>
+            <p fxFlex>{{currentRecipe.cookTime |timePipe}}</p>
+          </div>
+          <div fxLayout="column" fxFlex>
+            <p fxFlex>Done in</p>
+            <p fxFlex>{{currentRecipe.prepTime + currentRecipe.cookTime | timePipe}}</p>
           </div>
         </div>
-      </div>
-      <ul class="list-group">
-        <li class="list-group-item"
-            *ngFor="let step of currentRecipe.steps; let i=index">
-          {{i+1}} - {{step}}
-        </li>
-      </ul>
-    </div>
-  </div>
+
+      </md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <md-list>
+        <md-list-item *ngFor="let step of currentRecipe.steps">
+          <md-checkbox></md-checkbox>
+          <p>{{step}}</p>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
 
 </div>

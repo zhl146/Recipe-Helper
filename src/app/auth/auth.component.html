@@ -2,7 +2,8 @@
 
   <div class="auth-spacer" fxFlex="100"></div>
 
-  <md-card fxFlex="40" class="auth-card">
+  <md-card fxFlex.sm="100"
+           class="auth-card">
     <md-card-header>
       <h2>Nibh praesent tristique magna sit amet</h2>
     </md-card-header>
@@ -11,79 +12,7 @@
     </md-card-content>
   </md-card>
 
-  <md-card fxFlex="20" class="auth-card">
-    <md-card-content>
-      <form [formGroup]="signupForm"
-            fxLayoutWrap
-            novalidate
-            (ngSubmit)="onSubmit()">
-
-        <div *ngIf="auth.errorMessage">
-          <p>{{auth.errorMessage}}</p>
-        </div>
-
-        <md-input-container fxFlex="100">
-          <label for="signupemail">
-            e-mail
-          </label>
-          <input id="signupemail"
-                 mdInput
-                 type="email"
-                 class="form-control"
-                 formControlName="email"
-                 [ngClass]="{'invalid-input': emailTouched() && !emailValid()}">
-
-          <md-error *ngIf="!auth.errorMessage && emailTouched() && !emailValid()">
-            <p>Please enter a vaid e-mail address</p>
-          </md-error>
-
-        </md-input-container>
-
-        <md-input-container fxFlex="100">
-          <label for="signuppassword">
-            password
-          </label>
-          <input id="signuppassword"
-                 mdInput
-                 class=form-control
-                 type="password"
-                 formControlName="password"
-                 [ngClass]="{'invalid-input': passwordTouched() && !passwordValid()}">
-
-          <md-error *ngIf="!auth.errorMessage && passwordTouched() && !passwordValid()">
-            <p>Your password must be at least 6 characters long</p>
-          </md-error>
-
-        </md-input-container>
-
-        <button md-raised-button
-                fxFlex="100"
-                color="primary"
-                type="submit">
-          Sign {{submitText}}
-        </button>
-        <button *ngIf="submitText==='up'"
-                fxFlex="100"
-                md-raised-button
-                color="accent"
-                class="btn  col-xs-12"
-                type="button"
-                (click)="toggleSubmit()">
-          Have an account? Sign in instead.
-        </button>
-        <button *ngIf="submitText==='in'"
-                md-raised-button
-                fxFlex="100"
-                color="accent"
-                class="btn  col-xs-12"
-                type="button"
-                (click)="toggleSubmit()">
-          Don't have an account? Sign up!
-        </button>
-
-      </form>
-    </md-card-content>
-  </md-card>
+  <router-outlet></router-outlet>
 
 </div>
 

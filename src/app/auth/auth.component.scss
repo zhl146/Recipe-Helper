@@ -1,15 +1,16 @@
-.invalid-input {
-  border-color: red;
-}
-
-.auth-spacer {
-  height: 20px;
-}
-
 .auth-card {
   margin: 15px;
 }
 
+.auth-login {
+  min-width: 300px;
+  max-width: 350px;
+}
+
 md-input-container {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+}
+
+button {
+  margin-bottom: 5px;
 }

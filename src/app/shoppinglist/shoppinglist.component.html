@@ -12,13 +12,16 @@
              [ngClass]="{last: isLastElement(i)}">
 
       <md-checkbox class="shopping-checkbox" *ngIf="!isLastElement(i)"></md-checkbox>
-      <div class="list-button"
-           *ngIf="isLastElement(i)"
-           class="list-button">
-        <md-icon (click)="addListItem()">
-          plus-circle-outline
+
+
+      <a (click)="addListItem()"
+         class="list-button"
+         *ngIf="isLastElement(i)">
+        <md-icon >
+          add
         </md-icon>
-      </div>
+      </a>
+
       <md-input-container fxFlex>
         <textarea type="text"
                   rows="1"
@@ -27,16 +30,19 @@
                   mdInput
                   class="form-control"
                   formControlName="text" (keyup)="autoAddNewItem(i)"
-                  (blur)="updateIngredient(i)"></textarea>
+                  (blur)="updateIngredient(i)">
+        </textarea>
       </md-input-container>
 
-      <div class="list-button"
-           *ngIf="!isLastElement(i)"
-           class="list-button">
-        <md-icon (click)="onDeleteClicked(i)">
+      <a class="list-button">
+        <div class="icon-placeholder"
+             *ngIf="isLastElement(i)">
+        </div>
+        <md-icon (click)="onDeleteClicked(i)"
+                 *ngIf="!isLastElement(i)">
           delete
         </md-icon>
-      </div>
+      </a>
 
     </md-card>
 

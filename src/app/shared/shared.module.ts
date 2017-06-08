@@ -9,6 +9,7 @@ import {
   MdIconModule,
   MdInputModule,
   MdListModule,
+  MdSidenavModule,
   MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -22,6 +23,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
 
     // material design
+    MdSidenavModule,
     MdToolbarModule,
     MdButtonModule,
     MdInputModule,
@@ -41,6 +43,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
 
     // material design
+    MdSidenavModule,
     MdToolbarModule,
     MdButtonModule,
     MdInputModule,

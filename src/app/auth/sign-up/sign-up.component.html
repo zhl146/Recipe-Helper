@@ -1,0 +1,65 @@
+<md-card fxFlex.sm="100"
+         class="auth-card auth-login">
+
+    <form [formGroup]="signupForm"
+          fxLayoutWrap
+          novalidate
+          (ngSubmit)="onSubmit()">
+
+      <div *ngIf="auth.errorMessage">
+        <p>{{auth.errorMessage}}</p>
+      </div>
+
+      <md-input-container fxFlex="100">
+        <input id="signupemail"
+               mdInput
+               type="email"
+               formControlName="email"
+               placeholder="e-mail">
+
+        <md-error *ngIf="!auth.errorMessage && emailTouched() && !emailValid()">
+          <p>Please enter a vaid e-mail address</p>
+        </md-error>
+
+      </md-input-container>
+
+      <md-input-container fxFlex="100">
+        <input id="signuppassword"
+               mdInput
+               type="password"
+               formControlName="password"
+               placeholder="password">
+        <!--<md-hint align="end">forgot password?</md-hint>-->
+        <md-error *ngIf="!auth.errorMessage && passwordTouched() && !passwordValid()">
+          <p>Your password must be at least 6 characters long</p>
+        </md-error>
+
+      </md-input-container>
+
+      <button md-raised-button
+              fxFlex="100"
+              color="primary"
+              type="submit">
+        Sign up
+      </button>
+      <button fxFlex="100"
+              md-raised-button
+              color="accent"
+              class="btn  col-xs-12"
+              type="button"
+              (click)="gotoSignIn()">
+        Have an account?
+      </button>
+
+      <button fxFlex="100"
+              md-raised-button
+              color="warm"
+              class="btn  col-xs-12"
+              type="button"
+              (click)="onGuestSignIn()">
+        Feeling lazy? Sign in as guest.
+      </button>
+
+    </form>
+
+</md-card>
