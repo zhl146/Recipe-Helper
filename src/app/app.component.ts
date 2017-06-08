@@ -4,6 +4,7 @@ import { FirebaseConfig } from './shared/firebase.config';
 import { AuthService } from './auth/auth.service';
 import { ShoppinglistService } from './shoppinglist/shoppinglist.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AppNav } from './navigation.model';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   signedIn = false;
   signInListener: Subscription;
 
-  navigation;
+  navigation: AppNav[];
 
   constructor( private auth: AuthService,
                private shoppingService: ShoppinglistService) {}
@@ -23,12 +24,6 @@ export class AppComponent implements OnInit, OnDestroy {
   // get the status of sign in so the correct links can be displayed
   ngOnInit() {
     firebase.initializeApp(FirebaseConfig.config);
-    this.navigation = [ ,
-      {
-        route: '/login',
-        text: 'Sign in'
-      }
-    ];
 
     this.signInListener = this.auth.getSignedIn()
       .subscribe(
@@ -37,18 +32,22 @@ export class AppComponent implements OnInit, OnDestroy {
             this.navigation = [
               {
                 route: '/recipes',
-                text: 'Recipe Book'
+                displayText: 'Recipe Book'
               },
               {
                 route: '/shopping',
-                text: 'Shopping List'
+                displayText: 'Shopping List'
               }
             ];
           } else {
             this.navigation = [
               {
-                route: '/auth',
-                text: 'Sign in'
+                route: '/auth/signup',
+                displayText: 'Sign up'
+              },
+              {
+                route: '/auth/signin',
+                displayText: 'Sign in'
               }
             ];
           }

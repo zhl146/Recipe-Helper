@@ -32,7 +32,7 @@
       </button>
 
       <button md-button
-              color="accent"
+              color="warn"
               *ngIf="markedForDeletion"
               (click)="onDeleteConfirm()">
         Confirm Deletion
@@ -49,9 +49,9 @@
       </md-card-title>
     </md-card-header>
     <md-card-content>
-      <md-list>
+      <md-list dense>
         <md-list-item *ngFor="let ingredient of currentRecipe.ingredients">
-          <md-icon md-list-icon class="recipe-icon">restaurant</md-icon>
+          <md-icon md-list-icon class="recipe-icon">add_circle_outline</md-icon>
           <p>{{ingredient}}</p>
         </md-list-item>
       </md-list>
@@ -69,26 +69,21 @@
       <md-card-title>
 
         <h3>Directions</h3>
-        <div fxLayout="row" fxLayoutAlign="center" class="center-text">
-          <md-icon class="time-btn">restaurant</md-icon>
-          <div fxLayout="column" fxFlex="40">
-            <p fxFlex>Prep</p>
-            <p fxFlex>{{currentRecipe.prepTime | timePipe}}</p>
-          </div>
-          <div fxLayout="column" fxFlex="40">
-            <p fxFlex>Cook</p>
-            <p fxFlex>{{currentRecipe.cookTime |timePipe}}</p>
-          </div>
-          <div fxLayout="column" fxFlex>
-            <p fxFlex>Done in</p>
-            <p fxFlex>{{currentRecipe.prepTime + currentRecipe.cookTime | timePipe}}</p>
-          </div>
+        <div fxLayoutAlign="start center" fxLayout="row">
+          <md-icon class="recipe-icon timer-icon">timer</md-icon>
+          <p>
+            Prep:    {{currentRecipe.prepTime | timePipe}}
+            <br>
+            Cook:    {{currentRecipe.cookTime |timePipe}}
+            <br>
+            Done in: {{currentRecipe.prepTime + currentRecipe.cookTime | timePipe}}
+          </p>
         </div>
 
       </md-card-title>
     </md-card-header>
     <md-card-content>
-      <md-list>
+      <md-list dense>
         <md-list-item *ngFor="let step of currentRecipe.steps">
           <md-checkbox></md-checkbox>
           <p>{{step}}</p>

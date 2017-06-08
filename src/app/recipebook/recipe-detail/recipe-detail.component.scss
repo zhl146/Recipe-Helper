@@ -1,7 +1,10 @@
 .recipe-icon {
-  font-size: 40px;
   color: dimgrey;
   margin-right: 24px;
+}
+
+.timer-icon {
+  margin-left: 6px;
 }
 
 .center-text {
@@ -22,4 +25,8 @@ md-checkbox {
 
 md-card {
   margin-bottom: 10px;
+}
+
+md-list-item {
+  margin-bottom: 15px;
 }

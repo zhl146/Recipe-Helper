@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-request-password',
   templateUrl: './request-password.component.html',
-  styleUrls: ['./request-password.component.scss']
+  styleUrls: ['../auth.component.scss']
 })
 export class RequestPasswordComponent implements OnInit {
 

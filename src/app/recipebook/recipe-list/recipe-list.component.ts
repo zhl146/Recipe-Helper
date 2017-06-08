@@ -3,6 +3,7 @@ import { Recipe } from '../recipe.model';
 import {RecipebookService} from '../recipebook.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,19 +12,31 @@ import { Observable } from 'rxjs/Observable';
 })
 export class RecipeListComponent implements OnInit {
 
+  recipeForm: FormGroup;
+  filterString: string;
+
   recipes: Recipe[] | Observable<Recipe[]>;
 
   constructor( private recipeService: RecipebookService,
                private router: Router,
-               private route: ActivatedRoute) { }
+               private route: ActivatedRoute,
+               private fb: FormBuilder) { }
 
   ngOnInit() {
     this.recipes = this.recipeService.getRecipes();
+
+    this.recipeForm = this.fb.group({
+      filter: this.fb.control('')
+    });
   }
 
   // shows the current recipe detail
   onSelected(index: number) {
     this.router.navigate([index], {relativeTo: this.route});
+  }
+
+  clearFilter() {
+    this.filterString = '';
   }
 
 }

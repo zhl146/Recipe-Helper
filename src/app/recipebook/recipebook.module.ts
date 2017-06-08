@@ -11,7 +11,9 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe-item/recipe-item.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+
 import { TimePipe } from './time.pipe';
+import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { TimePipe } from './time.pipe';
     RecipeItemComponent,
     RecipeListComponent,
     RecipeStartComponent,
-    TimePipe
+    TimePipe,
+    RecipeFilterPipe
   ],
   imports: [
     CommonModule,

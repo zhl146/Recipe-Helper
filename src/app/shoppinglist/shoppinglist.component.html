@@ -5,11 +5,11 @@
   <div formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
 
     <md-card *ngFor="let ingredientCtrl of ingForm.get('ingredients').controls; let i = index"
-             fxFlex="80"
+             fxFlex="100"
              class="shopping-card"
              fxLayoutAlign="center"
              [formGroupName]="i"
-             [ngClass]="{last: isLastElement(i)}">
+             [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
 
       <md-checkbox class="shopping-checkbox" *ngIf="!isLastElement(i)"></md-checkbox>
 

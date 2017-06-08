@@ -8,9 +8,21 @@
     Create New Recipe
   </button>
 
+  <form [formGroup]="recipeForm" fxFlex="80">
+    <md-input-container fxFlex="100">
+      <input mdInput
+             fxFlex="100"
+             formControlName="filter"
+             [(ngModel)]="filterString"
+             placeholder="search">
+      <md-icon md-list-icon (click)="clearFilter()">clear</md-icon>
+    </md-input-container>
+  </form>
+
+
   <div class="vertical-spacer"></div>
 
-  <app-recipe-item *ngFor="let recipe of recipes | async; let i = index"
+  <app-recipe-item *ngFor="let recipe of recipes | async | recipeFilter: filterString; let i = index"
                    (click)="onSelected(i)"
                    [index]="i"
                    [recipeItem]="recipe">

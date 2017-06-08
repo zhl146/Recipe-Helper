@@ -2,31 +2,34 @@
   <md-sidenav-container class="sidenav-container">
 
 
-    <md-sidenav #sidenav>
-      <md-nav-list>
-        <a md-list-item
-           *ngFor="let nav of navigation"
-           (click)="sidenav.close()"
-           [routerLink]="nav.route" routerLinkActive="active">
-          {{nav.text}}
-        </a>
-        <a md-list-item
-           (click)="sidenav.close()"
-           *ngIf="signedIn"
-           (click)="onLogOut()">
-          Sign out
-        </a>
-      </md-nav-list>
-    </md-sidenav>
+    <!--<md-sidenav #sidenav>-->
+      <!--<md-nav-list>-->
+        <!--<a md-list-item-->
+           <!--*ngFor="let nav of navigation"-->
+           <!--(click)="sidenav.close()"-->
+           <!--[routerLink]="nav.route" routerLinkActive="active">-->
+          <!--{{nav.text}}-->
+        <!--</a>-->
+        <!--<a md-list-item-->
+           <!--(click)="sidenav.close()"-->
+           <!--*ngIf="signedIn"-->
+           <!--(click)="onLogOut()">-->
+          <!--Sign out-->
+        <!--</a>-->
+      <!--</md-nav-list>-->
+    <!--</md-sidenav>-->
+
+
     <md-toolbar color="primary" class="toolbar" fxlayout="row" class="mat-toolbar">
       <a fxLayoutAlign="start" fxFlex>Recipe Helper</a>
 
       <div fxFlex fxLayoutAlign="end">
-        <button md-icon-button
-                fxHide fxShow.xs="true"
-                (click)="sidenav.open()">
-          <md-icon>menu</md-icon>
-        </button>
+
+        <!--<button md-icon-button-->
+                <!--fxHide fxShow.xs="true"-->
+                <!--(click)="sidenav.open()">-->
+          <!--<md-icon>menu</md-icon>-->
+        <!--</button>-->
 
         <button md-button
                 fxShow fxHide.xs="true"
@@ -34,7 +37,7 @@
                 *ngFor="let nav of navigation"
                 [routerLink]="nav.route"
                 routerLinkActive="active">
-          {{nav.text}}
+          {{nav.displayText}}
         </button>
         <button md-button
                 fxShow fxHide.xs="true"
@@ -46,6 +49,20 @@
       </div>
 
     </md-toolbar>
+
+    <nav md-tab-nav-bar
+         fxHide
+         fxShow.xs="true"
+         fxLayout="row"
+         fxLayoutAlign="center">
+      <a md-tab-link
+         *ngFor="let nav of navigation"
+         [routerLink]="nav.route"
+         routerLinkActive #rla="routerLinkActive"
+         [active]="rla.isActive">
+        {{nav.displayText}}
+      </a>
+    </nav>
 
     <router-outlet></router-outlet>
   </md-sidenav-container>
