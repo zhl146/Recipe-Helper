@@ -46,8 +46,6 @@ export class AppHttpService {
     return this.genericGet('recipes')
       .map(
         (data: Response) => {
-          console.log('Current recipe response from server:');
-          console.log(data.json());
           return data.json();
         }
       );
@@ -61,7 +59,6 @@ export class AppHttpService {
     return this.genericGet('list')
       .map(
         (data: Response) => {
-          console.log(data);
           return data.json();
         }
       );

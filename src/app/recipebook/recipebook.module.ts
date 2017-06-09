@@ -14,6 +14,8 @@ import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 
 import { TimePipe } from './time.pipe';
 import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
+import { MdDialogModule } from '@angular/material';
+import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,17 @@ import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
     RecipeListComponent,
     RecipeStartComponent,
     TimePipe,
-    RecipeFilterPipe
+    RecipeFilterPipe,
+    CancelDialogComponent
+  ],
+  entryComponents: [
+    CancelDialogComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RecipeBookRoutingModule,
+    MdDialogModule,
     SharedModule
   ]
   })

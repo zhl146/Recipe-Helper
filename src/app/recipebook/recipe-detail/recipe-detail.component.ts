@@ -4,7 +4,8 @@ import { ShoppinglistService} from '../../shoppinglist/shoppinglist.service';
 import { RecipebookService } from '../recipebook.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { MdSnackBar } from '@angular/material';
+import { MdDialog, MdSnackBar } from '@angular/material';
+import { CancelDialogComponent } from '../cancel-dialog/cancel-dialog.component';
 
 
 @Component({
@@ -14,8 +15,6 @@ import { MdSnackBar } from '@angular/material';
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
 
-  deletionState: string;
-  markedForDeletion: boolean;
   currentRecipe: Recipe;
   currentRecipeId: number;
   recipeSubscription: Subscription;
@@ -26,11 +25,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
                private recipeService: RecipebookService,
                private route: ActivatedRoute,
                private router: Router,
-               public snackBar: MdSnackBar) { }
+               public snackBar: MdSnackBar,
+               public dialog: MdDialog) { }
 
   ngOnInit() {
-    this.deletionState = 'normal';
-    this.markedForDeletion = false;
 
     // gets the id from the parameters of the route
     // uses this id to grab the currentRecipe from the currentRecipe service
@@ -47,10 +45,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.recipeSubscription = this.recipeService.getRecipes()
       .subscribe(
         (recipes: Recipe[]) => {
-          console.log(this.currentRecipeId)
           this.currentRecipe = recipes[this.currentRecipeId];
-          console.log(recipes);
-          console.log(this.currentRecipe);
         }
       );
   }
@@ -62,33 +57,44 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.shoppingService.updateDatabase();
   }
 
+  // adds all ingredients from the recipe to the list
   onAddAllClicked() {
     this.shoppingService.addIngredientsFromRecipe(this.currentRecipe);
   }
 
+  // adds a single ingredient to the shopping list
   onAddIngredient(newIngredient: string) {
-    this.openSnackBar('Ingredient added to list!');
+    this.openSnackBar('Ingredient added to list!', 'OK');
     this.shoppingService.addIngredient(newIngredient);
   }
 
-  onDeleteIntent() {
-    this.markedForDeletion = true;
-    this.deletionState = 'marked';
-  }
-
-  onDeleteCancel() {
-    this.markedForDeletion = false;
-    this.deletionState = 'normal';
-  }
-
+  // this actually deletes the recipe and takes the user back to recipe list
   onDeleteConfirm() {
     this.recipeService.deleteRecipe(this.currentRecipeId);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
-  openSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000
+  // snackbar notification that user added something to shopping list
+  // thought there should be some kind of user feedback for this
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
     });
   }
+
+  // opens a modal so that the user doesn't accidentally delete recipes
+  // deletion is currently irreversible
+  onDeleteClicked() {
+    const deleteDialog = this.dialog.open(CancelDialogComponent);
+    deleteDialog.afterClosed()
+      .subscribe(
+        (result) => {
+          console.log(result);
+          if (result === 'yes') {
+            this.onDeleteConfirm();
+          }
+        }
+      );
+  }
+
 }

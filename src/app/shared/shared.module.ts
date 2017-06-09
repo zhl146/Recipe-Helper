@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DropdownDirective } from './dropdown.directive';
 import {
   MdButtonModule,
   MdCardModule,
@@ -17,9 +16,6 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  declarations: [
-    DropdownDirective
-  ],
   imports: [
     // layout grid
     FlexLayoutModule,
@@ -39,9 +35,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   exports: [
     // required
     CommonModule,
-
-    // custom
-    DropdownDirective,
 
     // layout grid
     FlexLayoutModule,

@@ -13,6 +13,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class RecipeListComponent implements OnInit {
 
   recipeForm: FormGroup;
+
+  // this is 2 way bound to user input
+  // user can filter the recipe list using this string
   filterString: string;
 
   recipes: Recipe[] | Observable<Recipe[]>;
@@ -22,6 +25,7 @@ export class RecipeListComponent implements OnInit {
                private route: ActivatedRoute,
                private fb: FormBuilder) { }
 
+  // get the recipe and initializes the form for filtering
   ngOnInit() {
     this.recipes = this.recipeService.getRecipes();
 
@@ -35,6 +39,7 @@ export class RecipeListComponent implements OnInit {
     this.router.navigate([index], {relativeTo: this.route});
   }
 
+  // clears the current user filter string
   clearFilter() {
     this.filterString = '';
   }

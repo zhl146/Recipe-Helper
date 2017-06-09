@@ -20,23 +20,10 @@
       </button>
 
       <button md-button
-              *ngIf="!markedForDeletion"
-              (click)="onDeleteIntent()">
+              (click)="onDeleteClicked()">
         Delete Recipe
       </button>
 
-      <button md-button
-              *ngIf="markedForDeletion"
-              (click)="onDeleteCancel()">
-        Cancel Deletion
-      </button>
-
-      <button md-button
-              color="warn"
-              *ngIf="markedForDeletion"
-              (click)="onDeleteConfirm()">
-        Confirm Deletion
-      </button>
 
     </md-card-actions>
 

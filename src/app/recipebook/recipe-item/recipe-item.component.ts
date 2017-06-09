@@ -15,6 +15,8 @@ export class RecipeItemComponent {
   constructor( private router: Router,
                private route: ActivatedRoute ) {}
 
+  // auto scrolls the recipe into view
+  // this is primary for mobile devices because everything is stacked
   onRecipeSelect() {
     this.router.navigate([this.index], {relativeTo: this.route})
       .then(
