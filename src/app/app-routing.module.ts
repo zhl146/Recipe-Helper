@@ -4,9 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
 import { AuthGuard } from './auth/auth-guard.service';
 
-
 const appRoutes: Routes = [
-  { path: 'shopping', component: ShoppinglistComponent, canActivate: [AuthGuard] }
+  { path: 'shopping', component: ShoppinglistComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/auth', pathMatch: 'full'}
 ];
 
 @NgModule({

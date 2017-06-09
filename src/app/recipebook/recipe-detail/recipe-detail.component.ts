@@ -4,48 +4,13 @@ import { ShoppinglistService} from '../../shoppinglist/shoppinglist.service';
 import { RecipebookService } from '../recipebook.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MdSnackBar } from '@angular/material';
 
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
-  animations: [
-    trigger('deletionState', [
-      state('normal',
-        style({
-          opacity: 1
-        })
-      ),
-      state('marked',
-        style({
-          opacity: 0.35
-        })
-      ),
-      transition('normal <=> marked', animate(400))
-    ]),
-    trigger('deletionPrompt', [
-      state('in', style({
-        opacity: 1
-      })),
-      transition('void => *', [
-        style({
-          opacity: 0,
-          height: 0
-        }),
-        animate(1000)
-      ]),
-      transition('* => void', [
-        animate(400,
-          style({
-            opacity: 0,
-            height: 0
-          })
-        )
-      ])
-    ])
-  ]
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
 
@@ -60,13 +25,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   constructor( private shoppingService: ShoppinglistService,
                private recipeService: RecipebookService,
                private route: ActivatedRoute,
-               private router: Router ) { }
+               private router: Router,
+               public snackBar: MdSnackBar) { }
 
   ngOnInit() {
-    // this code would only work on the initial visit since this component will not
-    // necessarily get destroyed before the route changes
-
-    // this.currentRecipe = this.recipeService.getRecipeByIndex(+this.route.snapshot.params['id']);
     this.deletionState = 'normal';
     this.markedForDeletion = false;
 
@@ -93,8 +55,20 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       );
   }
 
+  // take care of memory leak
+  // update the server so when the user goes to shopping component, it can be updated from server
+  ngOnDestroy() {
+    this.recipeSubscription.unsubscribe();
+    this.shoppingService.updateDatabase();
+  }
+
   onAddAllClicked() {
     this.shoppingService.addIngredientsFromRecipe(this.currentRecipe);
+  }
+
+  onAddIngredient(newIngredient: string) {
+    this.openSnackBar('Ingredient added to list!');
+    this.shoppingService.addIngredient(newIngredient);
   }
 
   onDeleteIntent() {
@@ -112,8 +86,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
-  ngOnDestroy() {
-    this.recipeSubscription.unsubscribe();
+  openSnackBar(message: string) {
+    this.snackBar.open(message, '', {
+      duration: 2000
+    });
   }
-
 }

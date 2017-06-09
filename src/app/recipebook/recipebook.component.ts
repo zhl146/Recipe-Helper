@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ShoppinglistService } from '../shoppinglist/shoppinglist.service';
 
 @Component({
   selector: 'app-recipe-book',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./recipebook.component.css']
 })
 
-export class RecipeBookComponent {
+export class RecipeBookComponent implements OnInit {
+
+  constructor( private shoppingService: ShoppinglistService) {}
+
+  ngOnInit() {
+    this.shoppingService.getServerList();
+  }
 }

@@ -20,7 +20,7 @@
     <!--</md-sidenav>-->
 
 
-    <md-toolbar color="primary" class="toolbar" fxlayout="row" class="mat-toolbar">
+    <md-toolbar color="primary" class="toolbar" fxlayout="row" class="mat-toolbar" flex="none">
       <a fxLayoutAlign="start" fxFlex>Recipe Helper</a>
 
       <div fxFlex fxLayoutAlign="end">
@@ -39,8 +39,10 @@
                 routerLinkActive="active">
           {{nav.displayText}}
         </button>
+
         <button md-button
-                fxShow fxHide.xs="true"
+                fxShow
+                fxHide.xs="true"
                 class="nav-link"
                 *ngIf="signedIn"
                 (click)="onLogOut()">
@@ -51,6 +53,7 @@
     </md-toolbar>
 
     <nav md-tab-nav-bar
+         flex="none"
          fxHide
          fxShow.xs="true"
          fxLayout="row"

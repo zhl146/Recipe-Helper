@@ -9,7 +9,9 @@ import {
   MdIconModule,
   MdInputModule,
   MdListModule,
-  MdSidenavModule, MdTabsModule,
+  MdSidenavModule,
+  MdSnackBarModule,
+  MdTabsModule,
   MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -31,7 +33,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MdListModule,
     MdIconModule,
     MdCheckboxModule,
-    MdTabsModule
+    MdTabsModule,
+    MdSnackBarModule
   ],
   exports: [
     // required
@@ -52,7 +55,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MdListModule,
     MdIconModule,
     MdCheckboxModule,
-    MdTabsModule
+    MdTabsModule,
+    MdSnackBarModule
   ]
 })
 export class SharedModule {}
