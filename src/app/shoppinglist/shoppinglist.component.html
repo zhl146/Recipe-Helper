@@ -1,28 +1,31 @@
-<form [formGroup]="ingForm"
-      novalidate
-      (ngSubmit)="updateIngredients()">
+<div fxLayoutAlign="center">
+  <form [formGroup]="ingForm"
+        fxFlex.lt-md="100"
+        fxFlex.gt-sm="70"
+        novalidate
+        (ngSubmit)="updateIngredients()">
 
-  <div formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+    <div formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
 
-    <md-card *ngFor="let ingredientCtrl of ingForm.get('ingredients').controls; let i = index"
-             fxFlex="100"
-             class="shopping-card"
-             fxLayoutAlign="center"
-             [formGroupName]="i"
-             [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
+      <md-card *ngFor="let ingredientCtrl of ingForm.get('ingredients').controls; let i = index"
+               fxFlex="100"
+               class="shopping-card"
+               fxLayoutAlign="center"
+               [formGroupName]="i"
+               [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
 
-      <md-checkbox class="shopping-checkbox" *ngIf="!isLastElement(i)"></md-checkbox>
+        <md-checkbox class="shopping-checkbox" *ngIf="!isLastElement(i)"></md-checkbox>
 
 
-      <a (click)="addListItem()"
-         class="list-button"
-         *ngIf="isLastElement(i)">
-        <md-icon >
-          add
-        </md-icon>
-      </a>
+        <a (click)="addListItem()"
+           class="list-button"
+           *ngIf="isLastElement(i)">
+          <md-icon >
+            add
+          </md-icon>
+        </a>
 
-      <md-input-container fxFlex>
+        <md-input-container fxFlex>
         <textarea type="text"
                   rows="1"
                   mdTextareaAutosize
@@ -32,19 +35,21 @@
                   formControlName="text" (keyup)="autoAddNewItem(i)"
                   (blur)="updateIngredient(i)">
         </textarea>
-      </md-input-container>
+        </md-input-container>
 
-      <a class="list-button">
-        <div class="icon-placeholder"
-             *ngIf="isLastElement(i)">
-        </div>
-        <md-icon (click)="onDeleteClicked(i)"
-                 *ngIf="!isLastElement(i)">
-          delete
-        </md-icon>
-      </a>
+        <a class="list-button">
+          <div class="icon-placeholder"
+               *ngIf="isLastElement(i)">
+          </div>
+          <md-icon (click)="onDeleteClicked(i)"
+                   *ngIf="!isLastElement(i)">
+            delete
+          </md-icon>
+        </a>
 
-    </md-card>
+      </md-card>
 
-  </div>
-</form>
+    </div>
+  </form>
+
+</div>

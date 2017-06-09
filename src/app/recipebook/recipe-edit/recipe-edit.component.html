@@ -1,21 +1,23 @@
 <form [formGroup]="recipeForm"
       novalidate
+      class="recipe-detail-container"
       (ngSubmit)='onSubmit()' fxLayoutWrap>
 
   <md-card fxLayoutWrap
            fxLayout="row"
-           fxLayoutAlign.lt-md="center center">
-      <md-input-container fxFlex.lt-md="100">
-          <input type="text"
-                 placeholder="Recipe Name"
-                 fxFlex.lt-md="100"
-                 mdInput
-                 formControlName="recName">
-      </md-input-container>
+           fxFlex="100"
+           fxLayoutAlign="center center">
+    <md-input-container fxFlex="100">
+      <input type="text"
+             placeholder="Recipe Name"
+             fxFlex="100"
+             mdInput
+             formControlName="recName">
+    </md-input-container>
 
-      <md-input-container fxFlex.lt-md="100">
+    <md-input-container fxFlex="100">
         <textarea rows="1"
-                  fxFlex.lt-md="100"
+                  fxFlex="100"
                   placeholder="Recipe Image Path"
                   mdTextareaAutosize
                   mdAutosizeMinRows="1"
@@ -25,17 +27,18 @@
                   name="textarea"
                   formControlName="recImgPath">
       </textarea>
-      </md-input-container>
+    </md-input-container>
 
-      <img md-card-image
-           [src]="imgPath.value">
+    <img md-card-image
+         [src]="imgPath.value">
 
   </md-card>
-  <md-card fxLayout="row" fxLayoutWrap>
 
-    <md-input-container fxFlex.lt-md="100">
+  <md-card fxFlex="100" fxLayout="row" fxLayoutWrap>
+
+    <md-input-container fxFlex="100">
     <textarea rows="1"
-              fxFlex.lt-md="100"
+              fxFlex="100"
               placeholder="Recipe Description"
               mdTextareaAutosize
               mdAutosizeMinRows="1"
@@ -46,16 +49,16 @@
       </textarea>
     </md-input-container>
 
-    <md-input-container fxFlex.lt-md="50">
-      <input fxFlex.lt-md="100"
+    <md-input-container fxFlex="50">
+      <input fxFlex="100"
              mdInput
              placeholder="Prep time in minutes"
              class="form-control"
              type="text"
              formControlName="recPrep">
     </md-input-container>
-    <md-input-container fxFlex.lt-md="50">
-      <input fxFlex.lt-md="100"
+    <md-input-container fxFlex="50">
+      <input fxFlex="100"
              mdInput
              placeholder="Cook time in minutes"
              class="form-control"
@@ -65,8 +68,12 @@
   </md-card>
 
 
-  <div formArrayName="recIng" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
-
+  <md-card formArrayName="recIng" fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+    <md-card-header>
+      <md-card-title>
+        <h2>Ingredients</h2>
+      </md-card-title>
+    </md-card-header>
     <md-card *ngFor="let ingCtrl of recipeForm.get('recIng').controls; let i=index"
              [formGroupName]="i"
              [ngClass]="{last: isLastElement(i, 'recIng')}"
@@ -105,11 +112,15 @@
 
     </md-card>
 
-  </div>
+  </md-card>
 
-  <hr>
+  <md-card formArrayName="recStep" fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
 
-  <div formArrayName="recStep" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+    <md-card-header>
+      <md-card-title>
+        <h2>Directions</h2>
+      </md-card-title>
+    </md-card-header>
 
     <md-card *ngFor="let stepCtrl of recipeForm.get('recStep').controls; let i=index"
              [formGroupName]="i"
@@ -148,15 +159,15 @@
 
     </md-card>
 
-  </div>
+  </md-card>
 
-  <button md-raised-button color="primary" fxFlex.lt-md="50">
+  <button md-raised-button color="primary" fxFlex="50">
     Save Recipe
   </button>
   <button type="button"
           md-raised-button
           color="accent"
-          fxFlex.lt-md="50" [routerLink]="['/recipes']">
+          fxFlex="50" [routerLink]="['/recipes']">
     Cancel Edit
   </button>
 </form>

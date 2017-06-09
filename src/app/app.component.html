@@ -1,5 +1,5 @@
-<div class="wrapper">
-  <md-sidenav-container class="sidenav-container">
+<div class="wrapper" fxLayoutAlign="center" fxLayout="row">
+  <md-sidenav-container class="sidenav-container" fxFlexAlign="center start">
 
 
     <!--<md-sidenav #sidenav>-->
@@ -20,21 +20,24 @@
     <!--</md-sidenav>-->
 
 
-    <md-toolbar color="primary" class="toolbar" fxlayout="row" class="mat-toolbar" flex="none">
-      <a fxLayoutAlign="start" fxFlex>Recipe Helper</a>
+    <md-toolbar color="primary"
+                class="toolbar mat-toolbar"
+                fxlayout="row">
+      <div fxFlex fxLayoutAlign="start">
+        <a>Recipe Helper</a>
+      </div>
 
-      <div fxFlex
-           fxLayoutAlign="end"
-           fxShow.gt-sm
-           fxHide.lt-md>
 
         <!--<button md-icon-button-->
                 <!--fxHide fxShow.xs="true"-->
                 <!--(click)="sidenav.open()">-->
           <!--<md-icon>menu</md-icon>-->
         <!--</button>-->
+      <div fxShow.gt-sm
+           fxHide.lt-md>
 
         <button md-button
+                fxFlexAlign="end"
                 class="nav-link"
                 *ngFor="let nav of navigation"
                 [routerLink]="nav.route"
@@ -43,12 +46,14 @@
         </button>
 
         <button md-button
+                fxFlexAlign="end"
                 class="nav-link"
                 *ngIf="signedIn"
                 (click)="onLogOut()">
           Sign out
         </button>
       </div>
+
 
     </md-toolbar>
 
