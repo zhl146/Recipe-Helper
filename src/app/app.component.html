@@ -23,7 +23,10 @@
     <md-toolbar color="primary" class="toolbar" fxlayout="row" class="mat-toolbar" flex="none">
       <a fxLayoutAlign="start" fxFlex>Recipe Helper</a>
 
-      <div fxFlex fxLayoutAlign="end">
+      <div fxFlex
+           fxLayoutAlign="end"
+           fxShow.gt-sm
+           fxHide.lt-md>
 
         <!--<button md-icon-button-->
                 <!--fxHide fxShow.xs="true"-->
@@ -32,7 +35,6 @@
         <!--</button>-->
 
         <button md-button
-                fxShow fxHide.xs="true"
                 class="nav-link"
                 *ngFor="let nav of navigation"
                 [routerLink]="nav.route"
@@ -41,8 +43,6 @@
         </button>
 
         <button md-button
-                fxShow
-                fxHide.xs="true"
                 class="nav-link"
                 *ngIf="signedIn"
                 (click)="onLogOut()">
@@ -53,11 +53,10 @@
     </md-toolbar>
 
     <nav md-tab-nav-bar
-         flex="none"
-         fxHide
-         fxShow.xs="true"
-         fxLayout="row"
-         fxLayoutAlign="center">
+         fxHide.gt-sm
+         fxShow.lt-md
+         fxLayout.lt-md="row"
+         fxLayoutAlign.lt-md="center">
       <a md-tab-link
          *ngFor="let nav of navigation"
          [routerLink]="nav.route"

@@ -10,28 +10,26 @@
   margin-bottom: 10px;
 }
 
-.list-button {
-  margin: 20px;
-}
 
-textarea {
-  resize: none;
-  wrap: soft;
-}
 
 .icon-placeholder {
   width: 24px;
   height: 24px;
 }
-
-mat-input-subscript-wrapper {
-  margin: 0;
-}
-
-mat-input-wrapper {
-  margin: 0;
-}
+//
+//mat-input-subscript-wrapper {
+//  margin: 0;
+//}
+//
+//mat-input-wrapper {
+//  margin: 0;
+//}
 
 textarea {
   font-size: 14px;
+  resize: none;
+}
+
+.list-button {
+  margin: 20px;
 }

@@ -1,151 +1,162 @@
-<div class="row">
-  <div class="col-xs-12">
-    <form [formGroup]="recipeForm" novalidate (ngSubmit)='onSubmit()'>
+<form [formGroup]="recipeForm"
+      novalidate
+      (ngSubmit)='onSubmit()' fxLayoutWrap>
 
-      <div class="row">
-        <div class="col-xs-12">
-          <label for="nameinput" class="control-label col-sm-2">Name</label>
-          <div class="col-sm-10">
-            <input type="text"
-                   class="form-control"
-                   id="nameinput"
-                   formControlName="recName">
-          </div>
-        </div>
-      </div>
+  <md-card fxLayoutWrap
+           fxLayout="row"
+           fxLayoutAlign.lt-md="center center">
+      <md-input-container fxFlex.lt-md="100">
+          <input type="text"
+                 placeholder="Recipe Name"
+                 fxFlex.lt-md="100"
+                 mdInput
+                 formControlName="recName">
+      </md-input-container>
 
-      <div class="row">
-        <div class="col-xs-12">
-          <label for="#pathinput" class="control-label col-sm-2">Image Path</label>
-          <div class="col-sm-10">
-            <input type="text"
-                   class="form-control"
-                   id="#pathinput"
-                   #imgPath
-                   formControlName="recImgPath">
-            <img [src]="imgPath.value" class="img-responsive">
-          </div>
-        </div>
-      </div>
+      <md-input-container fxFlex.lt-md="100">
+        <textarea rows="1"
+                  fxFlex.lt-md="100"
+                  placeholder="Recipe Image Path"
+                  mdTextareaAutosize
+                  mdAutosizeMinRows="1"
+                  mdInput
+                  #imgPath
+                  [id]="imgPath"
+                  name="textarea"
+                  formControlName="recImgPath">
+      </textarea>
+      </md-input-container>
 
-      <div class="row">
-        <div class="col-xs-12">
-          <label class="control-label col-sm-2" for="textarea">Description</label>
-          <div class="col-sm-10">
-            <textarea class="form-control"
-                      id="textarea"
-                      name="textarea"
-                      rows="6" formControlName="recDescription">
+      <img md-card-image
+           [src]="imgPath.value">
+
+  </md-card>
+  <md-card fxLayout="row" fxLayoutWrap>
+
+    <md-input-container fxFlex.lt-md="100">
+    <textarea rows="1"
+              fxFlex.lt-md="100"
+              placeholder="Recipe Description"
+              mdTextareaAutosize
+              mdAutosizeMinRows="1"
+              mdInput
+              name="textarea"
+              formControlName="recDescription">
 
       </textarea>
-          </div>
+    </md-input-container>
+
+    <md-input-container fxFlex.lt-md="50">
+      <input fxFlex.lt-md="100"
+             mdInput
+             placeholder="Prep time in minutes"
+             class="form-control"
+             type="text"
+             formControlName="recPrep">
+    </md-input-container>
+    <md-input-container fxFlex.lt-md="50">
+      <input fxFlex.lt-md="100"
+             mdInput
+             placeholder="Cook time in minutes"
+             class="form-control"
+             type="text"
+             formControlName="recCook">
+    </md-input-container>
+  </md-card>
+
+
+  <div formArrayName="recIng" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+
+    <md-card *ngFor="let ingCtrl of recipeForm.get('recIng').controls; let i=index"
+             [formGroupName]="i"
+             [ngClass]="{last: isLastElement(i, 'recIng')}"
+             fxFlex="100"
+             class="shopping-card"
+             fxLayoutAlign="center center">
+
+      <a (click)="addItemFuncFactory('recIng')()"
+         class="list-button"
+         *ngIf="isLastElement(i, 'recIng')">
+        <md-icon >
+          add
+        </md-icon>
+      </a>
+
+      <md-input-container fxFlex>
+        <textarea type="text"
+                  rows="1"
+                  mdTextareaAutosize
+                  mdAutosizeMinRows="1"
+                  mdInput
+                  formControlName="text"
+                  (keyup)="autoAddNewItem(i, 'recIng')">
+        </textarea>
+      </md-input-container>
+
+      <a class="list-button">
+        <div class="icon-placeholder"
+             *ngIf="isLastElement(i, 'recIng')">
         </div>
+        <md-icon (click)="onDeleteClicked(i, 'recIng')"
+                 *ngIf="!isLastElement(i, 'recIng')">
+          delete
+        </md-icon>
+      </a>
 
-      </div>
+    </md-card>
 
-      <hr>
-
-      <div class="row">
-
-        <div class="col-xs-6">
-          <label class="control-label" for="prepinput">Prep Time</label>
-          <div class="input-group col-sm-6">
-            <input id="prepinput"
-                   class="form-control"
-                   type="text"
-                   formControlName="recPrep">
-            <span  class="input-group-addon">minutes</span>
-          </div>
-        </div>
-
-        <div class="col-xs-6">
-          <label class="control-label" for="cooktime">Cook Time</label>
-          <div class="input-group col-sm-6">
-            <input id="cooktime"
-                   class="form-control"
-                   type="text"
-                   formControlName="recCook">
-            <span class="input-group-addon">minutes</span>
-          </div>
-        </div>
-
-      </div>
-
-      <hr>
-
-      <div class="row">
-        <label class="control-label" for="ingredientList">Ingredient List</label>
-        <div class="col-xs-12" formArrayName="recIng">
-          <ul class="list-group" id="ingredientList">
-            <li class="list-group-item"
-                *ngFor="let ingCtrl of recipeForm.get('recIng').controls; let i=index"
-                [formGroupName]="i"
-                [ngClass]="{last: isLastElement(i, 'recIng')}">
-              <div class="input-group">
-                  <span class="input-group-addon" *ngIf="!isLastElement(i, 'recIng')">
-                    <input type="checkbox">
-                  </span>
-                <span class="input-group-addon" *ngIf="isLastElement(i, 'recIng')">
-                    <span class="glyphicon glyphicon-plus pull-left"
-                          aria-hidden="true"
-                          (click)="addItemFuncFactory('recIng')()">
-                    </span>
-                  </span>
-                <input type="text"
-                       class="form-control"
-                       formControlName="text" (keyup)="autoAddNewItem(i, 'recIng')">
-                <span class="input-group-addon" *ngIf="!isLastElement(i, 'recIng')">
-                    <span class="glyphicon glyphicon-remove"
-                          aria-hidden="true"
-                          (click)="onDeleteClicked(i, 'recIng')">
-                    </span>
-                  </span>
-              </div>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="row">
-        <label class="control-label" for="stepList">Recipe Instructions</label>
-        <div class="col-xs-12" formArrayName="recStep">
-          <ul class="list-group" id="stepList">
-            <li class="list-group-item"
-                *ngFor="let stepCtrl of recipeForm.get('recStep').controls; let i=index"
-                [formGroupName]="i"
-                [ngClass]="{last: isLastElement(i, 'recStep')}">
-              <div class="input-group">
-                  <span class="input-group-addon" *ngIf="!isLastElement(i, 'recStep')">
-                    <input type="checkbox">
-                  </span>
-                <span class="input-group-addon" *ngIf="isLastElement(i, 'recStep')">
-                    <span class="glyphicon glyphicon-plus pull-left"
-                          aria-hidden="true"
-                          (click)="addItemFuncFactory('recStep')()">
-                    </span>
-                  </span>
-                <input type="text"
-                       class="form-control"
-                       formControlName="text" (keyup)="autoAddNewItem(i, 'recStep')">
-                <span class="input-group-addon" *ngIf="!isLastElement(i, 'recStep')">
-                    <span class="glyphicon glyphicon-remove"
-                          aria-hidden="true"
-                          (click)="onDeleteClicked(i, 'recStep')">
-                    </span>
-                  </span>
-              </div>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-
-      <button class="btn btn-success">
-        Submit
-      </button>
-    </form>
   </div>
-</div>
+
+  <hr>
+
+  <div formArrayName="recStep" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+
+    <md-card *ngFor="let stepCtrl of recipeForm.get('recStep').controls; let i=index"
+             [formGroupName]="i"
+             [ngClass]="{last: isLastElement(i, 'recStep')}"
+             fxFlex="100"
+             class="shopping-card"
+             fxLayoutAlign="center center">
+
+      <a (click)="addItemFuncFactory('recStep')()"
+         *ngIf="isLastElement(i, 'recStep')">
+        <md-icon >
+          add
+        </md-icon>
+      </a>
+
+      <md-input-container fxFlex>
+        <textarea type="text"
+                  rows="1"
+                  mdTextareaAutosize
+                  mdAutosizeMinRows="1"
+                  mdInput
+                  formControlName="text"
+                  (keyup)="autoAddNewItem(i, 'recStep')">
+        </textarea>
+      </md-input-container>
+
+      <a class="list-button">
+        <div class="icon-placeholder"
+             *ngIf="isLastElement(i, 'recStep')">
+        </div>
+        <md-icon (click)="onDeleteClicked(i, 'recStep')"
+                 *ngIf="!isLastElement(i, 'recStep')">
+          delete
+        </md-icon>
+      </a>
+
+    </md-card>
+
+  </div>
+
+  <button md-raised-button color="primary" fxFlex.lt-md="50">
+    Save Recipe
+  </button>
+  <button type="button"
+          md-raised-button
+          color="accent"
+          fxFlex.lt-md="50" [routerLink]="['/recipes']">
+    Cancel Edit
+  </button>
+</form>
