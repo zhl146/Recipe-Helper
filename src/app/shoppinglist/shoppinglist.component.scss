@@ -10,20 +10,18 @@
   margin-bottom: 10px;
 }
 
-
+.shopping-info {
+  padding: 10px;
+}
 
 .icon-placeholder {
   width: 24px;
   height: 24px;
 }
-//
-//mat-input-subscript-wrapper {
-//  margin: 0;
-//}
-//
-//mat-input-wrapper {
-//  margin: 0;
-//}
+
+.shopping-container {
+  margin-top: 10px;
+}
 
 textarea {
   font-size: 14px;
@@ -32,4 +30,8 @@ textarea {
 
 .list-button {
   margin: 20px;
+}
+
+md-card {
+  overflow: hidden;
 }

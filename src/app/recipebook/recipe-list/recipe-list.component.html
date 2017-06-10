@@ -1,4 +1,5 @@
-<div fxLayoutAlign="center" fxLayout="row" fxLayoutWrap>
+<div class="recipe-list"
+       fxLayoutAlign="center" fxLayout="row" fxLayoutWrap>
 
   <button md-raised-button
           class="new-recipe-btn"
@@ -19,8 +20,6 @@
     </md-input-container>
   </form>
 
-
-  <div class="vertical-spacer"></div>
 
   <app-recipe-item *ngFor="let recipe of recipes | async | recipeFilter: filterString; let i = index"
                    (click)="onSelected(i)"

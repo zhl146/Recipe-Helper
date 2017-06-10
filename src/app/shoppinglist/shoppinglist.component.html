@@ -1,13 +1,17 @@
-<div fxLayoutAlign="center">
+<div class="shopping-container"
+     fxFlex="100"
+     fxLayoutAlign="space-around"
+     fxLayoutWrap="100">
   <form [formGroup]="ingForm"
         fxFlex.lt-md="100"
-        fxFlex.gt-sm="70"
+        fxFlex.gt-sm="60"
         novalidate
         (ngSubmit)="updateIngredients()">
 
     <div formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
 
       <md-card *ngFor="let ingredientCtrl of ingForm.get('ingredients').controls; let i = index"
+               [@itemAnimationTrigger]
                fxFlex="100"
                class="shopping-card"
                fxLayoutAlign="center"
@@ -51,5 +55,24 @@
 
     </div>
   </form>
+
+
+  <div fxFlex.lt-md="100"
+       fxFlex.gt-sm="30"
+       class="shopping-info">
+    <h2>Welcome to your shopping list!</h2>
+    <p>
+      Ingredients can be send here from your recipe book or you can add your own items.
+      To add an item, click on the plus sign or
+      just start typing.
+      You can check them off as you acquire your items or you can get rid of them
+      forever by clicking on the trash can item.
+    </p>
+    <p>
+      Don't worry about losing your data - it is saved automatically on
+      a remote server as soon as you navigate away.
+    </p>
+
+  </div>
 
 </div>

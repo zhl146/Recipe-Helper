@@ -1,10 +1,27 @@
-md-card {
-  margin: 15px;
+.auth-login {
+  min-width: 250px;
+  max-width: 350px;
+  margin-top: 10px;
+  overflow: hidden;
 }
 
-.auth-login {
-  min-width: 300px;
-  max-width: 350px;
+.splash-card {
+  background:
+    linear-gradient(
+        rgba(19, 27, 35, 0.55),
+        rgba(19, 27, 35, 0.55)
+    ),
+    url(../../assets/Img/splash/splash-image_x51j2g_c_scale,w_1600.jpg);
+  background-size: cover;
+  width: 100%;
+  min-height: 1080px;
+  height: 100%;
+  color: white;
+  text-align: center;
+}
+
+.splash-card p {
+  font-size: 16px;
 }
 
 md-input-container {

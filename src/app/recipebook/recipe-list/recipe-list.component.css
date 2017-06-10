@@ -1,8 +1,7 @@
-.vertical-spacer {
-  height: 0.5em;
+.new-recipe-btn {
+  margin-bottom: 7px;
 }
 
-.new-recipe-btn {
-  margin-top: 7px;
-  margin-bottom: 7px;
+.recipe-list {
+  margin: 10px 5px 10px 5px;
 }

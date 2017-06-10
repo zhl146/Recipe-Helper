@@ -1,0 +1,54 @@
+<md-toolbar color="primary"
+            class="toolbar mat-toolbar">
+
+        <span>
+          <md-icon md-list-icon>book</md-icon>
+          Recipe Helper
+        </span>
+
+  <span class="toolbar-spacer"></span>
+
+  <span fxShow.gt-sm
+        fxHide.lt-md>
+
+          <button md-button
+                  class="nav-link"
+                  *ngFor="let nav of navigation"
+                  [routerLink]="nav.route"
+                  routerLinkActive="active">
+            {{nav.displayText}}
+          </button>
+
+          <button md-button
+                  class="nav-link"
+                  *ngIf="signedIn"
+                  (click)="onLogOut()">
+            Sign out
+          </button>
+        </span>
+
+  <span fxHide.gt-sm
+        fxShow.lt-md>
+          <md-icon md-list-icon
+                   class="nav-link"
+                   *ngIf="signedIn"
+                   (click)="onLogOut()">
+            power_settings_new
+          </md-icon>
+        </span>
+
+</md-toolbar>
+
+<nav md-tab-nav-bar
+     fxHide.gt-sm
+     fxShow.lt-md
+     fxLayout.lt-md="row"
+     fxLayoutAlign.lt-md="center">
+  <a md-tab-link
+     *ngFor="let nav of navigation"
+     [routerLink]="nav.route"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">
+    {{nav.displayText}}
+  </a>
+</nav>

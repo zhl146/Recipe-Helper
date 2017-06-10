@@ -3,6 +3,13 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+/* some colors */
+$color1: rgba(11, 57, 84, 1);
+$color2: rgba(204, 41, 54, 1);
+$color3: rgba(237, 174, 73, 1);
+$color4: rgba(56, 134, 151, 1);
+$color5: rgba(84, 94, 117, 1);
+
 html, body {
   height: 100%;
   margin: 0;

@@ -1,18 +1,23 @@
-<div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+<div fxLayout="row"
+     fxLayoutAlign="center"
+     fxLayoutWrap>
 
-  <div class="auth-spacer" fxFlex="100"></div>
+  <md-card fxFlex="100"
+           fxFlexAlign="center"
+           class="splash-card"
+           fxLayoutWrap
+           fxLayout="column"
+           fxLayoutAlign.lt-md="start center"
+           fxLayoutAlign.gt-sm="center center">
 
-  <md-card fxFlex.sm="100"
-           class="auth-card">
-    <md-card-header>
-      <h2>Nibh praesent tristique magna sit amet</h2>
-    </md-card-header>
-    <md-card-content>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </md-card-content>
+    <h1>Welcome to Recipe Helper, my first project</h1>
+    <p fxHide.xs="true">
+      To get access to your personal recipes and shopping list, please sign in.
+      <br>
+      If you'd just like to take a look around, feel free to sign in as a guest.
+    </p>
+
+    <router-outlet></router-outlet>
   </md-card>
-
-  <router-outlet></router-outlet>
-
 </div>
 

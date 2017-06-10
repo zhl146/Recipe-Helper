@@ -4,11 +4,32 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ShoppinglistService } from './shoppinglist.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../auth/auth.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-shoppinglist',
   templateUrl: './shoppinglist.component.html',
-  styleUrls: ['./shoppinglist.component.scss']
+  styleUrls: ['./shoppinglist.component.scss'],
+  animations: [
+    trigger('itemAnimationTrigger', [
+      state('in', style({
+          opacity: 1
+        }
+      )),
+      transition('void => *', [
+        style({
+          height: 0
+        }), animate(300)
+      ]),
+      transition('* => void', [
+        animate(300,
+          style({
+            height: 0
+          })
+        )
+      ])
+    ])
+  ]
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
 

@@ -5,6 +5,7 @@ img {
 
 .card {
   margin-bottom: 7px;
+  cursor: pointer;
 }
 
 h4, p {

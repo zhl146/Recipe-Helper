@@ -12,8 +12,7 @@ const authRoutes: Routes = [
       { path: 'reset', component: PasswordResetComponent },
       { path: 'request', component: RequestPasswordComponent },
       { path: 'signin', component: SignInComponent},
-      { path: 'signup', component: SignUpComponent},
-      { path: '', component: SignUpComponent, pathMatch: 'full'}
+      { path: 'signup', component: SignUpComponent}
     ]
   }
 ];

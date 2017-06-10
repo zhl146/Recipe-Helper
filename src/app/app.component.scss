@@ -1,9 +1,5 @@
-.wrapper {
-  z-index: -2;
+.app-wrapper {
   min-height: 100%;
-}
-
-.sidenav-container {
-  min-height: 100%;
-  max-width: 1600px;
+  min-width: 100%;
+  clear: both;
 }

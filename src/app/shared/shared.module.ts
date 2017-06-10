@@ -14,6 +14,7 @@ import {
   MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CollapseAnimationDirective } from './collapse-animation.directive';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MdCheckboxModule,
     MdTabsModule,
     MdSnackBarModule
-  ]
+  ],
+  declarations: [CollapseAnimationDirective]
 })
 export class SharedModule {}
