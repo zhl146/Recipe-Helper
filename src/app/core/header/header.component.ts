@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { MdDialog } from '@angular/material';
 
 import { AppNav } from '../../navigation.model';
 
 import { AuthService } from '../../auth/auth.service';
 import { ShoppinglistService } from '../../shoppinglist/shoppinglist.service';
+
+import { SignoutDialogComponent } from '../signout-dialog/signout-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigation: AppNav[];
 
   constructor( private auth: AuthService,
-               private shoppingService: ShoppinglistService) {}
+               private shoppingService: ShoppinglistService,
+               private dialog: MdDialog ) {}
 
   // get the status of sign in so the correct links can be displayed
   ngOnInit() {
@@ -50,7 +54,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // the opportunity to save itself to the server
   onLogOut() {
     this.shoppingService.updateDatabase();
-    this.auth.signOutUser();
+    const deleteDialog = this.dialog.open(SignoutDialogComponent);
+    deleteDialog.afterClosed()
+      .subscribe(
+        (result) => {
+          console.log(result);
+          if (result === 'yes') {
+            console.log('derp')
+            this.auth.signOutUser();
+          }
+        }
+      );
   }
 
   // prevent memory leak

@@ -28,10 +28,6 @@ export class AuthService {
     return this.signedIn.getValue();
   }
 
-  getUserEmail() {
-    return firebase.auth().currentUser.email;
-  }
-
   // --------------------------------------------------------------------------
   // SIGN IN AND OUT
   // --------------------------------------------------------------------------

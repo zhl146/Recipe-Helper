@@ -18,10 +18,8 @@ export class ShoppinglistService {
       .subscribe(
         (data) => {
           if (data) {
-            console.log('got data from server: ' + data);
             this.shoppingList.next(data);
           } else {
-            console.log('no data exists on server');
             this.shoppingList.next([]);
           }
         }
@@ -79,14 +77,12 @@ export class ShoppinglistService {
   // throws data to backend through http call
   updateDatabase() {
     let currentList = this.shoppingList.getValue();
-    console.log(currentList);
     if (!currentList) {
       currentList = [];
     }
     this.http.saveList(currentList)
       .subscribe(
         (data) => {
-          console.log(data);
         }
       );
   }

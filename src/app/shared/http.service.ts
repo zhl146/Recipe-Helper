@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
+import * as firebase from 'firebase';
+
 import { AuthService } from '../auth/auth.service';
+
 import { Recipe } from '../recipebook/recipe.model';
 
 @Injectable()
@@ -16,7 +19,7 @@ export class AppHttpService {
   // not the most secure way to do it, but this allows each user to have their own
   // database files
   getUrl(route): string {
-    const userEmail = this.auth.getUserEmail().replace(/[^a-zA-Z0-9]/g, '_');
+    const userEmail = firebase.auth().currentUser.email.replace(/[^a-zA-Z0-9]/g, '_');
     return this.databaseUrl + userEmail + route + '.json?auth=' + this.token;
   }
 

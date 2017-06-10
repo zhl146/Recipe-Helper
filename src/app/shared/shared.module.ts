@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import {
   MdButtonModule,
   MdCardModule,
-  MdCheckboxModule,
+  MdCheckboxModule, MdDialogModule,
   MdIconModule,
   MdInputModule,
   MdListModule,
@@ -14,7 +14,6 @@ import {
   MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CollapseAnimationDirective } from './collapse-animation.directive';
 
 @NgModule({
   imports: [
@@ -31,7 +30,8 @@ import { CollapseAnimationDirective } from './collapse-animation.directive';
     MdIconModule,
     MdCheckboxModule,
     MdTabsModule,
-    MdSnackBarModule
+    MdSnackBarModule,
+    MdDialogModule
   ],
   exports: [
     // required
@@ -50,8 +50,8 @@ import { CollapseAnimationDirective } from './collapse-animation.directive';
     MdIconModule,
     MdCheckboxModule,
     MdTabsModule,
-    MdSnackBarModule
-  ],
-  declarations: [CollapseAnimationDirective]
+    MdSnackBarModule,
+    MdDialogModule
+  ]
 })
 export class SharedModule {}

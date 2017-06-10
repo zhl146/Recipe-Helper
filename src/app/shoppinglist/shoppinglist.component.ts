@@ -83,7 +83,6 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   // clean up to prevent memory leak
   ngOnDestroy() {
     if ( this.auth.getToken() ) {
-      console.log(this.auth.getToken());
       this.shoppingService.updateDatabase();
     }
     this.ingredientSubscription.unsubscribe();

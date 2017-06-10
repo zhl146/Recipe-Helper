@@ -11,11 +11,10 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe-item/recipe-item.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
 
 import { TimePipe } from './time.pipe';
 import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
-import { MdDialogModule } from '@angular/material';
-import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +35,7 @@ import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
     CommonModule,
     ReactiveFormsModule,
     RecipeBookRoutingModule,
-    MdDialogModule,
     SharedModule
   ]
-  })
+})
 export class RecipeBookModule {}

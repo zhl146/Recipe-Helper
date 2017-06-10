@@ -17,8 +17,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     AuthComponent,
     PasswordResetComponent,
     SignInComponent,
-    RequestPasswordComponent,
-    SignUpComponent
+    SignUpComponent,
+    RequestPasswordComponent
   ],
   imports: [
     CommonModule,
