@@ -97,17 +97,6 @@ export class AuthService {
         }
       );
   }
-  createNewPassword(code: string, newPassword: string) {
-    firebase.auth().confirmPasswordReset(code, newPassword)
-      .then(
-        () => {
-          this.router.navigate(['/auth', 'signin']);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }
 
   // --------------------------------------------------------------------------
   // GUEST LOGIN

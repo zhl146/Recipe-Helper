@@ -60,7 +60,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         (result) => {
           console.log(result);
           if (result === 'yes') {
-            console.log('derp')
             this.auth.signOutUser();
           }
         }

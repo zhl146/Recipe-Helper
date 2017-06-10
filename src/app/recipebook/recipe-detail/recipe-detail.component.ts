@@ -51,10 +51,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   // take care of memory leak
-  // update the server so when the user goes to shopping component, it can be updated from server
   ngOnDestroy() {
     this.recipeSubscription.unsubscribe();
-    this.shoppingService.updateDatabase();
   }
 
   // adds all ingredients from the recipe to the list
