@@ -14,7 +14,6 @@ export class ShoppinglistService {
       .subscribe(
         (data) => {
           if (data) {
-            console.log('got data from server using getServerList function');
             this.shoppingList.next(data);
           } else {
             this.shoppingList.next([]);
@@ -34,7 +33,6 @@ export class ShoppinglistService {
   addIngredient(newIngredient: string) {
     const updatedList = this.shoppingList.getValue();
     updatedList.push(newIngredient);
-    console.log('called add ingredient');
     this.shoppingList.next(updatedList);
   }
 
@@ -44,7 +42,6 @@ export class ShoppinglistService {
   deleteIngredient(index: number) {
     const updatedList = this.shoppingList.getValue();
     updatedList.splice(index, 1);
-    console.log('called delete ingredient');
     this.shoppingList.next(updatedList);
     this.updateDatabase();
   }
@@ -54,7 +51,6 @@ export class ShoppinglistService {
   addIngredientsFromRecipe(recipe: Recipe) {
     const updatedList = this.shoppingList.getValue();
     updatedList.push(...recipe.ingredients);
-    console.log('called add ingredients from recipe function');
     this.shoppingList.next(updatedList);
   }
 
@@ -70,13 +66,11 @@ export class ShoppinglistService {
   updateIngredient(ingredient: string, index: number) {
     const updatedList = this.shoppingList.getValue();
     updatedList[index] = ingredient;
-    console.log('called update ingredient function');
     this.shoppingList.next(updatedList);
   }
 
   // updates the entire ingredients array
   updateIngredients(ingredients: string[]) {
-    console.log('called update ingredient function')
     this.shoppingList.next(ingredients);
   }
 
@@ -86,8 +80,6 @@ export class ShoppinglistService {
     if (!currentList) {
       currentList = [];
     }
-    console.log('we are sending this to the server:');
-    console.log(currentList);
     this.http.saveList(currentList)
       .subscribe(
         (data) => {

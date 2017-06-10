@@ -51,16 +51,13 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     this.ingredientSubscription = this.shoppingService.getShoppingSubject()
       .subscribe(
         (ingredients: string[] | null) => {
-          console.log('ingredients that were passed to us:');
-          console.log(ingredients);
           // by default, we don't update the form
           let init = false;
 
           // we check if there are ingredients already registered
           // and that there are actual ingredients being passed to us
-          if (!this.ingredients && ingredients) {
+          if (!this.ingredients) {
             init = true;
-            console.log('shopping data is being initialized');
           }
 
           // now update the local array
@@ -88,7 +85,6 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   // clean up to prevent memory leak
   ngOnDestroy() {
-    console.log('shopping component destroyed');
     if ( this.auth.getToken() ) {
       this.shoppingService.updateDatabase();
     }
@@ -148,7 +144,6 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   updateIngredient(index: number) {
     // pretty convoluted to get the value on the text in input array
-    console.log('updating ingredient with index ' + index);
     const updatedIngredient: string = (<FormArray>this.ingForm.get('ingredients')).controls[index].get('text').value;
     this.shoppingService.updateIngredient(updatedIngredient, index);
   }
