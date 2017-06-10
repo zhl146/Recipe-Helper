@@ -12,7 +12,6 @@
         fxHide.lt-md>
 
           <button md-button
-                  class="nav-link"
                   *ngFor="let nav of navigation"
                   [routerLink]="nav.route"
                   routerLinkActive="active">
@@ -20,7 +19,6 @@
           </button>
 
           <button md-button
-                  class="nav-link"
                   *ngIf="signedIn"
                   (click)="onLogOut()">
             Sign out
