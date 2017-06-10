@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-password',
@@ -12,8 +11,7 @@ export class RequestPasswordComponent implements OnInit {
 
   requestForm: FormGroup;
 
-  constructor( private auth: AuthService,
-               private router: Router ) { }
+  constructor( public auth: AuthService ) { }
 
   // initialize the form
   // both controls are required

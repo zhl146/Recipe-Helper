@@ -10,7 +10,7 @@
 
     <div formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
 
-      <md-card *ngFor="let ingredientCtrl of ingForm.get('ingredients').controls; let i = index"
+      <md-card *ngFor="let ingredientCtrl of getIngredientControls(); let i = index"
                [@itemAnimationTrigger]
                fxFlex="100"
                class="shopping-card"

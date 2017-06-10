@@ -12,7 +12,7 @@ export class SignUpComponent implements OnInit {
 
   signupForm: FormGroup;
 
-  constructor( private auth: AuthService,
+  constructor( public auth: AuthService,
                private router: Router ) { }
 
   // initialize the form

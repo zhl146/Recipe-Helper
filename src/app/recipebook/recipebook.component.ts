@@ -17,6 +17,9 @@ export class RecipeBookComponent implements OnInit {
     // from this feature module
     // we want our local data to be up to date so we do not overwrite server data
     // that we are not aware of
-    this.shoppingService.getServerList();
+    // the if statement is there to avoid component data collisions
+    if ( !this.shoppingService.getCurrentList() ) {
+      this.shoppingService.getServerList();
+    }
   }
 }

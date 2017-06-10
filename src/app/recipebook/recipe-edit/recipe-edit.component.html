@@ -74,7 +74,7 @@
         <h2>Ingredients</h2>
       </md-card-title>
     </md-card-header>
-    <md-card *ngFor="let ingCtrl of recipeForm.get('recIng').controls; let i=index"
+    <md-card *ngFor="let ingCtrl of getFormArrayControls('recIng'); let i=index"
              [formGroupName]="i"
              [ngClass]="{last: isLastElement(i, 'recIng')}"
              fxFlex="100"
@@ -122,7 +122,7 @@
       </md-card-title>
     </md-card-header>
 
-    <md-card *ngFor="let stepCtrl of recipeForm.get('recStep').controls; let i=index"
+    <md-card *ngFor="let stepCtrl of getFormArrayControls('recStep'); let i=index"
              [formGroupName]="i"
              [ngClass]="{last: isLastElement(i, 'recStep')}"
              fxFlex="100"

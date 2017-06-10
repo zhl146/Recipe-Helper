@@ -95,6 +95,10 @@ export class RecipeEditComponent implements OnInit {
     };
   }
 
+  getFormArrayControls(formArrayName: string) {
+    return (<FormArray>this.recipeForm.get(formArrayName)).controls;
+  }
+
   // returns true if the given index is the last index in the given form array
   isLastElement(index: number, arrayName: string) {
     return (index + 1) === (<FormArray>this.recipeForm.get(arrayName)).length;

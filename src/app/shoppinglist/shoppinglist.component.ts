@@ -19,10 +19,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
       transition('void => *', [
         style({
           height: 0
-        }), animate(300)
+        }), animate(200)
       ]),
       transition('* => void', [
-        animate(300,
+        animate(200,
           style({
             height: 0
           })
@@ -51,17 +51,23 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     this.ingredientSubscription = this.shoppingService.getShoppingSubject()
       .subscribe(
         (ingredients: string[] | null) => {
+          console.log('ingredients that were passed to us:');
+          console.log(ingredients);
+          // by default, we don't update the form
           let init = false;
 
+          // we check if there are ingredients already registered
+          // and that there are actual ingredients being passed to us
           if (!this.ingredients && ingredients) {
             init = true;
+            console.log('shopping data is being initialized');
           }
+
           // now update the local array
           this.ingredients = ingredients;
 
           // we only initialize the forms the first time the component is created
           // otherwise, we will have to blow up the entire form every time the data changes
-          // this.ingredientArray.removeAt(0);
           // populate input fields with existing ingredients
           if (init) {
             for (const ingredient of this.ingredients) {
@@ -77,11 +83,12 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
         }
       );
 
-    this.shoppingService.getServerList();
+    // this.shoppingService.getServerList();
   }
 
   // clean up to prevent memory leak
   ngOnDestroy() {
+    console.log('shopping component destroyed');
     if ( this.auth.getToken() ) {
       this.shoppingService.updateDatabase();
     }
@@ -98,6 +105,12 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     this.ingForm = this.fb.group({
       ingredients: this.ingredientArray
     });
+  }
+
+  // in the current version of angular, the get function needs to be wrapped
+  // or it will error when AOT compiled
+  getIngredientControls() {
+    return (<FormArray>this.ingForm.get('ingredients')).controls;
   }
 
   // automatically adds an empty input at the end for user to add new items
@@ -135,6 +148,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   updateIngredient(index: number) {
     // pretty convoluted to get the value on the text in input array
+    console.log('updating ingredient with index ' + index);
     const updatedIngredient: string = (<FormArray>this.ingForm.get('ingredients')).controls[index].get('text').value;
     this.shoppingService.updateIngredient(updatedIngredient, index);
   }

@@ -12,7 +12,7 @@ export class SignInComponent implements OnInit {
 
   signinForm: FormGroup;
 
-  constructor( private auth: AuthService,
+  constructor( public auth: AuthService,
                private router: Router ) { }
 
   // initialize the form
