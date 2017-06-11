@@ -1,6 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Recipe } from '../recipe.model';
 
+// we need this to be impure to avoid strange behavior
+// an alternate approach could be to clear the filter string
+// when users add or delete recipes
 @Pipe({
   name: 'recipeFilter',
   pure: false
