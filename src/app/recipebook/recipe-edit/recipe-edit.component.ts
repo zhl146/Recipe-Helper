@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipebookService } from '../recipebook.service';
 import { Recipe } from '../recipe.model';
+import { validateReasonableTime } from '../recipebook-time-validator';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -72,8 +73,14 @@ export class RecipeEditComponent implements OnInit {
       'recName': new FormControl(this.currentRecipe.name, [Validators.required]),
       'recDescription': new FormControl(this.currentRecipe.description),
       'recImgPath': new FormControl(this.currentRecipe.imagePath),
-      'recPrep': new FormControl(this.currentRecipe.prepTime, Validators.required),
-      'recCook': new FormControl(this.currentRecipe.cookTime, Validators.required),
+      'recPrep': new FormControl(this.currentRecipe.prepTime, [
+        Validators.required,
+        validateReasonableTime
+      ]),
+      'recCook': new FormControl(this.currentRecipe.cookTime, [
+        Validators.required,
+        validateReasonableTime
+      ]),
       'recIng': recIng,
       'recStep': recStep
     });
@@ -143,8 +150,8 @@ export class RecipeEditComponent implements OnInit {
     this.currentRecipe.name = this.recipeForm.get('recName').value;
     this.currentRecipe.description = this.recipeForm.get('recDescription').value;
     this.currentRecipe.imagePath = this.recipeForm.get('recImgPath').value;
-    this.currentRecipe.prepTime = this.recipeForm.get('recPrep').value;
-    this.currentRecipe.cookTime = this.recipeForm.get('recCook').value;
+    this.currentRecipe.prepTime = +this.recipeForm.get('recPrep').value;
+    this.currentRecipe.cookTime = +this.recipeForm.get('recCook').value;
     this.currentRecipe.name = this.recipeForm.get('recName').value;
     this.currentRecipe.ingredients = ingredients;
     this.currentRecipe.steps = steps;
