@@ -56,6 +56,7 @@ export class SignUpComponent implements OnInit {
   }
 
   gotoSignIn() {
+    this.auth.errorMessage = null;
     this.router.navigate(['auth', 'signin']);
   }
 

@@ -56,10 +56,12 @@ export class SignInComponent implements OnInit {
   }
 
   gotoSignUp() {
+    this.auth.errorMessage = null;
     this.router.navigate(['auth', 'signup']);
   }
 
   goToPasswordReset() {
+    this.auth.errorMessage = null;
     this.router.navigate(['auth', 'request']);
   }
 }

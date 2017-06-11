@@ -38,6 +38,7 @@ export class AuthService {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(
         () => {
+          this.errorMessage = null;
           this.isNewUser = true;
           this.signInUser(email, password);
         }
@@ -60,6 +61,7 @@ export class AuthService {
               (token: string) => {
                 this.token = token;
                 if (this.token) {
+                  this.errorMessage = null;
                   this.signedIn.next(true);
                   this.router.navigate(['/recipes']);
                 }
