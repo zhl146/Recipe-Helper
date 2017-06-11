@@ -1,4 +1,4 @@
-<md-card fxFlex
+<md-card fxFlex.xs="100"
          class="auth-card auth-login">
 
     <form [formGroup]="signinForm"
@@ -11,8 +11,7 @@
       </div>
 
       <md-input-container fxFlex="100">
-        <input id="signupemail"
-               mdInput
+        <input mdInput
                type="email"
                formControlName="email"
                placeholder="e-mail">
@@ -24,14 +23,14 @@
       </md-input-container>
 
       <md-input-container fxFlex="100">
-        <input id="signuppassword"
-               mdInput
+        <input mdInput
                type="password"
                formControlName="password"
                placeholder="password">
         <md-hint align="end" (click)="goToPasswordReset()"><a>forgot password?</a></md-hint>
 
-        <md-error fxFlex="100" *ngIf="!auth.errorMessage && passwordTouched() && !passwordValid()">
+        <md-error
+                  *ngIf="!auth.errorMessage && passwordTouched() && !passwordValid()">
           <p>Your password must be at least 6 characters long</p>
         </md-error>
 
@@ -46,7 +45,6 @@
       <button md-raised-button
               fxFlex="100"
               color="accent"
-              class="btn  col-xs-12"
               type="button"
               (click)="gotoSignUp()">
         Don't have an account?

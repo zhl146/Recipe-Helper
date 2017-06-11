@@ -1,4 +1,4 @@
-<md-card fxFlex.sm="100"
+<md-card fxFlex.xs="100"
          class="auth-card auth-login">
 
     <form [formGroup]="signupForm"
@@ -11,26 +11,26 @@
       </div>
 
       <md-input-container fxFlex="100">
-        <input id="signupemail"
-               mdInput
+        <input mdInput
                type="email"
                formControlName="email"
                placeholder="e-mail">
 
-        <md-error *ngIf="!auth.errorMessage && emailTouched() && !emailValid()">
+        <md-error fxflex="100" *ngIf="!auth.errorMessage && emailTouched() && !emailValid()">
           <p>Please enter a vaid e-mail address</p>
         </md-error>
 
       </md-input-container>
 
       <md-input-container fxFlex="100">
-        <input id="signuppassword"
-               mdInput
+        <input mdInput
                type="password"
                formControlName="password"
                placeholder="password">
-        <!--<md-hint align="end">forgot password?</md-hint>-->
-        <md-error *ngIf="!auth.errorMessage && passwordTouched() && !passwordValid()">
+
+
+        <md-error
+                  *ngIf="!auth.errorMessage && passwordTouched() && !passwordValid()">
           <p>Your password must be at least 6 characters long</p>
         </md-error>
 
@@ -45,7 +45,6 @@
       <button fxFlex="100"
               md-raised-button
               color="accent"
-              class="btn  col-xs-12"
               type="button"
               (click)="gotoSignIn()">
         Have an account?

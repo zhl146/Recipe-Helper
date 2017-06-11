@@ -24,7 +24,8 @@
   <app-recipe-item *ngFor="let recipe of recipes | async | recipeFilter: filterString; let i = index"
                    (click)="onSelected(i)"
                    [index]="i"
-                   [recipeItem]="recipe">
+                   [recipeItem]="recipe"
+                   fxFlex="100">
   </app-recipe-item>
 
 </div>

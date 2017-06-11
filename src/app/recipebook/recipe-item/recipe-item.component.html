@@ -3,14 +3,14 @@
   (click)="onRecipeSelect()"
   routerLinkActive="active"
   fxLayout="row">
-  <md-card-content>
+  <md-card-content fxFlex="100">
     <div fxFlex="20">
       <img appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/recipe-img-placeholder_zpszqsgfdv5.png"
            src="{{recipeItem.imagePath}}"
            alt="">
     </div>
 
-    <div fxFlex="80" fxLayoutAlign="center center" fxLayout="column">
+    <div fxFlex fxLayoutAlign="center center" fxLayout="column">
       <h4>{{recipeItem.name}}</h4>
       <p>Ready in: {{getReadyTime() | timePipe}}</p>
     </div>
