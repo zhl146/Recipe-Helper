@@ -32,10 +32,6 @@
     <img md-card-image
          [src]="imgPath.value">
 
-  </md-card>
-
-  <md-card fxFlex="100" fxLayout="row" fxLayoutWrap>
-
     <md-input-container fxFlex="100">
     <textarea rows="1"
               fxFlex="100"
@@ -49,8 +45,14 @@
       </textarea>
     </md-input-container>
 
+  </md-card>
+
+  <md-card fxFlex="100" fxLayout="row" fxLayoutWrap>
+
+    <div fxFlex="100">
+      Preparation time
+    </div>
     <md-input-container fxFlex="50">
-      <label>Prep Time</label>
       <input fxFlex="100"
              mdInput
              placeholder="Hours"
@@ -66,8 +68,10 @@
              type="text"
              formControlName="recPrepMinutes">
     </md-input-container>
+    <div fxFlex="100">
+      Cook time
+    </div>
     <md-input-container fxFlex="50">
-      <label>Cook Time</label>
       <input fxFlex="100"
              mdInput
              placeholder="Hours"
@@ -86,28 +90,28 @@
   </md-card>
 
 
-  <md-card formArrayName="recIng" fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
-    <md-card-header>
-      <md-card-title>
-        <h2>Ingredients</h2>
-      </md-card-title>
+  <md-card formArrayName="recIng"
+           fxFlex="100"
+           fxLayout="row"
+           fxLayoutAlign="center"
+           fxLayoutWrap>
+    <md-card-header fxFlex="100">
+      Ingredients
     </md-card-header>
-    <md-card *ngFor="let ingCtrl of getFormArrayControls('recIng'); let i=index"
-             [formGroupName]="i"
-             [ngClass]="{last: isLastElement(i, 'recIng')}"
-             fxFlex="100"
-             class="shopping-card"
-             fxLayoutAlign="center center">
 
-      <a (click)="addItemFuncFactory('recIng')()"
-         class="list-button"
-         *ngIf="isLastElement(i, 'recIng')">
-        <md-icon >
+    <div fxFlex="100"
+         *ngFor="let ingCtrl of getFormArrayControls('recIng'); let i=index"
+         [formGroupName]="i"
+         [ngClass]="{last: isLastElement(i, 'recIng')}"
+         fxLayoutAlign="center center">
+
+      <md-icon (click)="addItemFuncFactory('recIng')()"
+               *ngIf="isLastElement(i, 'recIng')"
+               md-list-icon>
           add
         </md-icon>
-      </a>
 
-      <md-input-container fxFlex>
+        <md-input-container fxFlex="100">
         <textarea type="text"
                   rows="1"
                   mdTextareaAutosize
@@ -116,45 +120,38 @@
                   formControlName="text"
                   (keyup)="autoAddNewItem(i, 'recIng')">
         </textarea>
-      </md-input-container>
+        </md-input-container>
 
-      <a class="list-button">
-        <div class="icon-placeholder"
-             *ngIf="isLastElement(i, 'recIng')">
-        </div>
-        <md-icon (click)="onDeleteClicked(i, 'recIng')"
-                 *ngIf="!isLastElement(i, 'recIng')">
-          delete
-        </md-icon>
-      </a>
+          <md-icon (click)="onDeleteClicked(i, 'recIng')"
+                   *ngIf="!isLastElement(i, 'recIng')"
+                   md-list-icon>
+            delete
+          </md-icon>
 
-    </md-card>
+      </div>
+
 
   </md-card>
 
   <md-card formArrayName="recStep" fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
 
-    <md-card-header>
-      <md-card-title>
-        <h2>Directions</h2>
-      </md-card-title>
+    <md-card-header fxFlex="100">
+      Directions
     </md-card-header>
 
-    <md-card *ngFor="let stepCtrl of getFormArrayControls('recStep'); let i=index"
-             [formGroupName]="i"
-             [ngClass]="{last: isLastElement(i, 'recStep')}"
-             fxFlex="100"
-             class="shopping-card"
-             fxLayoutAlign="center center">
+    <div fxFlex="100"
+         *ngFor="let stepCtrl of getFormArrayControls('recStep'); let i=index"
+         [formGroupName]="i"
+         [ngClass]="{last: isLastElement(i, 'recStep')}"
+         fxLayoutAlign="center center">
 
-      <a (click)="addItemFuncFactory('recStep')()"
-         *ngIf="isLastElement(i, 'recStep')">
-        <md-icon >
-          add
-        </md-icon>
-      </a>
+      <md-icon (click)="addItemFuncFactory('recStep')()"
+               *ngIf="isLastElement(i, 'recStep')"
+               md-list-icon>
+        add
+      </md-icon>
 
-      <md-input-container fxFlex>
+      <md-input-container fxFlex="100">
         <textarea type="text"
                   rows="1"
                   mdTextareaAutosize
@@ -165,17 +162,13 @@
         </textarea>
       </md-input-container>
 
-      <a class="list-button">
-        <div class="icon-placeholder"
-             *ngIf="isLastElement(i, 'recStep')">
-        </div>
         <md-icon (click)="onDeleteClicked(i, 'recStep')"
-                 *ngIf="!isLastElement(i, 'recStep')">
+                 *ngIf="!isLastElement(i, 'recStep')"
+                 md-list-icon>
           delete
         </md-icon>
-      </a>
 
-    </md-card>
+    </div>
 
   </md-card>
 
@@ -186,6 +179,6 @@
           md-raised-button
           color="accent"
           fxFlex="50" [routerLink]="['/recipes']">
-    Cancel Edit
+    Cancel
   </button>
 </form>
