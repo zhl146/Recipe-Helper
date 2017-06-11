@@ -7,7 +7,10 @@
       </md-card-title>
     </md-card-header>
 
-    <img md-card-image src="{{currentRecipe.imagePath}}">
+    <img md-card-image
+         appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"
+         src="{{currentRecipe.imagePath}}"
+         alt="">
 
     <md-card-content>
       <p>{{currentRecipe.description}}</p>

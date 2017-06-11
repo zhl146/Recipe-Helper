@@ -49,21 +49,25 @@ export class RecipeEditComponent implements OnInit {
     const recStep = new FormArray([]);
 
     // pre-populates the ingredients and steps if we are editing
+    // makes sure that the recipe has some steps and ingredients before proceeding
     if (this.editMode) {
-      for ( const ing of this.currentRecipe.ingredients) {
-        recIng.push(
-          new FormGroup({
-            text: new FormControl(ing, Validators.required)
-          })
-        );
+      if (this.currentRecipe.ingredients) {
+        for ( const ing of this.currentRecipe.ingredients) {
+          recIng.push(
+            new FormGroup({
+              text: new FormControl(ing, Validators.required)
+            })
+          );
+        }
       }
-
-      for ( const step of this.currentRecipe.steps) {
-        recStep.push(
-          new FormGroup({
-            text: new FormControl(step, Validators.required)
-          })
-        );
+      if (this.currentRecipe.steps) {
+        for ( const step of this.currentRecipe.steps) {
+          recStep.push(
+            new FormGroup({
+              text: new FormControl(step, Validators.required)
+            })
+          );
+        }
       }
     }
 
