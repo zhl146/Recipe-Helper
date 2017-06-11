@@ -5,14 +5,14 @@
   fxLayout="row">
   <md-card-content>
     <div fxFlex="20">
-      <img
-        src="{{recipeItem.imagePath}}"
-        alt="{{recipeItem.name}}">
+      <img appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/recipe-img-placeholder_zpszqsgfdv5.png"
+           src="{{recipeItem.imagePath}}"
+           alt="">
     </div>
 
     <div fxFlex="80" fxLayoutAlign="center center" fxLayout="column">
       <h4>{{recipeItem.name}}</h4>
-      <p>Ready in: {{recipeItem.prepTime + recipeItem.cookTime | timePipe}}</p>
+      <p>Ready in: {{getReadyTime() | timePipe}}</p>
     </div>
   </md-card-content>
 </md-card>

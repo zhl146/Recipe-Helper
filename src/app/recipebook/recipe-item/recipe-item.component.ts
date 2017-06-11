@@ -29,4 +29,9 @@ export class RecipeItemComponent {
         }
         );
   }
+
+  getReadyTime() {
+    return this.recipeItem.prepTime + this.recipeItem.cookTime;
+  }
+
 }

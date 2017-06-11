@@ -14,8 +14,12 @@ import {
   MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ImageFallbackDirective } from './image-fallback.directive';
 
 @NgModule({
+  declarations: [
+    ImageFallbackDirective
+  ],
   imports: [
     // layout grid
     FlexLayoutModule,
@@ -51,7 +55,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MdCheckboxModule,
     MdTabsModule,
     MdSnackBarModule,
-    MdDialogModule
+    MdDialogModule,
+
+    // directives
+    ImageFallbackDirective
   ]
 })
 export class SharedModule {}

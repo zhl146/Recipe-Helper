@@ -73,14 +73,22 @@ export class RecipeEditComponent implements OnInit {
       'recName': new FormControl(this.currentRecipe.name, [Validators.required]),
       'recDescription': new FormControl(this.currentRecipe.description),
       'recImgPath': new FormControl(this.currentRecipe.imagePath),
-      'recPrep': new FormControl(this.currentRecipe.prepTime, [
-        Validators.required,
+      'recPrepHours': new FormControl(
+        this.getHours(this.currentRecipe.prepTime),
         validateReasonableTime
-      ]),
-      'recCook': new FormControl(this.currentRecipe.cookTime, [
-        Validators.required,
+      ),
+      'recPrepMinutes': new FormControl(
+        this.getMinutes(this.currentRecipe.prepTime),
         validateReasonableTime
-      ]),
+      ),
+      'recCookHours': new FormControl(
+        this.getHours(this.currentRecipe.cookTime),
+        validateReasonableTime
+      ),
+      'recCookMinutes': new FormControl(
+        this.getMinutes(this.currentRecipe.cookTime),
+        validateReasonableTime
+      ),
       'recIng': recIng,
       'recStep': recStep
     });
@@ -88,6 +96,18 @@ export class RecipeEditComponent implements OnInit {
     // calling a function that returns a function then executing it
     this.addItemFuncFactory('recStep')();
     this.addItemFuncFactory('recIng')();
+  }
+
+  getHours(time: number) {
+    const result = Math.floor(time / 60);
+    console.log(time + ' minutes translates into ' + result + ' hours');
+    return result;
+  }
+
+  getMinutes(time: number) {
+    const result = time % 60;
+    console.log(time + ' minutes translates into ' + result + ' minutes left over');
+    return time % 60;
   }
 
   // returns a function that pushes a new form group onto a form array
@@ -125,8 +145,7 @@ export class RecipeEditComponent implements OnInit {
     }
   }
 
-  // scrapes the data out of the forms and sends it to update the data service
-  updateDataModel() {
+  updateLocalRecipe() {
     const ingredients: string[] = [];
     const steps: string[] = [];
 
@@ -146,15 +165,24 @@ export class RecipeEditComponent implements OnInit {
     // the last element of the array is always empty, so we chomp it
     steps.pop();
 
-    // update our local recipe before we send it off
     this.currentRecipe.name = this.recipeForm.get('recName').value;
     this.currentRecipe.description = this.recipeForm.get('recDescription').value;
     this.currentRecipe.imagePath = this.recipeForm.get('recImgPath').value;
-    this.currentRecipe.prepTime = +this.recipeForm.get('recPrep').value;
-    this.currentRecipe.cookTime = +this.recipeForm.get('recCook').value;
-    this.currentRecipe.name = this.recipeForm.get('recName').value;
+    // need to cast these to numbers since these two time properties should be numbers
+    // for some reason I was not getting a compiler error here even though
+    // I was storing strings in a property with type number
+    this.currentRecipe.prepTime = +this.recipeForm.get('recPrepHours').value
+      * 60 + +this.recipeForm.get('recPrepMinutes').value;
+    this.currentRecipe.cookTime = +this.recipeForm.get('recCookHours').value
+      * 60 + +this.recipeForm.get('recCookMinutes').value;
+
     this.currentRecipe.ingredients = ingredients;
     this.currentRecipe.steps = steps;
+  }
+
+  // scrapes the data out of the forms and sends it to update the data service
+  updateRecipeServer() {
+    this.updateLocalRecipe();
 
     // determines whether to add a recipe or update an existing one
     console.log(this.currentRecipe);
@@ -168,7 +196,7 @@ export class RecipeEditComponent implements OnInit {
 
   // updates the data model and routes the user on submit
   onSubmit() {
-    this.updateDataModel();
+    this.updateRecipeServer();
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
