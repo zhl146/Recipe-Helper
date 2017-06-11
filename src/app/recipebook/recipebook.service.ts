@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { AppHttpService } from '../shared/http.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Response } from '@angular/http';
 import { stockRecipes } from './stock-recipes.const';
 
 // this is the recipe data service

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Recipe } from '../recipe.model';
 
 @Pipe({
-  name: 'recipeFilter'
+  name: 'recipeFilter',
+  pure: false
 })
 export class RecipeFilterPipe implements PipeTransform {
   transform(recipes: Recipe[], filterString: string) {
