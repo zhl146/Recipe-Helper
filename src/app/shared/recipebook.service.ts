@@ -88,6 +88,6 @@ export class RecipebookService {
             () => resolve()
         );
       }
-    )
+    );
   }
 }

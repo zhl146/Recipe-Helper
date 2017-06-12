@@ -27,9 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   mediaSub: Subscription;
 
   constructor( private auth: AuthService,
-               private shoppingService: ShoppinglistService,
                private dialog: MdDialog,
-               private optionsService: OptionsService,
                private media: ObservableMedia ) {}
 
   // get the status of sign in so the correct links can be displayed
@@ -84,19 +82,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // this caused a app breaking bug since the user is signed out before the shopping component has
   // the opportunity to save itself to the server
   onLogOut() {
-    this.shoppingService.updateDatabase();
     const optionsDialog = this.dialog.open(OptionsDialogComponent);
     optionsDialog.afterClosed()
       .subscribe(
         (result) => {
-          console.log(result);
-          this.optionsService.updateServerOptions().then(
-            () => {
-              if (result === 'yes') {
-                this.auth.signOutUser();
-              }
-            }
-          );
+          if (result === 'yes') {
+            this.auth.signOutUser();
+          }
         }
       );
   }

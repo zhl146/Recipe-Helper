@@ -59,7 +59,7 @@ export class AuthService {
                 if (this.token) {
                   this.errorMessage = null;
                   this.signedIn.next(true);
-                  this.router.navigate(['/recipes']);
+                  this.router.navigate(['/loading']);
                 }
               }
             );
@@ -71,17 +71,19 @@ export class AuthService {
       );
   }
 
-  // signs out of firebase, automatically deletes token in local storage
   // sets signed in state to false
-  // navigates back out to login page
+  // this will tell the loader component what to do when navigating there
   signOutUser() {
-    firebase.auth().signOut()
-      .then(
-        () => {
-          this.signedIn.next(false);
-          this.router.navigate(['/auth', 'signin']);
-        }
-      );
+    console.log('sign out user called')
+    this.signedIn.next(false);
+    console.log('pushing next signin')
+    this.router.navigate(['/loading']);
+    console.log('finished logout')
+  }
+
+  // signs out of firebase, automatically deletes token in local storage
+  firebaseSignOut() {
+    firebase.auth().signOut();
   }
   // --------------------------------------------------------------------------
   // PASSWORD PROBLEMS

@@ -6,13 +6,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  background-color: rgba(0,0,0,0); /* Black background with opacity */
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
   display: flex;
   justify-content: center;
   align-items: center;
 
-  color: white;
+  color: dodgerblue;
   text-transform: uppercase;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 6.5em;
@@ -36,17 +36,17 @@
 }
 
 .d {
-  animation: bars 1s ease-out infinite;
+  animation: bars .5s ease-out infinite;
 }
 .d-2 {
-  animation-delay: .8s;
-}
-.d-3 {
-  animation-delay: .6s;
-}
-.d-4 {
   animation-delay: .4s;
 }
-.d-5 {
+.d-3 {
+  animation-delay: .3s;
+}
+.d-4 {
   animation-delay: .2s;
+}
+.d-5 {
+  animation-delay: .1s;
 }
