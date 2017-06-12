@@ -21,36 +21,50 @@
         color: white;
         text-transform: uppercase;
         font-family: Roboto, "Helvetica Neue", sans-serif;
-        font-size: 2.5em;
+        font-size: 6.5em;
         text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
       }
       body {
-        background: dodgerblue;
+        background: black;
         margin: 0;
         padding: 0;
       }
 
-      @keyframes dots {
+      @keyframes bars {
+        0% {
+          transform: scaleY(1)
+        }
         50% {
-          transform: translateY(-.4rem);
+          transform: scaleY(0.2);
         }
         100% {
-          transform: translateY(0);
+          transform: scaleY(1);
         }
       }
 
       .d {
-        animation: dots 1s ease-out infinite;
+        animation: bars 1s ease-out infinite;
       }
       .d-2 {
-        animation-delay: .33s;
+        animation-delay: .8s;
       }
       .d-3 {
-        animation-delay: .66s;
+        animation-delay: .6s;
       }
+      .d-4 {
+        animation-delay: .4s;
+      }
+      .d-5 {
+        animation-delay: .2s;
+      }
+
     </style>
 
-    Loading<span class="d">.</span><span class="d d-2">.</span><span class="d d-3">.</span>
+    <span class="d">I</span>
+    <span class="d d-2">I</span>
+    <span class="d d-3">I</span>
+    <span class="d d-4">I</span>
+    <span class="d d-5">I</span>
 
   </app-root>
 </body>

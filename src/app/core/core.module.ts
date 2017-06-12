@@ -5,10 +5,10 @@ import { SharedModule } from '../shared/shared.module';
 
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { CoreComponent } from './core.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { OptionsDialogComponent } from './options-dialog/options-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   imports: [
@@ -20,15 +20,16 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    CoreComponent,
-    OptionsDialogComponent
+    OptionsDialogComponent,
+    LoaderComponent
   ],
   entryComponents: [
     OptionsDialogComponent
     ],
   exports: [
     AppRoutingModule,
-    CoreComponent
+    HeaderComponent,
+    LoaderComponent
   ]
 })
 export class CoreModule { }

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { ShoppinglistService } from './shoppinglist.service';
+import { ShoppinglistService } from '../shared/shoppinglist.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../auth/auth.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { OptionsService } from '../shared/options.service';
 
 @Component({
@@ -12,22 +12,20 @@ import { OptionsService } from '../shared/options.service';
   templateUrl: './shoppinglist.component.html',
   styleUrls: ['./shoppinglist.component.scss'],
   animations: [
-    trigger('itemAnimationTrigger', [
-      state('in', style({
-          opacity: 1
-        }
-      )),
-      transition('void => *', [
-        style({
-          height: 0
-        }), animate(200)
-      ]),
-      transition('* => void', [
-        animate(200,
-          style({
-            height: 0
-          })
-        )
+    trigger('listAnimation', [
+      state('void', style({
+        opacity: 0
+      })),
+      state('*', style({
+        opacity: 1
+      })),
+      transition('* => *', [
+        query(':leave', [
+          stagger(200, [ animate(500, style({ transform: 'scaleY(0)' })) ])
+        ], {optional: true}),
+        query(':enter', [
+          stagger(200, [ animate(500, style({ transform: 'scaleY(1)' })) ])
+        ], {optional: true})
       ])
     ])
   ]
@@ -60,7 +58,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
         }
       );
 
-    this.ingredientSubscription = this.shoppingService.getShoppingSubject()
+    this.ingredientSubscription = this.shoppingService.getListSubject()
       .subscribe(
         (ingredients: string[] | null) => {
           // by default, we don't update the form
@@ -152,20 +150,32 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
       newIngredients.push(ingredientGroup.get('text').value);
     }
 
-    this.shoppingService.updateIngredients(newIngredients);
+    this.shoppingService.updateLocalList(newIngredients);
   }
 
   updateIngredient(index: number) {
     // pretty convoluted to get the value on the text in input array
     const updatedIngredient: string = (<FormArray>this.ingForm.get('ingredients')).controls[index].get('text').value;
-    this.shoppingService.updateIngredient(updatedIngredient, index);
+    this.shoppingService.updateListItem(updatedIngredient, index);
   }
 
   // deletes a list item when the x is clicked
   onDeleteClicked(index: number) {
     if (!this.isLastElement(index)) {
       this.ingredientArray.removeAt(index);
-      this.shoppingService.deleteIngredient(index);
+      this.shoppingService.deleteListItem(index);
     }
+  }
+
+  onClear() {
+    const listSize = this.ingredients.length;
+    while (this.ingredientArray.length > 1) {
+      this.ingredientArray.removeAt(this.ingredientArray.length - 1);
+    }
+    this.shoppingService.updateLocalList([]);
+  }
+
+  onGotIt() {
+    this.optionsService.disableShoppingInfo();
   }
 }

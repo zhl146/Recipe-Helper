@@ -12,9 +12,9 @@ import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 
-import { ShoppinglistService } from './shoppinglist/shoppinglist.service';
+import { ShoppinglistService } from './shared/shoppinglist.service';
 import { AppHttpService } from 'app/shared/http.service';
-import { RecipebookService } from 'app/recipebook/recipebook.service';
+import { RecipebookService } from 'app/shared/recipebook.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { OptionsService } from './shared/options.service';

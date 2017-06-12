@@ -2,63 +2,69 @@
      fxFlex="100"
      fxLayoutAlign="space-around"
      fxLayoutWrap="100">
+
+  <button md-raised-button color="accent"
+          (click)="onClear()"
+          fxFlex.lt-md="100"
+          fxFlex.gt-sm="60">
+    Clear all
+  </button>
+
   <form [formGroup]="ingForm"
         fxFlex.lt-md="100"
+        fxFlexOrder.lt-md="2"
         fxFlex.gt-sm="60"
         novalidate
         (ngSubmit)="updateIngredients()">
 
-    <div formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+    <div [@listAnimation]="getIngredientControls()?.length"
+             formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
 
-      <md-card *ngFor="let ingredientCtrl of getIngredientControls(); let i = index"
-               [@itemAnimationTrigger]
-               fxFlex="100"
-               class="shopping-card"
-               fxLayoutAlign="center"
-               [formGroupName]="i"
-               [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
+      <div *ngFor="let ingredientCtrl of getIngredientControls(); let i = index"
+                    fxFlex="100"
+                    class="shopping-list-item"
+                    fxLayoutAlign="center"
+                    [formGroupName]="i"
+                    [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
 
-        <md-checkbox class="shopping-checkbox" *ngIf="!isLastElement(i)"></md-checkbox>
+        <md-checkbox *ngIf="!isLastElement(i)"></md-checkbox>
 
+        <md-icon md-list-icon
+                 (click)="addListItem()"
+                 *ngIf="isLastElement(i)">
+          add
+        </md-icon>
 
-        <a (click)="addListItem()"
-           class="list-button"
-           *ngIf="isLastElement(i)">
-          <md-icon >
-            add
-          </md-icon>
-        </a>
-
-        <md-input-container fxFlex>
+        <md-input-container fxFlex="100">
         <textarea type="text"
+                  fxflex="100"
                   rows="1"
                   mdTextareaAutosize
                   mdAutosizeMinRows="1"
                   mdInput
-                  class="form-control"
-                  formControlName="text" (keyup)="autoAddNewItem(i)"
+                  formControlName="text"
+                  (keyup)="autoAddNewItem(i)"
                   (blur)="updateIngredient(i)">
         </textarea>
         </md-input-container>
 
-        <a class="list-button">
-          <div class="icon-placeholder"
-               *ngIf="isLastElement(i)">
-          </div>
-          <md-icon (click)="onDeleteClicked(i)"
-                   *ngIf="!isLastElement(i)">
-            delete
-          </md-icon>
-        </a>
+        <md-icon (click)="onDeleteClicked(i)"
+                 *ngIf="!isLastElement(i)"
+                 md-list-icon>
+          delete
+        </md-icon>
+        {{i}}
 
-      </md-card>
+      </div>
 
     </div>
   </form>
 
 
+
   <div fxFlex.lt-md="100"
        fxFlex.gt-sm="30"
+       fxFlexOrder.lt-md="1"
        *ngIf="shoppingInfo"
        class="shopping-info">
     <h2>Welcome to your shopping list!</h2>
@@ -73,6 +79,12 @@
       Don't worry about losing your data - it is saved automatically on
       a remote server as soon as you navigate away.
     </p>
+
+    <button md-raised-button
+            (click)="onGotIt()"
+            color="accent">
+      Got it
+    </button>
 
   </div>
 

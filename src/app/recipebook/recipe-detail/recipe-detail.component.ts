@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Recipe} from '../recipe.model';
-import { ShoppinglistService} from '../../shoppinglist/shoppinglist.service';
-import { RecipebookService } from '../recipebook.service';
+import { ShoppinglistService} from '../../shared/shoppinglist.service';
+import { RecipebookService } from '../../shared/recipebook.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { MdDialog, MdSnackBar } from '@angular/material';
@@ -39,10 +39,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
         this.currentRecipeId = +params['id'];
 
         // uses the id to get the currentRecipe from the service
-        this.currentRecipe = this.recipeService.getRecipeByIndex(this.currentRecipeId);
+        this.currentRecipe = this.recipeService.getLocalRecipebyIndex(this.currentRecipeId);
       });
 
-    this.recipeSubscription = this.recipeService.getRecipes()
+    this.recipeSubscription = this.recipeService.getLocalRecipes()
       .subscribe(
         (recipes: Recipe[]) => {
           this.currentRecipe = recipes[this.currentRecipeId];

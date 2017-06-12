@@ -1,3 +1,12 @@
+md-card {
+  overflow: hidden;
+}
+
+textarea {
+  font-size: 14px;
+  resize: none;
+}
+
 .last {
   opacity: 0.35;
 }
@@ -5,7 +14,8 @@
 .shopping-checkbox {
   margin: 20px;
 }
-.shopping-card {
+
+.shopping-list-item {
   padding: 4px;
   margin-bottom: 10px;
 }
@@ -23,15 +33,8 @@
   margin-top: 10px;
 }
 
-textarea {
-  font-size: 14px;
-  resize: none;
-}
-
 .list-button {
   margin: 20px;
 }
 
-md-card {
-  overflow: hidden;
-}
+

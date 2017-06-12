@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
-import {RecipebookService} from '../recipebook.service';
+import {RecipebookService} from '../../shared/recipebook.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -27,7 +27,7 @@ export class RecipeListComponent implements OnInit {
 
   // get the recipe and initializes the form for filtering
   ngOnInit() {
-    this.recipes = this.recipeService.getRecipes();
+    this.recipes = this.recipeService.getLocalRecipes();
 
     this.recipeForm = this.fb.group({
       filter: this.fb.control('')

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
-import * as firebase from 'firebase';
 
 import { AuthService } from '../auth/auth.service';
 
@@ -19,7 +18,7 @@ export class AppHttpService {
   // not the most secure way to do it, but this allows each user to have their own
   // database files
   getUrl(route): string {
-    const userEmail = firebase.auth().currentUser.email.replace(/[^a-zA-Z0-9]/g, '_');
+    const userEmail = this.auth.getUserEmail().replace(/[^a-zA-Z0-9]/g, '_');
     return this.databaseUrl + userEmail + route + '.json?auth=' + this.token;
   }
 
@@ -41,43 +40,25 @@ export class AppHttpService {
     return this.http.get(url);
   }
 
-  saveRecipes(data: Recipe[]) {
-      return this.genericPut('recipes', data);
-  }
-
-  getRecipes() {
-    return this.genericGet('recipes')
+  getData(dataType: string) {
+    return this.genericGet(dataType)
       .map(
-        (data: Response) => {
+        (data) => {
           return data.json();
         }
       );
+  }
+
+  saveRecipes(data: Recipe[]) {
+    return this.genericPut('recipes', data);
   }
 
   saveList(data: string[]) {
-      return this.genericPut('list', data);
-  }
-
-  getList() {
-    return this.genericGet('list')
-      .map(
-        (data: Response) => {
-          return data.json();
-        }
-      );
+    return this.genericPut('list', data);
   }
 
   saveOptions(data: any) {
     return this.genericPut('options', data);
-  }
-
-  getOptions() {
-    return this.genericGet('options')
-      .map(
-        (data: Response) => {
-          return data.json();
-        }
-      );
   }
 
 }

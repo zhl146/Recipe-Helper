@@ -16,11 +16,11 @@ export class OptionsDialogComponent implements OnInit, OnDestroy {
   constructor( private optionsService: OptionsService ) { }
 
   ngOnInit() {
-    this.options = this.optionsService.getOptions();
+    this.options = this.optionsService.getLocalOptions();
   }
 
   ngOnDestroy() {
-    this.optionsService.updateOptions(this.options);
+    this.optionsService.updateLocalOptions(this.options);
   }
 
 }

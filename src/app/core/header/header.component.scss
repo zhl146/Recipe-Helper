@@ -6,8 +6,10 @@
   border: 0.5px solid white;
 }
 
-.nav-link {
-  cursor: pointer;
+.account-icon {
+  font-size: 30px;
+  height: 30px;
+  width: 30px;
 }
 
 .toolbar {
@@ -16,9 +18,5 @@
 }
 
 .toolbar-extend {
-  display: flex;
   background-color: #3f51b5;
-  flex: 1 1 auto;
-  height: 64px;
-  justify-content: center;
 }

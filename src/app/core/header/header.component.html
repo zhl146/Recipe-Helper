@@ -1,52 +1,56 @@
-<div class="toolbar-extend">
-
+<div class="toolbar-extend"
+     fxLayout="row"
+     fxLayoutAlign="center center">
   <md-toolbar color="primary"
+              fxFlex.gt-lg="1920px"
+              fxFlex.lt-xl="100"
+              fxFlexAlign="center center"
               class="toolbar mat-toolbar">
 
-     <span [routerLink]="['recipes']">
-          <md-icon md-list-icon>
-            book
-          </md-icon>
-          Recipe Helper
-        </span>
+   <span [routerLink]="['recipes']" fxLayoutAlign="center center">
+      <md-icon md-list-icon>
+        book
+      </md-icon>
+      Recipe Helper
+   </span>
 
-      <span class="toolbar-spacer"></span>
+    <span class="toolbar-spacer"></span>
 
-      <span fxShow.gt-sm
-            fxHide.lt-md>
+    <span fxShow.gt-sm
+          fxHide.lt-md>
 
-          <button md-button
-                  *ngFor="let nav of navigation"
-                  [routerLink]="nav.route"
-                  routerLinkActive="active">
-            {{nav.displayText}}
-          </button>
+    <button md-button
+            *ngFor="let nav of navigation"
+            [routerLink]="nav.route"
+            routerLinkActive="active">
+      {{nav.displayText}}
+    </button>
 
-          <button md-button
-                  *ngIf="signedIn"
-                  (click)="onLogOut()">
-            Sign out
-          </button>
-        </span>
+   </span>
 
-      <span fxHide.gt-sm
-            fxShow.lt-md>
-          <md-icon md-list-icon
-                   class="nav-link"
-                   *ngIf="signedIn"
-                   (click)="onLogOut()">
-            settings
-          </md-icon>
-        </span>
+    <span fxLayoutAlign="center center"
+      (click)="onLogOut()">
+      <button md-button
+              *ngIf="signedIn" fxHide.xs>
+        Account
+      </button>
+
+      <md-icon md-list-icon
+               class="account-icon"
+               *ngIf="signedIn"
+               fxHide
+               fxShow.xs>
+        account_circle
+      </md-icon>
+    </span>
 
   </md-toolbar>
-
 </div>
 
 
+
 <nav md-tab-nav-bar
-     fxHide.gt-sm
-     fxShow.lt-md
+     *ngIf="showMobileNav()"
      fxLayout.lt-md="row"
      fxLayoutAlign.lt-md="center">
   <a md-tab-link

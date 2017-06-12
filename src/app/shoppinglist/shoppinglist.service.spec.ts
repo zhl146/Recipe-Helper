@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ShoppinglistService } from './shoppinglist.service';
+import { ShoppinglistService } from '../shared/shoppinglist.service';
 
 describe('ShoppinglistService', () => {
   beforeEach(() => {

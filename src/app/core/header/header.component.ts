@@ -5,10 +5,11 @@ import { MdDialog } from '@angular/material';
 import { AppNav } from '../../navigation.model';
 
 import { AuthService } from '../../auth/auth.service';
-import { ShoppinglistService } from '../../shoppinglist/shoppinglist.service';
+import { ShoppinglistService } from '../../shared/shoppinglist.service';
 
 import { OptionsDialogComponent } from '../options-dialog/options-dialog.component';
 import { OptionsService } from '../../shared/options.service';
+import { ObservableMedia } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-header',
@@ -22,10 +23,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navigation: AppNav[];
 
+  mediaSize: string;
+  mediaSub: Subscription;
+
   constructor( private auth: AuthService,
                private shoppingService: ShoppinglistService,
                private dialog: MdDialog,
-               private optionsService: OptionsService ) {}
+               private optionsService: OptionsService,
+               private media: ObservableMedia ) {}
 
   // get the status of sign in so the correct links can be displayed
   ngOnInit() {
@@ -44,11 +49,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
               }
             ];
           } else {
-            this.navigation = [];
+            this.navigation = [
+              {
+                route: '/auth/signup',
+                displayText: 'Sign up'
+              },
+              {
+                route: '/auth/signin',
+                displayText: 'Sign in'
+              }
+            ];
           }
           this.signedIn = signedIn;
         }
       );
+    this.getScreenSize();
+  }
+
+  getScreenSize() {
+    this.mediaSub = this.media
+      .subscribe(
+        (media) => {
+          this.mediaSize = media.mqAlias;
+        }
+      );
+  }
+
+  // only show the sliding nav on xs devices after sign in
+  showMobileNav() {
+    return (this. mediaSize === 'xs' && this.signedIn);
   }
 
   // make sure that we save the shopping list if the user happens to logout from the shopping component
@@ -61,9 +90,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(
         (result) => {
           console.log(result);
-          this.optionsService.updateDatabase().then(
+          this.optionsService.updateServerOptions().then(
             () => {
-              console.log('updated database')
               if (result === 'yes') {
                 this.auth.signOutUser();
               }
@@ -76,5 +104,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // prevent memory leak
   ngOnDestroy() {
     this.signInListener.unsubscribe();
+    this.mediaSub.unsubscribe();
   }
 }

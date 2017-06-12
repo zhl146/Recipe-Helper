@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RecipebookService } from '../recipebook.service';
+import { RecipebookService } from '../../shared/recipebook.service';
 import { Recipe } from '../recipe.model';
 import { validateReasonableTime } from '../recipebook-time-validator';
 
@@ -34,7 +34,7 @@ export class RecipeEditComponent implements OnInit {
 
     // pre-populates the currentRecipe if we are editing an existing currentRecipe
     if (this.editMode) {
-      this.currentRecipe = this.recipeService.getRecipeByIndex(this.id);
+      this.currentRecipe = this.recipeService.getLocalRecipebyIndex(this.id);
     } else {
       this.currentRecipe = new Recipe('', '', '', [], [], null, null);
     }

@@ -3,38 +3,22 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-/* some colors */
-$color1: rgba(11, 57, 84, 1);
-$color2: rgba(204, 41, 54, 1);
-$color3: rgba(237, 174, 73, 1);
-$color4: rgba(56, 134, 151, 1);
-$color5: rgba(84, 94, 117, 1);
-
 html, body {
   min-width: 100vw;
   min-height: 100vh;
   margin: 0;
 }
 
-* {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
 a {
   cursor: pointer;
+}
+
+* {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .app-container {
   min-width: 100vw;
   min-height: 100vh;
   margin: 0;
-}
-
-.flex-container {
-  display: -webkit-flex; /* Safari */
-  display: flex;
-}
-
-.full-screen {
-  flex: 1 1 auto;
 }

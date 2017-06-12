@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { RecipebookService } from './recipebook.service';
+import { RecipebookService } from '../shared/recipebook.service';
 
 describe('RecipebookService', () => {
   beforeEach(() => {

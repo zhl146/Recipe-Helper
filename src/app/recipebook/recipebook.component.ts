@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppinglistService } from '../shoppinglist/shoppinglist.service';
+import { ShoppinglistService } from '../shared/shoppinglist.service';
 import { OptionsService } from '../shared/options.service';
 
 @Component({
@@ -20,9 +20,8 @@ export class RecipeBookComponent implements OnInit {
     // we want our local data to be up to date so we do not overwrite server data
     // that we are not aware of
     // the if statement is there to avoid component data collisions
-    if ( !this.shoppingService.getCurrentList() ) {
+    if ( !this.shoppingService.getLocalList() ) {
       this.shoppingService.getServerList();
     }
-    this.options.getOptionsFromServer();
   }
 }

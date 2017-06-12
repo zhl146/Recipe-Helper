@@ -19,15 +19,27 @@ export class OptionsService {
     return this.optionsObs.asObservable();
   }
 
-  getOptions() {
+  getLocalOptions() {
     return this.optionsObs.getValue();
   }
 
-  updateOptions(options) {
+  disableRecipeInfo() {
+    const options = this.optionsObs.getValue();
+    options.recipeInfo = false;
+    this.optionsObs.next( options );
+  }
+
+  disableShoppingInfo() {
+    const options = this.optionsObs.getValue();
+    options.shoppingInfo = false;
+    this.optionsObs.next( options );
+  }
+
+  updateLocalOptions(options) {
     this.optionsObs.next(options);
   }
 
-  updateDatabase() {
+  updateServerOptions() {
     return new Promise(
       (resolve) => {
         this.http.saveOptions(this.optionsObs.getValue()).subscribe(
@@ -38,22 +50,27 @@ export class OptionsService {
       });
   }
 
-  getOptionsFromServer() {
-    this.http.getOptions()
-      .subscribe(
-        (serverOptions) => {
-          if (serverOptions) {
-            this.optionsObs.next(serverOptions);
-          } else {
-            this.optionsObs.next(
-              {
-                recipeInfo: true,
-                shoppingInfo: true
+  getServerOptions() {
+    return new Promise(
+      (resolve) => {
+        this.http.getData('options')
+          .subscribe(
+            (serverOptions) => {
+              if (serverOptions) {
+                this.optionsObs.next(serverOptions);
+              } else {
+                this.optionsObs.next(
+                  {
+                    recipeInfo: true,
+                    shoppingInfo: true
+                  }
+                );
               }
-            );
-          }
-        }
-      );
+              resolve(serverOptions);
+            }
+          );
+      }
+    );
   }
 
 }

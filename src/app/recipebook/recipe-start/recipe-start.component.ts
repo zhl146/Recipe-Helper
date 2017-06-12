@@ -26,4 +26,8 @@ export class RecipeStartComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.optionsSub.unsubscribe();
   }
+
+  onGotIt() {
+    this.optionsService.disableRecipeInfo();
+  }
 }
