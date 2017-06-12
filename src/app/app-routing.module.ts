@@ -9,7 +9,7 @@ import { AuthGuard } from './auth/auth-guard.service';
 const appRoutes: Routes = [
   { path: 'shopping', component: ShoppinglistComponent, canActivate: [AuthGuard] },
   { path: 'loading', component: LoaderComponent },
-  { path: '', redirectTo: '/auth/signup', pathMatch: 'full'},
+  { path: '', redirectTo: 'auth', pathMatch: 'full'}
 ];
 
 @NgModule({

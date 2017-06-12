@@ -7,14 +7,17 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 const authRoutes: Routes = [
-  { path: 'auth', component: AuthComponent,
+  {
+    path: 'auth', component: AuthComponent,
     children: [
-      { path: 'reset', component: PasswordResetComponent },
-      { path: 'request', component: RequestPasswordComponent },
-      { path: 'signin', component: SignInComponent},
-      { path: 'signup', component: SignUpComponent}
+      {path: 'reset', component: PasswordResetComponent},
+      {path: 'request', component: RequestPasswordComponent},
+      {path: 'signin', component: SignInComponent},
+      {path: 'signup', component: SignUpComponent},
+      {path: '', redirectTo: 'signup', pathMatch: 'full' }
     ]
-  }
+  },
+  { path: '**', redirectTo: 'auth'}
 ];
 
 @NgModule({
