@@ -11,9 +11,6 @@ export class AuthService {
   // this is the user authentication token
   private token: string;
 
-  // keeps track of a new user
-  isNewUser = false;
-
   // currently keeps track of the server error message
   // we display it directly to the user for now
   errorMessage: string;
@@ -39,7 +36,6 @@ export class AuthService {
       .then(
         () => {
           this.errorMessage = null;
-          this.isNewUser = true;
           this.signInUser(email, password);
         }
       )
@@ -128,6 +124,17 @@ export class AuthService {
         );
       return this.token;
     }
+  }
+
+  checkToken() {
+    firebase.auth().currentUser.getIdToken()
+      .then(
+        (token: string) => {
+          this.token = token;
+          this.signedIn.next(true);
+          this.router.navigate(['/recipes']);
+        }
+      );
   }
 
 }

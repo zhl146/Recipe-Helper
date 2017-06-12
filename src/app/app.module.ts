@@ -17,6 +17,7 @@ import { AppHttpService } from 'app/shared/http.service';
 import { RecipebookService } from 'app/recipebook/recipebook.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
+import { OptionsService } from './shared/options.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AuthGuard } from './auth/auth-guard.service';
     RecipebookService,
     AppHttpService,
     AuthService,
+    OptionsService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

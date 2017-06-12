@@ -1,20 +1,17 @@
-<div fxLayout="row"
-     fxLayoutAlign="center"
-     fxLayoutWrap>
+<md-card fxFlexFill
+         class="splash-card"
 
-  <md-card fxFlex="100"
-           fxFlexAlign="center"
-           class="splash-card"
-           fxLayoutWrap
-           fxLayout="column"
-           fxLayoutAlign.lt-md="start center"
-           fxLayoutAlign.gt-sm="center center">
+         fxLayoutWrap
+         fxLayout="column"
+         fxLayoutAlign.gt-sm="start center"
+         fxLayoutAlign.lt-md="center center">
 
-    <h1>Welcome to Recipe Helper</h1>
-    <p fxHide.xs="true">
-      Please sign in to get access to your personal recipes and shopping list.
-    </p>
+  <h1>Welcome to Recipe Helper</h1>
+  <p fxHide.xs="true">
+    Please sign in to get access to your personal recipes and shopping list.
+  </p>
 
-    <router-outlet></router-outlet>
-  </md-card>
-</div>
+  <router-outlet></router-outlet>
+
+
+</md-card>

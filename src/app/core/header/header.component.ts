@@ -7,7 +7,8 @@ import { AppNav } from '../../navigation.model';
 import { AuthService } from '../../auth/auth.service';
 import { ShoppinglistService } from '../../shoppinglist/shoppinglist.service';
 
-import { SignoutDialogComponent } from '../signout-dialog/signout-dialog.component';
+import { OptionsDialogComponent } from '../options-dialog/options-dialog.component';
+import { OptionsService } from '../../shared/options.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor( private auth: AuthService,
                private shoppingService: ShoppinglistService,
-               private dialog: MdDialog ) {}
+               private dialog: MdDialog,
+               private optionsService: OptionsService ) {}
 
   // get the status of sign in so the correct links can be displayed
   ngOnInit() {
@@ -54,14 +56,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // the opportunity to save itself to the server
   onLogOut() {
     this.shoppingService.updateDatabase();
-    const deleteDialog = this.dialog.open(SignoutDialogComponent);
-    deleteDialog.afterClosed()
+    const optionsDialog = this.dialog.open(OptionsDialogComponent);
+    optionsDialog.afterClosed()
       .subscribe(
         (result) => {
           console.log(result);
-          if (result === 'yes') {
-            this.auth.signOutUser();
-          }
+          this.optionsService.updateDatabase().then(
+            () => {
+              console.log('updated database')
+              if (result === 'yes') {
+                this.auth.signOutUser();
+              }
+            }
+          );
         }
       );
   }

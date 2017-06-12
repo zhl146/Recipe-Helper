@@ -67,4 +67,17 @@ export class AppHttpService {
       );
   }
 
+  saveOptions(data: any) {
+    return this.genericPut('options', data);
+  }
+
+  getOptions() {
+    return this.genericGet('options')
+      .map(
+        (data: Response) => {
+          return data.json();
+        }
+      );
+  }
+
 }

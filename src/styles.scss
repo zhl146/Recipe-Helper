@@ -11,14 +11,21 @@ $color4: rgba(56, 134, 151, 1);
 $color5: rgba(84, 94, 117, 1);
 
 html, body {
-  height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
   margin: 0;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
+* {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 a {
   cursor: pointer;
+}
+
+.app-container {
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
 }

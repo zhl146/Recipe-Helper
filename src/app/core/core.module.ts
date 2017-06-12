@@ -7,22 +7,24 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { CoreComponent } from './core.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { SignoutDialogComponent } from './signout-dialog/signout-dialog.component';
+import { OptionsDialogComponent } from './options-dialog/options-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   declarations: [
     HeaderComponent,
     FooterComponent,
     CoreComponent,
-    SignoutDialogComponent
+    OptionsDialogComponent
   ],
   entryComponents: [
-    SignoutDialogComponent
+    OptionsDialogComponent
     ],
   exports: [
     AppRoutingModule,

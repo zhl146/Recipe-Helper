@@ -8,17 +8,19 @@ import {
   MdIconModule,
   MdInputModule,
   MdListModule,
-  MdSidenavModule,
+  MdSidenavModule, MdSlideToggleModule,
   MdSnackBarModule,
   MdTabsModule,
   MdToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ImageFallbackDirective } from './image-fallback.directive';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
-    ImageFallbackDirective
+    ImageFallbackDirective,
+    LoadingComponent
   ],
   imports: [
     // layout grid
@@ -35,7 +37,8 @@ import { ImageFallbackDirective } from './image-fallback.directive';
     MdCheckboxModule,
     MdTabsModule,
     MdSnackBarModule,
-    MdDialogModule
+    MdDialogModule,
+    MdSlideToggleModule
   ],
   exports: [
     // required
@@ -56,6 +59,7 @@ import { ImageFallbackDirective } from './image-fallback.directive';
     MdTabsModule,
     MdSnackBarModule,
     MdDialogModule,
+    MdSlideToggleModule,
 
     // directives
     ImageFallbackDirective

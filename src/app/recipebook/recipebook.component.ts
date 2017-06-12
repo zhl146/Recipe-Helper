@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppinglistService } from '../shoppinglist/shoppinglist.service';
+import { OptionsService } from '../shared/options.service';
 
 @Component({
   selector: 'app-recipe-book',
@@ -9,7 +10,8 @@ import { ShoppinglistService } from '../shoppinglist/shoppinglist.service';
 
 export class RecipeBookComponent implements OnInit {
 
-  constructor( private shoppingService: ShoppinglistService) {}
+  constructor( private shoppingService: ShoppinglistService,
+               private options: OptionsService ) {}
 
   ngOnInit() {
     // have to get the shopping list from the server even when we
@@ -21,5 +23,6 @@ export class RecipeBookComponent implements OnInit {
     if ( !this.shoppingService.getCurrentList() ) {
       this.shoppingService.getServerList();
     }
+    this.options.getOptionsFromServer();
   }
 }

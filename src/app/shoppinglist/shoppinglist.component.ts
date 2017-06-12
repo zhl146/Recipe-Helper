@@ -5,6 +5,7 @@ import { ShoppinglistService } from './shoppinglist.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../auth/auth.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { OptionsService } from '../shared/options.service';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -35,18 +36,29 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   ingredients: string[];
   private ingredientSubscription: Subscription;
+  private optionsSub: Subscription;
+
+  shoppingInfo: boolean;
 
   ingForm: FormGroup;
   ingredientArray: FormArray;
 
   constructor( private shoppingService: ShoppinglistService,
                private auth: AuthService,
-               private fb: FormBuilder ) { }
+               private fb: FormBuilder,
+               private optionsService: OptionsService ) { }
 
   // LIFECYCLE
 
   ngOnInit() {
     this.createForm();
+
+    this.optionsSub = this.optionsService.getOptionsObs()
+      .subscribe(
+        (options) => {
+          this.shoppingInfo = options.shoppingInfo;
+        }
+      );
 
     this.ingredientSubscription = this.shoppingService.getShoppingSubject()
       .subscribe(
@@ -89,6 +101,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
       this.shoppingService.updateDatabase();
     }
     this.ingredientSubscription.unsubscribe();
+    this.optionsSub.unsubscribe();
   }
 
   // METHODS

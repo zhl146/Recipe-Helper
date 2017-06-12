@@ -4,7 +4,7 @@
       <h2>Welcome to your recipe book!</h2>
     </md-card-title>
   </md-card-header>
-  <md-card-content>
+  <md-card-content *ngIf="recipeInfo">
     <p>
       This recipe book comes with 3 recipes, but you can delete them
       and add your own if you like! The recipes are saved

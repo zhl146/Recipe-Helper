@@ -16,7 +16,9 @@
              formControlName="filter"
              [(ngModel)]="filterString"
              placeholder="search">
-      <md-icon md-list-icon (click)="clearFilter()">clear</md-icon>
+      <md-icon md-list-icon
+               *ngIf="filterString"
+               (click)="clearFilter()">clear</md-icon>
     </md-input-container>
   </form>
 

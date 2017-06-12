@@ -1,0 +1,22 @@
+
+<h3>User Options</h3>
+<md-dialog-content>
+  <md-list>
+    <md-list-item>
+      <md-slide-toggle [(ngModel)]="options.recipeInfo">Recipe info box</md-slide-toggle>
+    </md-list-item>
+    <md-list-item>
+      <md-slide-toggle [(ngModel)]="options.shoppingInfo">Shopping list info box</md-slide-toggle>
+    </md-list-item>
+  </md-list>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-raised-button md-dialog-close="yes">
+    Sign out
+  </button>
+  <button md-raised-button md-dialog-close="no">
+    Return
+  </button>
+</md-dialog-actions>
+
+

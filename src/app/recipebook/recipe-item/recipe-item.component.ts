@@ -21,10 +21,17 @@ export class RecipeItemComponent {
     this.router.navigate([this.index], {relativeTo: this.route})
       .then(
         () => {
-          // only autoscroll to recipe if the user is on a mobile device
+          // only autoscroll to recipe if the user is on a device
+          // that can't support the double column layout
           // this is to improve the user experience in case the user has many recipes
-          if (this.media.isActive('xs')) {
-            document.getElementById('recipeDetail').scrollIntoView();
+          if (this.media.isActive('xs') || this.media.isActive('sm')) {
+            // setting a timeout so that the component has a chance to load
+            // could probably hook into the component loading event
+            // but this is just easier and should work for most use cases
+            setTimeout(
+              () => document.getElementById('recipeDetail').scrollIntoView(),
+              100
+            );
           }
         }
         );
