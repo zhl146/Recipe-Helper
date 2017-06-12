@@ -3,9 +3,22 @@
 }
 
 .active {
-  background-color: #0B3954;
+  border: 0.5px solid white;
 }
 
 .nav-link {
   cursor: pointer;
+}
+
+.toolbar {
+  max-width: 1600px;
+  height: 64px;
+}
+
+.toolbar-extend {
+  display: flex;
+  background-color: #3f51b5;
+  flex: 1 1 auto;
+  height: 64px;
+  justify-content: center;
 }

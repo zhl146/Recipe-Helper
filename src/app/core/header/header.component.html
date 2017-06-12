@@ -1,18 +1,19 @@
-<md-toolbar color="primary"
-            class="toolbar mat-toolbar"
-            fxFlex="100">
+<div class="toolbar-extend">
 
-        <span [routerLink]="['recipes']">
+  <md-toolbar color="primary"
+              class="toolbar mat-toolbar">
+
+     <span [routerLink]="['recipes']">
           <md-icon md-list-icon>
             book
           </md-icon>
           Recipe Helper
         </span>
 
-  <span class="toolbar-spacer"></span>
+      <span class="toolbar-spacer"></span>
 
-  <span fxShow.gt-sm
-        fxHide.lt-md>
+      <span fxShow.gt-sm
+            fxHide.lt-md>
 
           <button md-button
                   *ngFor="let nav of navigation"
@@ -28,8 +29,8 @@
           </button>
         </span>
 
-  <span fxHide.gt-sm
-        fxShow.lt-md>
+      <span fxHide.gt-sm
+            fxShow.lt-md>
           <md-icon md-list-icon
                    class="nav-link"
                    *ngIf="signedIn"
@@ -38,7 +39,10 @@
           </md-icon>
         </span>
 
-</md-toolbar>
+  </md-toolbar>
+
+</div>
+
 
 <nav md-tab-nav-bar
      fxHide.gt-sm
@@ -52,4 +56,6 @@
      [active]="rla.isActive">
     {{nav.displayText}}
   </a>
+
+
 </nav>

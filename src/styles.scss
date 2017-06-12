@@ -29,3 +29,12 @@ a {
   min-height: 100vh;
   margin: 0;
 }
+
+.flex-container {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+
+.full-screen {
+  flex: 1 1 auto;
+}
