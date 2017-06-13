@@ -8,7 +8,6 @@ import { RecipeBookRoutingModule } from './recipebook-routing.module';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RecipeBookComponent } from './recipebook.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipe-item/recipe-item.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
@@ -21,7 +20,6 @@ import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
     RecipeEditComponent,
     RecipeBookComponent,
     RecipeDetailComponent,
-    RecipeItemComponent,
     RecipeListComponent,
     RecipeStartComponent,
     TimePipe,
