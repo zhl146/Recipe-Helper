@@ -1,52 +1,55 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import 'rxjs/Rx';
+import { Http } from '@angular/http';
 
-import { AuthService } from '../auth/auth.service';
+import 'rxjs/Rx';
+import * as firebase from 'firebase';
 
 import { Recipe } from '../recipebook/recipe.model';
+import { UserService } from './user.service';
+
 
 @Injectable()
 export class AppHttpService {
 
-  token: string;
   databaseUrl = 'https://recipebook-1b98a.firebaseio.com/';
 
   constructor( private http: Http,
-               private auth: AuthService) { }
+               private userService: UserService ) {}
 
   // not the most secure way to do it, but this allows each user to have their own
   // database files
   getUrl(route): string {
-    const userEmail = this.auth.getUserEmail().replace(/[^a-zA-Z0-9]/g, '_');
-    return this.databaseUrl + userEmail + route + '.json?auth=' + this.token;
+    const userEmail = firebase.auth().currentUser.email.replace(/[^a-zA-Z0-9]/g, '_');
+    const token = this.userService.getCurrentToken();
+    return this.databaseUrl
+      + userEmail
+      + route
+      + '.json?auth='
+      + token;
   }
 
   genericPut(route: string, data: any) {
-    this.token = this.auth.getToken();
     const url = this.getUrl(route);
     return this.http.put(url, data);
   }
 
   genericPost(route: string, data: any) {
-    this.token = this.auth.getToken();
     const url = this.getUrl(route);
     return this.http.post(url, data);
   }
 
   genericGet(route: string) {
-    this.token = this.auth.getToken();
     const url = this.getUrl(route);
     return this.http.get(url);
   }
 
   getData(dataType: string) {
     return this.genericGet(dataType)
-      .map(
-        (data) => {
-          return data.json();
-        }
-      );
+            .map(
+              (data) => {
+                return data.json();
+              }
+            );
   }
 
   saveRecipes(data: Recipe[]) {

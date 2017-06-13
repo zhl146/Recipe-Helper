@@ -3,19 +3,19 @@
      fxLayoutAlign="space-around"
      fxLayoutWrap="100">
 
-  <button md-raised-button color="accent"
-          (click)="onClear()"
-          fxFlex.lt-md="100"
-          fxFlex.gt-sm="60">
-    Clear all
-  </button>
-
   <form [formGroup]="ingForm"
         fxFlex.lt-md="100"
         fxFlexOrder.lt-md="2"
-        fxFlex.gt-sm="60"
+        fxFlex.gt-sm="76.4"
         novalidate
         (ngSubmit)="updateIngredients()">
+
+    <button md-button
+            (click)="onClear()"
+            type="button">
+      Clear all
+      <md-icon md-list-icon>clear_all</md-icon>
+    </button>
 
     <div [@listAnimation]="getIngredientControls()?.length"
              formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
@@ -27,9 +27,10 @@
                     [formGroupName]="i"
                     [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
 
-        <md-checkbox *ngIf="!isLastElement(i)"></md-checkbox>
+        <md-checkbox *ngIf="!isLastElement(i)" class="shopping-icon"></md-checkbox>
 
         <md-icon md-list-icon
+                 class="shopping-icon"
                  (click)="addListItem()"
                  *ngIf="isLastElement(i)">
           add
@@ -50,6 +51,7 @@
 
         <md-icon (click)="onDeleteClicked(i)"
                  *ngIf="!isLastElement(i)"
+                 class="shopping-icon"
                  md-list-icon>
           delete
         </md-icon>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Recipe} from '../recipe.model';
 import { ShoppinglistService} from '../../shared/shoppinglist.service';
 import { RecipebookService } from '../../shared/recipebook.service';
@@ -26,7 +26,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
                private route: ActivatedRoute,
                private router: Router,
                public snackBar: MdSnackBar,
-               public dialog: MdDialog) { }
+               public dialog: MdDialog ) { }
 
   ngOnInit() {
 
@@ -40,6 +40,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
         // uses the id to get the currentRecipe from the service
         this.currentRecipe = this.recipeService.getLocalRecipebyIndex(this.currentRecipeId);
+
       });
 
     this.recipeSubscription = this.recipeService.getLocalRecipes()
@@ -50,13 +51,15 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       );
   }
 
+
   // take care of memory leak
   ngOnDestroy() {
     this.recipeSubscription.unsubscribe();
   }
 
   // adds all ingredients from the recipe to the list
-  onAddAllClicked() {
+  onAddAllIngredients() {
+    this.openSnackBar('All ingredients added!', 'OK');
     this.shoppingService.addIngredientsFromRecipe(this.currentRecipe);
   }
 

@@ -4,6 +4,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipebookService } from '../../shared/recipebook.service';
 import { Recipe } from '../recipe.model';
 import { validateReasonableTime } from '../recipebook-time-validator';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-edit',

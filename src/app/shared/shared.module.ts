@@ -13,14 +13,14 @@ import {
   MdTabsModule,
   MdToolbarModule
 } from '@angular/material';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ImageFallbackDirective } from './image-fallback.directive';
-import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
-    ImageFallbackDirective,
-    LoadingComponent
+    ImageFallbackDirective
   ],
   imports: [
     // layout grid

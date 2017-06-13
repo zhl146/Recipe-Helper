@@ -18,7 +18,7 @@ import { RecipebookService } from 'app/shared/recipebook.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { OptionsService } from './shared/options.service';
-import { FirebaseWrapperService } from './shared/firebase-wrapper.service';
+import { UserService } from './shared/user.service';
 
 @NgModule({
   declarations: [
@@ -40,8 +40,8 @@ import { FirebaseWrapperService } from './shared/firebase-wrapper.service';
     AppHttpService,
     AuthService,
     OptionsService,
-    AuthGuard,
-    FirebaseWrapperService
+    UserService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

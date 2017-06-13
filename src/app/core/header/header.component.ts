@@ -1,15 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { MdDialog } from '@angular/material';
 
 import { AppNav } from '../../navigation.model';
 
 import { AuthService } from '../../auth/auth.service';
-import { ShoppinglistService } from '../../shared/shoppinglist.service';
 
 import { OptionsDialogComponent } from '../options-dialog/options-dialog.component';
-import { OptionsService } from '../../shared/options.service';
 import { ObservableMedia } from '@angular/flex-layout';
+import { UserService } from '../../shared/user.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-header',
@@ -19,22 +18,21 @@ import { ObservableMedia } from '@angular/flex-layout';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   signedIn = false;
-  signInListener: Subscription;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   navigation: AppNav[];
 
-  mediaSize: string;
-  mediaSub: Subscription;
-
   constructor( private auth: AuthService,
                private dialog: MdDialog,
-               private media: ObservableMedia ) {}
+               private media: ObservableMedia,
+               private userService: UserService ) {}
 
   // get the status of sign in so the correct links can be displayed
   ngOnInit() {
-    this.signInListener = this.auth.getSignedIn()
+    this.userService.localUserObs()
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(
-        (signedIn: boolean) => {
+        (signedIn) => {
           if (signedIn) {
             this.navigation = [
               {
@@ -61,21 +59,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.signedIn = signedIn;
         }
       );
-    this.getScreenSize();
-  }
-
-  getScreenSize() {
-    this.mediaSub = this.media
-      .subscribe(
-        (media) => {
-          this.mediaSize = media.mqAlias;
-        }
-      );
   }
 
   // only show the sliding nav on xs devices after sign in
   showMobileNav() {
-    return (this. mediaSize === 'xs' && this.signedIn);
+    return (this.media.isActive('xs') && this.signedIn);
   }
 
   // make sure that we save the shopping list if the user happens to logout from the shopping component
@@ -95,7 +83,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // prevent memory leak
   ngOnDestroy() {
-    this.signInListener.unsubscribe();
-    this.mediaSub.unsubscribe();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

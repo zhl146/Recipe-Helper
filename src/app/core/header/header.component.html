@@ -16,8 +16,8 @@
 
     <span class="toolbar-spacer"></span>
 
-    <span fxShow.gt-sm
-          fxHide.lt-md>
+    <span fxShow
+          fxHide.xs>
 
     <button md-button
             *ngFor="let nav of navigation"
@@ -61,3 +61,13 @@
 
 
 </nav>
+
+<div *ngIf="false"
+     class="loading-screen">
+  <span class="d">I</span>
+  <span class="d d-2">I</span>
+  <span class="d d-3">I</span>
+  <span class="d d-4">I</span>
+  <span class="d d-5">I</span>
+</div>
+

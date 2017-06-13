@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ShoppinglistService } from '../shared/shoppinglist.service';
-import { OptionsService } from '../shared/options.service';
 
 @Component({
   selector: 'app-recipe-book',
@@ -10,8 +10,7 @@ import { OptionsService } from '../shared/options.service';
 
 export class RecipeBookComponent implements OnInit {
 
-  constructor( private shoppingService: ShoppinglistService,
-               private options: OptionsService ) {}
+  constructor( private shoppingService: ShoppinglistService ) {}
 
   ngOnInit() {
     // have to get the shopping list from the server even when we

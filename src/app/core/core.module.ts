@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -7,8 +8,6 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { OptionsDialogComponent } from './options-dialog/options-dialog.component';
-import { FormsModule } from '@angular/forms';
-import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   imports: [
@@ -20,16 +19,14 @@ import { LoaderComponent } from './loader/loader.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    OptionsDialogComponent,
-    LoaderComponent
+    OptionsDialogComponent
   ],
   entryComponents: [
     OptionsDialogComponent
     ],
   exports: [
     AppRoutingModule,
-    HeaderComponent,
-    LoaderComponent
+    HeaderComponent
   ]
 })
 export class CoreModule { }

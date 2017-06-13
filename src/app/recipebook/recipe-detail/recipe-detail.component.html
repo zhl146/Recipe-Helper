@@ -1,36 +1,6 @@
-<div class="recipe-detail-container">
-
-  <md-card>
-    <md-card-header>
-      <md-card-title>
-        <h2>{{currentRecipe.name}}</h2>
-      </md-card-title>
-    </md-card-header>
-
-    <img md-card-image
-         appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"
-         src="{{currentRecipe.imagePath}}"
-         alt="">
-
-    <md-card-content>
-      <p>{{currentRecipe.description}}</p>
-    </md-card-content>
-
-    <md-card-actions>
-      <button md-button
-              routerLink="edit">
-        Edit Recipe
-      </button>
-
-      <button md-button
-              (click)="onDeleteClicked()">
-        Delete Recipe
-      </button>
-
-
-    </md-card-actions>
-
-  </md-card>
+<div class="recipe-detail-container"
+     fxLayout="row"
+     fxLayoutWrap>
 
   <md-card>
     <md-card-header>
@@ -39,8 +9,13 @@
       </md-card-title>
     </md-card-header>
     <md-card-content>
-      <md-list dense>
-        <md-list-item *ngFor="let ingredient of currentRecipe.ingredients">
+      <md-list dense
+               fxLayout.gt-md="column"
+               fxLayout.lt-lg="row"
+               fxLayoutWrap fxLayoutAlign="center">
+        <md-list-item *ngFor="let ingredient of currentRecipe.ingredients"
+                      fxFlex.gt-md="0 1 auto"
+                      fxFlex.lt-lg="100">
 
           <md-icon md-list-icon
                    (click)="onAddIngredient(ingredient)"
@@ -54,13 +29,13 @@
     </md-card-content>
     <md-card-actions>
       <button md-button
-              (click)="onAddAllClicked()">
+              (click)="onAddAllIngredients()">
         Add all ingredients to list
       </button>
     </md-card-actions>
   </md-card>
 
-  <md-card>
+  <md-card fxFlex>
     <md-card-header>
       <md-card-title>
 
@@ -80,10 +55,15 @@
     </md-card-header>
 
     <md-card-content>
-      <md-list dense>
-        <md-list-item *ngFor="let step of currentRecipe.steps">
+      <md-list dense
+               fxLayout.gt-md="column"
+               fxLayout.lt-lg="row"
+               fxLayoutWrap>
+        <md-list-item *ngFor="let step of currentRecipe.steps; let i = index"
+                      fxFlex.gt-md="1 1 auto"
+                      fxFlex.lt-lg="100">
           <md-checkbox></md-checkbox>
-          <p>{{step}}</p>
+          <p>{{i + 1}} - {{step}}</p>
         </md-list-item>
       </md-list>
     </md-card-content>

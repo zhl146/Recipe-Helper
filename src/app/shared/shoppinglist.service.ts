@@ -30,7 +30,7 @@ export class ShoppinglistService {
     const updatedList = this.shoppingList.getValue();
     updatedList.splice(index, 1);
     this.shoppingList.next(updatedList);
-    this.updateDatabase();
+    this.updateServerList();
   }
 
   // uses spread operator to concatenate two arrays
@@ -81,7 +81,7 @@ export class ShoppinglistService {
 
   // throws data to backend through http call
   // returns a promise so that we can chain off of this
-  updateDatabase() {
+  updateServerList() {
     return new Promise(
       (resolve) => {
         let currentList = this.shoppingList.getValue();

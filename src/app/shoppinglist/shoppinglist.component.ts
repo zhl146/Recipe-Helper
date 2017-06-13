@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { ShoppinglistService } from '../shared/shoppinglist.service';
 import { Subscription } from 'rxjs/Subscription';
-import { AuthService } from '../auth/auth.service';
 import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
+
+import { ShoppinglistService } from '../shared/shoppinglist.service';
 import { OptionsService } from '../shared/options.service';
 
 @Component({
@@ -21,10 +21,13 @@ import { OptionsService } from '../shared/options.service';
       })),
       transition('* => *', [
         query(':leave', [
-          stagger(200, [ animate(500, style({ transform: 'scaleY(0)' })) ])
+          stagger(200, [ animate(300, style({
+            transform: 'translateX(100px)',
+            opacity: 0
+          })) ])
         ], {optional: true}),
         query(':enter', [
-          stagger(200, [ animate(500, style({ transform: 'scaleY(1)' })) ])
+          stagger(200, [style({ transform: 'translateX(-100px)' }), animate(300, ) ])
         ], {optional: true})
       ])
     ])
@@ -42,7 +45,6 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   ingredientArray: FormArray;
 
   constructor( private shoppingService: ShoppinglistService,
-               private auth: AuthService,
                private fb: FormBuilder,
                private optionsService: OptionsService ) { }
 
@@ -95,9 +97,9 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   // clean up to prevent memory leak
   ngOnDestroy() {
-    if ( this.auth.getToken() ) {
-      this.shoppingService.updateDatabase();
-    }
+    // if ( this.auth.getToken() ) {
+    //   this.shoppingService.updateServerList();
+    // }
     this.ingredientSubscription.unsubscribe();
     this.optionsSub.unsubscribe();
   }

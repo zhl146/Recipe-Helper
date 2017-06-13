@@ -1,150 +1,145 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import * as firebase from 'firebase';
+
+import { ShoppinglistService } from '../shared/shoppinglist.service';
+import { RecipebookService } from '../shared/recipebook.service';
+import { OptionsService } from '../shared/options.service';
+import { UserService } from '../shared/user.service';
+import { User } from 'firebase/app';
+
 
 @Injectable()
 export class AuthService {
-  // keeps track of sign in state
-  private signedIn = new BehaviorSubject<boolean>(false);
 
-  // this is the user authentication token
-  private token: string;
+
+  // keeps track of sign in state
 
   // currently keeps track of the server error message
   // we display it directly to the user for now
   errorMessage: string;
 
-  constructor( private router: Router ) {}
+  constructor( private router: Router,
+               private shoppingService: ShoppinglistService,
+               private recipesService: RecipebookService,
+               private optionsService: OptionsService,
+               private userService: UserService
+  ) {}
 
-  getSignedIn() {
-    return this.signedIn.asObservable();
+  signInUser(email: string, password: string) {
+    return new Promise(
+      (resolve) => {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+          .then(
+            (currentUser: User) => {
+              currentUser.getIdToken()
+                .then(
+                  (token: string) => {
+                    this.userService.updateLocalToken(token);
+                    this.getServerData()
+                      .then(
+                        () => {
+                          this.userService.updateLocalUser(currentUser);
+                          this.router.navigate(['recipes'])
+                            .then(
+                              () => resolve(currentUser)
+                            );
+                        }
+                      );
+                  }
+                );
+            }
+          );
+      }
+    );
   }
 
-  userSignedIn(): boolean {
-    return this.signedIn.getValue();
-  }
-
-  // --------------------------------------------------------------------------
-  // SIGN IN AND OUT
-  // --------------------------------------------------------------------------
-
-  // users firebase sdk to create a new user on the firebase server
-  // then sets our sign in state to true
   signUpUser(email: string, password: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(
-        () => {
-          this.errorMessage = null;
-          this.signInUser(email, password);
-        }
-      )
-      .catch(
-        (error) => {
-          this.errorMessage = error.message;
-        }
-      );
+    return new Promise(
+      (resolve) => {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then(
+            () => {
+              this.signInUser(email, password)
+                .then(
+                  () => resolve()
+                );
+            }
+          );
+      }
+    );
   }
-
-  // attempts to sign in an existing user using firebase sdk
-  // then navigates to the homepage
-  signInUser( email: string, password: string) {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(
-        () => {
-          firebase.auth().currentUser.getIdToken()
-            .then(
-              (token: string) => {
-                this.token = token;
-                if (this.token) {
-                  this.errorMessage = null;
-                  this.signedIn.next(true);
-                  this.router.navigate(['/loading']);
-                }
-              }
-            );
-        })
-      .catch(
-        error => {
-          this.errorMessage = error.message;
-        }
-      );
-  }
-
-  // sets signed in state to false
-  // this will tell the loader component what to do when navigating there
-  signOutUser() {
-    console.log('sign out user called')
-    this.signedIn.next(false);
-    console.log('pushing next signin')
-    this.router.navigate(['/loading']);
-    console.log('finished logout')
-  }
-
-  // signs out of firebase, automatically deletes token in local storage
-  firebaseSignOut() {
-    firebase.auth().signOut();
-  }
-  // --------------------------------------------------------------------------
-  // PASSWORD PROBLEMS
-  // --------------------------------------------------------------------------
-
-  sendPasswordEmail(email: string) {
-    firebase.auth().sendPasswordResetEmail(email)
-      .then(
-        () => {
-          this.router.navigate(['/auth', 'reset']);
-        }
-      );
-  }
-
-  // --------------------------------------------------------------------------
-  // GUEST LOGIN
-  // --------------------------------------------------------------------------
 
   signInAsGuest() {
     this.signInUser('guest@guest.com', '123456');
   }
 
-  // --------------------------------------------------------------------------
-  // TOKEN
-  // --------------------------------------------------------------------------
+  sendPasswordEmail(email: string) {
+    firebase.auth().sendPasswordResetEmail(email);
+  }
 
-  // if the user is logged in, this refreshes (I think?) the token
-  // stores the token to be used by us in this service
-  // then returns it
-  getToken() {
-    if ( this.signedIn.getValue() ) {
-      firebase.auth().currentUser.getIdToken()
-        .then(
-          (token: string) => {
-            this.token = token;
-          },
-          (error: Error) => {
-            console.log(error);
+  signOutUser() {
+    return new Promise(
+      (resolve) => {
+        this.updateServerData()
+          .then(() => {
+              firebase.auth().signOut()
+                .then(
+                  () => {
+                    this.userService.removeLocalUser();
+                    this.userService.removeLocalToken();
+                    this.router.navigate(['auth', 'signin']);
+                    resolve(true);
+                  }
+                );
+            }
+          );
+      }
+    );
+  }
+
+  updateServerData() {
+    return new Promise(
+      (resolve) => {
+        const taskCounter = new BehaviorSubject(0);
+        taskCounter.subscribe(
+          (counter) => {
+            if (counter === 3) {
+              resolve(true);
+            }
           }
         );
-      return this.token;
-    }
+        this.shoppingService.updateServerList()
+          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
+        this.recipesService.updateServerRecipes()
+          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
+        this.optionsService.updateServerOptions()
+          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
+      }
+    );
   }
 
-  checkToken() {
-    firebase.auth().currentUser.getIdToken()
-      .then(
-        (token: string) => {
-          this.token = token;
-          this.signedIn.next(true);
-          this.router.navigate(['/recipes']);
-        }
-      );
-  }
-
-  // --------------------------------------------------------------------------
-  // USER INFORMATION
-  // --------------------------------------------------------------------------
-
-  getUserEmail() {
-    return firebase.auth().currentUser.email;
+  getServerData() {
+    return new Promise(
+      (resolve) => {
+        const taskCounter = new BehaviorSubject(0);
+        taskCounter.subscribe(
+          (counter) => {
+            if (counter === 3) {
+              resolve(true);
+            }
+          }
+        );
+        this.shoppingService.getServerList()
+          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
+        this.recipesService.getServerRecipes()
+          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
+        this.optionsService.getServerOptions()
+          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
+      }
+    );
   }
 
 }

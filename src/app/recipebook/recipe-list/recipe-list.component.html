@@ -1,34 +1,96 @@
 <div class="recipe-list"
        fxLayoutAlign="center" fxLayout="row" fxLayoutWrap>
 
-  <button md-raised-button
-          class="new-recipe-btn"
-          color="accent"
-          routerLink="new"
-          fxFlex="100">
-    Create New Recipe
-  </button>
+  <md-card class="recipe-detail-container"
+           *ngIf="recipeInfo"
+           fxHide.gt-xs>
+    <md-card-header>
+      <md-card-title>
+        <h2>Welcome to your recipe book!</h2>
+      </md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <p>
+        This recipe book comes with 3 recipes, but you can delete them
+        and add your own if you like! The recipes are saved
+        on a remote database, so they will be here when you return.
+      </p>
+      <p>
+        Click on a recipe to view its details and edit them. You may also add some or all
+        of its ingredients to your shopping list.
+      </p>
+    </md-card-content>
 
-  <form [formGroup]="recipeForm" fxFlex="80">
-    <md-input-container fxFlex="100">
-      <input mdInput
-             fxFlex="100"
-             formControlName="filter"
-             [(ngModel)]="filterString"
-             placeholder="search">
-      <md-icon md-list-icon
-               *ngIf="filterString"
-               (click)="clearFilter()">clear</md-icon>
-    </md-input-container>
-  </form>
+    <button md-raised-button
+            (click)="onGotIt()"
+            color="accent">
+      Got it
+    </button>
+
+  </md-card>
+
+  <md-card *ngIf="selectedIndex !== null"
+           fxFlex="100">
+    <h2>{{recipes[selectedIndex].name | titlecase }}</h2>
+    <md-icon md-list-icon (click)="onRecipeBack()">arrow_back</md-icon>
+    <img md-card-image
+         appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"
+         src="{{recipes[selectedIndex].imagePath }}"
+         alt="">
+    <md-card-content>
+      <p>{{recipes[selectedIndex].description}}</p>
+    </md-card-content>
+
+    <md-card-actions>
+      <button md-button>
+        Edit Recipe
+      </button>
+
+      <button md-button>
+        Delete Recipe
+      </button>
+
+    </md-card-actions>
+  </md-card>
+
+  <div fxLayoutWrap fxLayoutAlign="center" *ngIf="this.selectedIndex === null">
+    <button md-raised-button
+            class="new-recipe-btn"
+            color="accent"
+            routerLink="new"
+            fxFlex="100">
+      Create New Recipe
+    </button>
+
+    <form [formGroup]="recipeForm" fxFlex="80">
+      <md-input-container fxFlex="100">
+        <input mdInput
+               fxFlex="100"
+               formControlName="filter"
+               [(ngModel)]="filterString"
+               placeholder="search">
+        <md-icon md-list-icon
+                 *ngIf="filterString"
+                 (click)="clearFilter()">clear</md-icon>
+      </md-input-container>
+    </form>
+  </div>
 
 
-  <app-recipe-item *ngFor="let recipe of recipes | async | recipeFilter: filterString; let i = index"
-                   (click)="onSelected(i)"
-                   [index]="i"
-                   [recipeItem]="recipe"
-                   fxFlex="100">
-  </app-recipe-item>
+<md-list fxFlex="100" fxLayout="row" fxLayoutWrap  *ngIf="listDisplay()">
+  <div *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index"
+       fxFlex="100" fxLayout="row" fxLayoutWrap>
+
+    <md-list-item fxFlex="100"
+                  (click)="onSelected(i)">
+      <md-icon md-list-icon>web</md-icon>
+      <h4 md-line>{{recipe.name | titlecase}}</h4>
+      <p md-line>Ready in: {{ recipe.prepTime + recipe.cookTime | timePipe}}</p>
+    </md-list-item>
+
+  </div>
+
+</md-list>
 
 </div>
 
