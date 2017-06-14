@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 import {RecipebookService} from '../../shared/recipebook.service';
 import { OptionsService } from '../../shared/options.service';
@@ -11,12 +10,11 @@ import { OptionsService } from '../../shared/options.service';
 import { Recipe } from '../recipe.model';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operator/takeUntil';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css']
+  styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();

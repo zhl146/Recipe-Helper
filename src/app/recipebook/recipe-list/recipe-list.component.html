@@ -29,29 +29,37 @@
 
   </md-card>
 
-  <md-card *ngIf="selectedIndex !== null"
-           fxFlex="100">
+  <div *ngIf="selectedIndex !== null"
+           fxFlex="100" fxLayout="column">
     <h2>{{recipes[selectedIndex].name | titlecase }}</h2>
     <md-icon md-list-icon (click)="onRecipeBack()">arrow_back</md-icon>
-    <img md-card-image
-         appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"
-         src="{{recipes[selectedIndex].imagePath }}"
-         alt="">
-    <md-card-content>
-      <p>{{recipes[selectedIndex].description}}</p>
-    </md-card-content>
+    <div class="card-image-container"
+         appDivImage
+         [src]="recipes[selectedIndex].imagePath"
+         fallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png">
+      <!--<img appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"-->
+           <!--src="{{recipes[selectedIndex].imagePath }}"-->
+           <!--alt="">-->
 
-    <md-card-actions>
-      <button md-button>
-        Edit Recipe
-      </button>
+      <div class="fab-container">
+        <button md-fab>
+          <md-icon>edit</md-icon>
+        </button>
 
-      <button md-button>
-        Delete Recipe
-      </button>
+        <button md-fab>
+          <md-icon>delete</md-icon>
+        </button>
 
-    </md-card-actions>
-  </md-card>
+      </div>
+
+    </div>
+
+
+
+
+    <p>{{recipes[selectedIndex].description}}</p>
+
+  </div>
 
   <div fxLayoutWrap fxLayoutAlign="center" *ngIf="this.selectedIndex === null">
     <button md-raised-button

@@ -1,19 +1,30 @@
-import { Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostBinding, Input, OnChanges } from '@angular/core';
 
 @Directive({
-  selector: 'img[appImgFallback]',
-  // when I replace this with the equivalent hostbinding
-  // it doesn't seem to work
-  // will look into this later
-  host: {
-    '[src]': 'src'
-  }
+  selector: '[appDivImage]'
 })
-export class ImageFallbackDirective {
-  @Input() appImgFallback: string;
+export class ImageFallbackDirective implements OnChanges {
   @Input() src: string;
+  @Input() fallback: string;
 
-  @HostListener('error') updateUrl(event) {
-    this.src = this.appImgFallback;
-  };
+  @HostBinding('style.background-image') backgroundStyle;
+
+  ngOnChanges() {
+    this.checkImage(this.src,
+      () => {
+        this.backgroundStyle = 'url(' + this.src + ')';
+      },
+      () => {
+        this.backgroundStyle = 'url(' + this.fallback + ')';
+      }
+    );
+
+  }
+
+  checkImage(imageSrc, success, error) {
+    const img = new Image();
+    img.onload = success;
+    img.onerror = error;
+    img.src = imageSrc;
+  }
 }
