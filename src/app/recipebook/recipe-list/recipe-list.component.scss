@@ -1,3 +1,9 @@
+// Helper function
+// Return null rather than throwing an error if index is outside list range.
+@function nth-or-null($list, $index) {
+  @return if(length($list) >= $index, nth($list, $index), null);
+}
+
 @mixin aspect-ratio($arglist... /*$width/$ratio, $height*/){
   $map : keywords($arglist);
   $height: map-get($map, height) or nth-or-null($arglist, 2);
@@ -6,12 +12,6 @@
   $padding: 1/$ratio * 100%;
   &:before { content: ''; float:left; padding-bottom: $padding; margin-right:-100%; }
   &:after  { content: ''; display:table; clear: both; }
-}
-
-// Helper function
-// Return null rather than throwing an error if index is outside list range.
-@function nth-or-null($list, $index) {
-  @return if(length($list) >= $index, nth($list, $index), null);
 }
 
 .new-recipe-btn {
@@ -23,17 +23,31 @@
 }
 
 .fab-container {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  padding-bottom: 24px;
 }
 
 .card-image-container {
   position: relative;
   overflow: hidden;
   width: 100%;
-  @include aspect-ratio(16,9);
+  @include aspect-ratio(1.618);
   background-size: cover;
   background-position: center center;
 }
 
+.recipe-image-card {
+  background-color: white;
+  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  will-change: box-shadow;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  border-radius: 2px;
+}
+
+.recipe-image-card-title {
+  padding: 24px;
+}
+
+.recipe-image-card-content {
+  position: relative;
+  padding: 5px 24px 5px 24px;
+}

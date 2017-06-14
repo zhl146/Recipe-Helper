@@ -1,5 +1,5 @@
 <div class="recipe-list"
-       fxLayoutAlign="center" fxLayout="row" fxLayoutWrap>
+     fxLayout="column">
 
   <md-card class="recipe-detail-container"
            *ngIf="recipeInfo"
@@ -30,34 +30,64 @@
   </md-card>
 
   <div *ngIf="selectedIndex !== null"
-           fxFlex="100" fxLayout="column">
-    <h2>{{recipes[selectedIndex].name | titlecase }}</h2>
-    <md-icon md-list-icon (click)="onRecipeBack()">arrow_back</md-icon>
-    <div class="card-image-container"
-         appDivImage
-         [src]="recipes[selectedIndex].imagePath"
-         fallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png">
-      <!--<img appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"-->
-           <!--src="{{recipes[selectedIndex].imagePath }}"-->
-           <!--alt="">-->
+       fxFlex="1 0 auto"
+       fxLayout="column"
+       class="recipe-image-card">
 
-      <div class="fab-container">
-        <button md-fab>
-          <md-icon>edit</md-icon>
+    <div class="recipe-image-card-title">
+      <h2>{{recipes[selectedIndex].name | titlecase }}</h2>
+    </div>
+
+      <div class="card-image-container"
+           appDivImage
+           [src]="recipes[selectedIndex].imagePath"
+           fallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png">
+        <!--<img appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"-->
+        <!--src="{{recipes[selectedIndex].imagePath }}"-->
+        <!--alt="">-->
+      </div>
+
+    <div class="recipe-image-card-content" fxFlex="1 1 auto" fxLayout="column">
+      <p>{{recipes[selectedIndex].description}}</p>
+
+
+      <div fxFlex></div>
+
+      <!--<md-list>-->
+        <!--<md-list-item>-->
+          <!--<md-icon md-list-icon>timer</md-icon>-->
+          <!--<p md-line>Prep: {{recipes[selectedIndex].prepTime | timePipe}}</p>-->
+          <!--<p md-line>Cook: {{recipes[selectedIndex].cookTime |timePipe}}</p>-->
+          <!--<p md-line>Done in: {{recipes[selectedIndex].prepTime + recipes[selectedIndex].cookTime | timePipe}}</p>-->
+        <!--</md-list-item>-->
+
+      <!--</md-list>-->
+
+      <div class="fab-container" fxLayout="row" fxLayoutAlign="space-around center">
+
+        <button md-fab *ngIf="false">
+          <md-icon>loop</md-icon>
+        </button>
+
+        <button md-mini-fab>
+          <md-icon>skip_previous</md-icon>
         </button>
 
         <button md-fab>
-          <md-icon>delete</md-icon>
+          <md-icon>keyboard_arrow_up</md-icon>
+        </button>
+
+        <button md-mini-fab>
+          <md-icon>skip_next</md-icon>
+        </button>
+
+        <button md-fab *ngIf="false">
+          <md-icon>loop</md-icon>
         </button>
 
       </div>
 
     </div>
-
-
-
-
-    <p>{{recipes[selectedIndex].description}}</p>
 
   </div>
 
