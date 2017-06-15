@@ -14,21 +14,20 @@
                fxLayout.lt-lg="row"
                fxLayoutWrap fxLayoutAlign="center">
         <md-list-item *ngFor="let ingredient of currentRecipe.ingredients"
-                      fxFlex.gt-md="0 1 auto"
+                      fxFlex.gt-md="38"
                       fxFlex.lt-lg="100">
-
+          <p>{{ingredient}}</p>
+          <div fxFlex></div>
           <md-icon md-list-icon
                    (click)="onAddIngredient(ingredient)"
                    class="recipe-icon ingredient-icon">
             add_shopping_cart
           </md-icon>
-
-          <p>{{ingredient}}</p>
         </md-list-item>
       </md-list>
     </md-card-content>
     <md-card-actions>
-      <button md-raised-button color="primary"
+      <button md-button color="primary"
               (click)="onAddAllIngredients()">
         ADD ALL INGREDIENTS
       </button>
@@ -48,10 +47,11 @@
                fxLayout.lt-lg="row"
                fxLayoutWrap>
         <md-list-item *ngFor="let step of currentRecipe.steps; let i = index"
-                      fxFlex.gt-md="1 1 auto"
+                      fxFlex.gt-md="62"
                       fxFlex.lt-lg="100">
-          <md-checkbox></md-checkbox>
           <p>{{i + 1}} - {{step}}</p>
+          <div fxFlex></div>
+          <md-checkbox></md-checkbox>
         </md-list-item>
       </md-list>
     </md-card-content>

@@ -87,6 +87,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   onRecipeClose() {
     this.selectedIndex = null;
+    this.router.navigate(['recipes']);
   }
 
   onNextRecipe() {

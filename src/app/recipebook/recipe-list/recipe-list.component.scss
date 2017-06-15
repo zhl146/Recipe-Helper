@@ -1,3 +1,5 @@
+@import "../../../assets/sass-vars";
+
 // Helper function
 // Return null rather than throwing an error if index is outside list range.
 @function nth-or-null($list, $index) {
@@ -23,7 +25,16 @@
 }
 
 .fab-container-nav {
-  padding: 24px 0 24px 0;
+  padding: 30px 30px 30px 30px;
+  background-color: mat-color($app-primary);
+}
+
+.fab-container-nav md-icon{
+  color: white;
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+  margin: 0 24px 0 24px;
 }
 
 .fab-container-util {
@@ -38,6 +49,10 @@
   @include aspect-ratio(1.618);
   background-size: cover;
   background-position: center center;
+}
+
+md-list-item {
+  cursor: pointer;
 }
 
 .recipe-image-card {

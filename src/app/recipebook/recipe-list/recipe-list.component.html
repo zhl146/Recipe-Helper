@@ -43,6 +43,24 @@
 
     </div>
 
+    <div class="fab-container-nav" fxLayout="row" fxLayoutAlign="center center">
+
+      <md-icon class="side-icon"
+               color="primary"
+               (click)="onPreviousRecipe()">
+        skip_previous
+      </md-icon>
+      <md-icon class="center-icon"
+               (click)="onRecipeClose()">
+        view_headline
+      </md-icon>
+      <md-icon class="side-icon"
+               (click)="onNextRecipe()">
+        skip_next
+      </md-icon>
+
+    </div>
+
     <div class="recipe-image-card-content" fxFlex="1 1 auto" fxLayout="column">
 
       <div fxFlex></div>
@@ -56,25 +74,6 @@
       <!--</md-list-item>-->
 
       <!--</md-list>-->
-
-      <div class="fab-container-nav" fxLayout="row" fxLayoutAlign="space-around center">
-
-        <button md-mini-fab
-                (click)="onPreviousRecipe()">
-          <md-icon>skip_previous</md-icon>
-        </button>
-
-        <button md-fab
-                (click)="onRecipeClose()">
-          <md-icon>keyboard_arrow_up</md-icon>
-        </button>
-
-        <button md-mini-fab
-                (click)="onNextRecipe()">
-          <md-icon>skip_next</md-icon>
-        </button>
-
-      </div>
 
       <div class="recipe-image-card-title">
         <h2>{{recipes[selectedIndex].name | titlecase }}</h2>
@@ -102,8 +101,7 @@
                formControlName="filter"
                [(ngModel)]="filterString"
                placeholder="search">
-        <md-icon md-list-icon
-                 *ngIf="filterString"
+        <md-icon *ngIf="filterString"
                  (click)="clearFilter()">clear</md-icon>
       </md-input-container>
     </form>
@@ -116,7 +114,8 @@
 
       <md-list-item fxFlex="100"
                     (click)="onSelected(i)">
-        <md-icon md-list-icon>web</md-icon>
+        <md-icon md-list-icon *ngIf="recipe.favorite" color="accent">favorite</md-icon>
+        <md-icon md-list-icon *ngIf="!recipe.favorite">favorite_border</md-icon>
         <h4 md-line>{{recipe.name | titlecase}}</h4>
         <p md-line>Ready in: {{ recipe.prepTime + recipe.cookTime | timePipe}}</p>
       </md-list-item>

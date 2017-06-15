@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { RecipebookService } from '../../shared/recipebook.service';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class FabDropdownComponent {
   public onClick(targetElement) {
     const clickedInside = this.elRef.nativeElement.contains(targetElement);
     if ( clickedInside && this.deleteConfirmButton === true) {
-      this.menuOpen = false;
+      this.menuOpen = true;
       this.deleteConfirmButton = false;
       this.menuIcon = 'more_horiz';
       this.menuColor = 'accent';
