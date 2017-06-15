@@ -1,0 +1,40 @@
+<div [ngSwitch]="menuOpen && !deleteConfirmButton"
+     class="fab-container-util"
+     fxLayout="row" fxLayoutAlign="end center">
+
+  <button md-mini-fab
+          *ngSwitchCase="true"
+          class="fab-menu-btn"
+          (click)="onFavorite()">
+    <md-icon>favorite</md-icon>
+  </button>
+
+  <button md-mini-fab
+          *ngSwitchCase="true"
+          class="fab-menu-btn"
+          (click)="onEdit()">
+    <md-icon>edit</md-icon>
+  </button>
+
+  <button md-mini-fab
+          *ngSwitchCase="true"
+          class="fab-menu-btn"
+          (click)="onDeleteAttempt()">
+    <md-icon>delete</md-icon>
+  </button>
+
+  <button md-fab
+          *ngIf="deleteConfirmButton"
+          color="warn"
+          class="fab-menu-btn"
+          (click)="onDeleteConfirm()">
+    <md-icon>delete_forever</md-icon>
+  </button>
+
+  <button md-fab
+          [color]="menuColor"
+          class="fab-menu-btn">
+    <md-icon>{{menuIcon}}</md-icon>
+  </button>
+
+</div>

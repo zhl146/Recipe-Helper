@@ -14,6 +14,7 @@ import { CancelDialogComponent } from './cancel-dialog/cancel-dialog.component';
 
 import { TimePipe } from './time.pipe';
 import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
+import { FabDropdownComponent } from './recipe-list/fab-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
     RecipeStartComponent,
     TimePipe,
     RecipeFilterPipe,
-    CancelDialogComponent
+    CancelDialogComponent,
+    FabDropdownComponent
   ],
   entryComponents: [
     CancelDialogComponent

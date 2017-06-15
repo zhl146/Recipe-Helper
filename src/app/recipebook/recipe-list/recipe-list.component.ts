@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-
 import {RecipebookService} from '../../shared/recipebook.service';
 import { OptionsService } from '../../shared/options.service';
 
@@ -31,7 +29,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   // user can filter the recipe list using this string
   filterString: string;
 
-  recipes: Recipe[] | Observable<Recipe[]>;
+  recipes: Recipe[];
 
   constructor( private recipeService: RecipebookService,
                private router: Router,
@@ -87,8 +85,28 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     return ( !this.media.isActive('xs') || this.selectedIndex === null );
   }
 
-  onRecipeBack() {
+  onRecipeClose() {
     this.selectedIndex = null;
+  }
+
+  onNextRecipe() {
+    if ( (this.selectedIndex + 1) === this.recipes.length ) {
+      console.log('reached the end, going to start');
+      this.onSelected(0);
+    } else {
+      console.log('going to next ' + this.selectedIndex++);
+      this.onSelected(this.selectedIndex++);
+    }
+  }
+
+  onPreviousRecipe() {
+    if ( this.selectedIndex === 0 ) {
+      console.log('reached the start, going to end: ' + (this.recipes.length - 1));
+      this.onSelected(this.recipes.length - 1);
+    } else {
+      console.log('going to previous ' + this.selectedIndex--);
+      this.onSelected(this.selectedIndex--);
+    }
   }
 
 }

@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import {
   MdButtonModule,
   MdCardModule,
-  MdCheckboxModule, MdDialogModule,
+  MdCheckboxModule,
+  MdDialogModule,
   MdIconModule,
   MdInputModule,
   MdListModule,
-  MdSidenavModule, MdSlideToggleModule,
+  MdSlideToggleModule,
   MdSnackBarModule,
   MdTabsModule,
   MdToolbarModule
@@ -27,7 +28,6 @@ import { ImageFallbackDirective } from './image-fallback.directive';
     FlexLayoutModule,
 
     // material design
-    MdSidenavModule,
     MdToolbarModule,
     MdButtonModule,
     MdInputModule,
@@ -48,7 +48,6 @@ import { ImageFallbackDirective } from './image-fallback.directive';
     FlexLayoutModule,
 
     // material design
-    MdSidenavModule,
     MdToolbarModule,
     MdButtonModule,
     MdInputModule,

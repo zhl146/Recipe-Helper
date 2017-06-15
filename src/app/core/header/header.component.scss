@@ -1,3 +1,5 @@
+@import '../../../assets/material-theme';
+
 .toolbar-spacer {
   flex: 1 1 auto;
 }
@@ -18,7 +20,7 @@
 }
 
 .toolbar-extend {
-  background-color: #3f51b5;
+  background-color: mat-color($app-primary);
 }
 
 .loading-screen {
@@ -35,7 +37,7 @@
   justify-content: center;
   align-items: center;
 
-  color: dodgerblue;
+  color: mat-color($app-primary);
   text-transform: uppercase;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 6.5em;

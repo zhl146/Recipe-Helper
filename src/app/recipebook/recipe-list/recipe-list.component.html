@@ -34,58 +34,53 @@
        fxLayout="column"
        class="recipe-image-card">
 
-    <div class="recipe-image-card-title">
-      <h2>{{recipes[selectedIndex].name | titlecase }}</h2>
+    <div class="card-image-container"
+         appDivImage
+         [src]="recipes[selectedIndex].imagePath"
+         fallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png">
+
+      <app-fab-dropdown [index]="selectedIndex"></app-fab-dropdown>
+
     </div>
 
-      <div class="card-image-container"
-           appDivImage
-           [src]="recipes[selectedIndex].imagePath"
-           fallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png">
-        <!--<img appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"-->
-        <!--src="{{recipes[selectedIndex].imagePath }}"-->
-        <!--alt="">-->
-      </div>
-
     <div class="recipe-image-card-content" fxFlex="1 1 auto" fxLayout="column">
-      <p>{{recipes[selectedIndex].description}}</p>
-
 
       <div fxFlex></div>
 
       <!--<md-list>-->
-        <!--<md-list-item>-->
-          <!--<md-icon md-list-icon>timer</md-icon>-->
-          <!--<p md-line>Prep: {{recipes[selectedIndex].prepTime | timePipe}}</p>-->
-          <!--<p md-line>Cook: {{recipes[selectedIndex].cookTime |timePipe}}</p>-->
-          <!--<p md-line>Done in: {{recipes[selectedIndex].prepTime + recipes[selectedIndex].cookTime | timePipe}}</p>-->
-        <!--</md-list-item>-->
+      <!--<md-list-item>-->
+      <!--<md-icon md-list-icon>timer</md-icon>-->
+      <!--<p md-line>Prep: {{recipes[selectedIndex].prepTime | timePipe}}</p>-->
+      <!--<p md-line>Cook: {{recipes[selectedIndex].cookTime |timePipe}}</p>-->
+      <!--<p md-line>Done in: {{recipes[selectedIndex].prepTime + recipes[selectedIndex].cookTime | timePipe}}</p>-->
+      <!--</md-list-item>-->
 
       <!--</md-list>-->
 
-      <div class="fab-container" fxLayout="row" fxLayoutAlign="space-around center">
+      <div class="fab-container-nav" fxLayout="row" fxLayoutAlign="space-around center">
 
-        <button md-fab *ngIf="false">
-          <md-icon>loop</md-icon>
-        </button>
-
-        <button md-mini-fab>
+        <button md-mini-fab
+                (click)="onPreviousRecipe()">
           <md-icon>skip_previous</md-icon>
         </button>
 
-        <button md-fab>
+        <button md-fab
+                (click)="onRecipeClose()">
           <md-icon>keyboard_arrow_up</md-icon>
         </button>
 
-        <button md-mini-fab>
+        <button md-mini-fab
+                (click)="onNextRecipe()">
           <md-icon>skip_next</md-icon>
         </button>
 
-        <button md-fab *ngIf="false">
-          <md-icon>loop</md-icon>
-        </button>
-
       </div>
+
+      <div class="recipe-image-card-title">
+        <h2>{{recipes[selectedIndex].name | titlecase }}</h2>
+      </div>
+
+      <p>{{recipes[selectedIndex].description}}</p>
 
     </div>
 
@@ -115,20 +110,20 @@
   </div>
 
 
-<md-list fxFlex="100" fxLayout="row" fxLayoutWrap  *ngIf="listDisplay()">
-  <div *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index"
-       fxFlex="100" fxLayout="row" fxLayoutWrap>
+  <md-list fxFlex="100" fxLayout="row" fxLayoutWrap  *ngIf="listDisplay()">
+    <div *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index"
+         fxFlex="100" fxLayout="row" fxLayoutWrap>
 
-    <md-list-item fxFlex="100"
-                  (click)="onSelected(i)">
-      <md-icon md-list-icon>web</md-icon>
-      <h4 md-line>{{recipe.name | titlecase}}</h4>
-      <p md-line>Ready in: {{ recipe.prepTime + recipe.cookTime | timePipe}}</p>
-    </md-list-item>
+      <md-list-item fxFlex="100"
+                    (click)="onSelected(i)">
+        <md-icon md-list-icon>web</md-icon>
+        <h4 md-line>{{recipe.name | titlecase}}</h4>
+        <p md-line>Ready in: {{ recipe.prepTime + recipe.cookTime | timePipe}}</p>
+      </md-list-item>
 
-  </div>
+    </div>
 
-</md-list>
+  </md-list>
 
 </div>
 

@@ -6,10 +6,13 @@
        fxLayoutAlign="center"
        fxLayoutWrap>
 
-    <div fxFlex.xs="100" fxFlex="38.2">
+    <div fxFlex.xs="100" fxFlex="38.2"
+         fxFlexOrder.gt-xs="2">
       <app-recipe-list></app-recipe-list>
     </div>
-    <div fxFlex.xs="100" fxFlex="61.8" id="recipeDetail">
+    <div fxFlex.xs="100" fxFlex="61.8"
+         fxFlexOrder.gt-xs="1"
+         id="recipeDetail">
       <router-outlet></router-outlet>
     </div>
   </div>

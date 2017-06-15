@@ -51,6 +51,13 @@ export class RecipebookService {
     this.updateServerRecipes();
   }
 
+  toggleRecipeFav(recipeIndex: number) {
+    const updatedRecipes = this.recipeList.getValue();
+    updatedRecipes[recipeIndex].favorite = !updatedRecipes[recipeIndex].favorite;
+    this.recipeList.next(updatedRecipes);
+    this.updateServerRecipes();
+  }
+
   getServerRecipes() {
     return new Promise(
       (resolve) => {

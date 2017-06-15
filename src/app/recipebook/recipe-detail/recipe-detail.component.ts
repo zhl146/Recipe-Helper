@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Recipe} from '../recipe.model';
 import { ShoppinglistService} from '../../shared/shoppinglist.service';
 import { RecipebookService } from '../../shared/recipebook.service';

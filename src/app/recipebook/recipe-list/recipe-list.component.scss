@@ -22,13 +22,18 @@
   margin: 10px 5px 10px 5px;
 }
 
-.fab-container {
-  padding-bottom: 24px;
+.fab-container-nav {
+  padding: 24px 0 24px 0;
+}
+
+.fab-container-util {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .card-image-container {
   position: relative;
-  overflow: hidden;
   width: 100%;
   @include aspect-ratio(1.618);
   background-size: cover;
@@ -44,10 +49,16 @@
 }
 
 .recipe-image-card-title {
-  padding: 24px;
+  padding: 24px 0 24px 0;
+}
+
+.recipe-image-card-title h2 {
+  text-align: center;
+  margin: 0;
 }
 
 .recipe-image-card-content {
   position: relative;
-  padding: 5px 24px 5px 24px;
+  padding: 0 24px 8px 24px;
 }
+

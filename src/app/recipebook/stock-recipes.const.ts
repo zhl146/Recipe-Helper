@@ -29,7 +29,8 @@ export const  stockRecipes: Recipe[] = [
       'Cook meat as desired.'
     ],
     prepTime: 15,
-    cookTime: 0
+    cookTime: 0,
+    favorite: false
   },
   {
     name: 'Peach Cobbler',
@@ -57,7 +58,8 @@ export const  stockRecipes: Recipe[] = [
       'Bake in preheated oven until golden brown, about 30 minutes.'
     ],
     prepTime: 15,
-    cookTime: 30
+    cookTime: 30,
+    favorite: false
   },
   {
     name: 'Slow Cooker Beef Stroganoff',
@@ -79,6 +81,7 @@ export const  stockRecipes: Recipe[] = [
       'Stir in cream cheese just before serving'
     ],
     prepTime: 10,
-    cookTime: 480
+    cookTime: 480,
+    favorite: false
   }
 ];

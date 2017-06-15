@@ -6,6 +6,7 @@ export class Recipe {
   steps: string[];
   prepTime: number;
   cookTime: number;
+  favorite: boolean;
 
   constructor(name: string,
               description: string,
@@ -21,6 +22,7 @@ export class Recipe {
     this.steps = steps;
     this.prepTime = prepTime;
     this.cookTime = cookTime;
+    this.favorite = false;
   }
 
 }
