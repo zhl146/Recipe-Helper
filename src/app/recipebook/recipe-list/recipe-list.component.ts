@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import {RecipeBookDataService} from '../../shared/recipe-book-data.service';
 import { OptionsService } from '../../shared/options.service';
@@ -33,8 +32,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
 
   constructor( private recipeService: RecipeBookDataService,
-               private router: Router,
-               private route: ActivatedRoute,
                private optionsService: OptionsService,
                private fb: FormBuilder,
                private media: ObservableMedia,
@@ -74,8 +71,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   // shows the current recipe detail
   onSelected(selectedRecipeIndex: number) {
-    this.recipeNavService.currentRecipeIndex = selectedRecipeIndex;
-    this.router.navigate([selectedRecipeIndex], {relativeTo: this.route});
+    this.recipeNavService.onSelected(selectedRecipeIndex);
   }
 
   // clears the current user filter string
@@ -87,37 +83,12 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     this.optionsService.disableRecipeInfo();
   }
 
-  // getReadyTime(index: number) {
-  //   return this.recipes[index].prepTime + this.recipes[index].cookTime;
-  // }
-
   listDisplay() {
     return ( !this.media.isActive('xs') || this.currentRecipeIndex === null );
   }
 
-  onRecipeClose() {
-    this.recipeNavService.currentRecipeIndex = null;
-    this.router.navigate(['recipes']);
-  }
-
-  onNextRecipe() {
-    if ( (this.currentRecipeIndex + 1) === this.recipes.length ) {
-      console.log('reached the end, going to start');
-      this.onSelected(0);
-    } else {
-      console.log('going to next ' + this.currentRecipeIndex++);
-      this.onSelected(this.currentRecipeIndex++);
-    }
-  }
-
-  onPreviousRecipe() {
-    if ( this.currentRecipeIndex === 0 ) {
-      console.log('reached the start, going to end: ' + (this.recipes.length - 1));
-      this.onSelected(this.recipes.length - 1);
-    } else {
-      console.log('going to previous ' + this.currentRecipeIndex--);
-      this.onSelected(this.currentRecipeIndex--);
-    }
+  onFavorite() {
+    this.recipeService.toggleRecipeFav(this.currentRecipeIndex);
   }
 
 }

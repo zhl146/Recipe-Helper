@@ -18,9 +18,12 @@
   </div>
 </div>
 
-<div class="recipe-nav-footer-container"
-     fxHide.gt-sm *ngIf="recipeDetailView">
-
+<ng-container *ngIf="recipeDetailView">
+  <div class="recipe-nav-footer-padding" fxHide.gt-sm></div>
+  <div class="recipe-nav-footer-container"
+       fxHide.gt-sm>
     <app-recipe-nav fxLayout="row" fxLayoutAlign="center"></app-recipe-nav>
 
-</div>
+  </div>
+</ng-container>
+

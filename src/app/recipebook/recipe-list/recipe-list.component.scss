@@ -16,14 +16,6 @@
   &:after  { content: ''; display:table; clear: both; }
 }
 
-.action-button-container {
-  position: absolute;
-  display: flex;
-  width: 100%;
-  top: 0;
-  color: white;
-}
-
 .spacer {
   flex: 1 1 auto;
 }
@@ -37,8 +29,13 @@
 }
 
 .fab-container-nav {
-  padding: 30px 30px 30px 30px;
-  background-color: mat-color($app-primary);
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background: linear-gradient(
+      rgba(19, 27, 35, 0.65),
+      rgba(19, 27, 35, 0.65)
+  )
 }
 
 .fab-container-nav md-icon{
@@ -47,6 +44,7 @@
   height: 40px;
   width: 40px;
   margin: 0 24px 0 24px;
+  cursor: pointer;
 }
 
 .fab-container-util {
@@ -58,13 +56,9 @@
 .card-image-container {
   position: relative;
   width: 100%;
-  @include aspect-ratio(1.618);
+  @include aspect-ratio(1.778);
   background-size: cover;
   background-position: center center;
-}
-
-md-list-item {
-  cursor: pointer;
 }
 
 .recipe-image-card {
@@ -75,17 +69,21 @@ md-list-item {
   border-radius: 2px;
 }
 
-.recipe-image-card-title {
-  padding: 24px 0 24px 0;
+.mobile-favorite-fab {
+  position: absolute;
+  bottom: -25px;
+  right: 16px;
+  z-index: 10;
 }
 
-.recipe-image-card-title h2 {
-  text-align: center;
-  margin: 0;
+md-list-item {
+  cursor: pointer;
 }
 
-.recipe-image-card-content {
-  position: relative;
-  padding: 0 24px 8px 24px;
+.white-icon {
+  color: white;
 }
 
+.pink-icon {
+  color: red;
+}
