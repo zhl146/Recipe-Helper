@@ -14,6 +14,7 @@ import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 import { TimePipe } from './time.pipe';
 import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
 import { FabDropdownComponent } from './recipe-list/fab-dropdown.component';
+import { RecipeNavComponent } from './recipe-nav/recipe-nav.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FabDropdownComponent } from './recipe-list/fab-dropdown.component';
     RecipeStartComponent,
     TimePipe,
     RecipeFilterPipe,
-    FabDropdownComponent
+    FabDropdownComponent,
+    RecipeNavComponent
   ],
   imports: [
     CommonModule,

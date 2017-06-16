@@ -1,91 +1,105 @@
 <div class="recipe-list"
      fxLayout="column">
 
-  <md-card class="recipe-detail-container"
-           *ngIf="recipeInfo"
-           fxHide.gt-xs>
-    <md-card-header>
-      <md-card-title>
-        <h2>Welcome to your recipe book!</h2>
-      </md-card-title>
-    </md-card-header>
-    <md-card-content>
-      <p>
-        This recipe book comes with 3 recipes, but you can delete them
-        and add your own if you like! The recipes are saved
-        on a remote database, so they will be here when you return.
-      </p>
-      <p>
-        Click on a recipe to view its details and edit them. You may also add some or all
-        of its ingredients to your shopping list.
-      </p>
-    </md-card-content>
+  <!--<md-card class="recipe-detail-container"-->
+           <!--*ngIf="recipeInfo"-->
+           <!--fxHide.gt-xs>-->
+    <!--<md-card-header>-->
+      <!--<md-card-title>-->
+        <!--<h2>Welcome to your recipe book!</h2>-->
+      <!--</md-card-title>-->
+    <!--</md-card-header>-->
+    <!--<md-card-content>-->
+      <!--<p>-->
+        <!--This recipe book comes with 3 recipes, but you can delete them-->
+        <!--and add your own if you like! The recipes are saved-->
+        <!--on a remote database, so they will be here when you return.-->
+      <!--</p>-->
+      <!--<p>-->
+        <!--Click on a recipe to view its details and edit them. You may also add some or all-->
+        <!--of its ingredients to your shopping list.-->
+      <!--</p>-->
+    <!--</md-card-content>-->
 
-    <button md-raised-button
-            (click)="onGotIt()"
-            color="accent">
-      Got it
-    </button>
+    <!--<button md-raised-button-->
+            <!--(click)="onGotIt()"-->
+            <!--color="accent">-->
+      <!--Got it-->
+    <!--</button>-->
 
-  </md-card>
+  <!--</md-card>-->
 
-  <div *ngIf="selectedIndex !== null"
-       fxFlex="1 0 auto"
+  <div fxFlex="1 0 auto"
        fxLayout="column"
-       class="recipe-image-card">
+       class="recipe-image-card"
+       *ngIf="currentRecipeIndex !== null">
 
     <div class="card-image-container"
          appDivImage
-         [src]="recipes[selectedIndex].imagePath"
+         [src]="recipes[currentRecipeIndex].imagePath"
          fallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png">
 
-      <app-fab-dropdown [index]="selectedIndex"></app-fab-dropdown>
+      <!--<appcurrentRecipeIndex [index]="selectedIndex"></app-fab-dropdown>-->
+
+      <div class="action-button-container">
+        <md-icon (click)="onRecipeClose()" >cancel</md-icon>
+        <span class="spacer"></span>
+        <md-icon>favorite</md-icon>
+        <md-icon>more_vert</md-icon>
+      </div>
 
     </div>
 
-    <div class="fab-container-nav" fxLayout="row" fxLayoutAlign="center center">
+    <!--<div class="fab-container-nav" fxLayout="row" fxLayoutAlign="center center">-->
 
-      <md-icon class="side-icon"
-               color="primary"
-               (click)="onPreviousRecipe()">
-        skip_previous
-      </md-icon>
-      <md-icon class="center-icon"
-               (click)="onRecipeClose()">
-        view_headline
-      </md-icon>
-      <md-icon class="side-icon"
-               (click)="onNextRecipe()">
-        skip_next
-      </md-icon>
+    <!--<md-icon class="side-icon"-->
+    <!--color="primary"-->
+    <!--(click)="onPreviousRecipe()">-->
+    <!--skip_previous-->
+    <!--</md-icon>-->
+    <!--<md-icon class="center-icon"-->
+    <!--(click)="onRecipeClose()">-->
+    <!--view_headline-->
+    <!--</md-icon>-->
+    <!--<md-icon class="side-icon"-->
+    <!--(click)="onNextRecipe()">-->
+    <!--skip_next-->
+    <!--</md-icon>-->
 
-    </div>
+    <!--</div>-->
 
     <div class="recipe-image-card-content" fxFlex="1 1 auto" fxLayout="column">
 
       <div fxFlex></div>
 
-      <!--<md-list>-->
-      <!--<md-list-item>-->
-      <!--<md-icon md-list-icon>timer</md-icon>-->
-      <!--<p md-line>Prep: {{recipes[selectedIndex].prepTime | timePipe}}</p>-->
-      <!--<p md-line>Cook: {{recipes[selectedIndex].cookTime |timePipe}}</p>-->
-      <!--<p md-line>Done in: {{recipes[selectedIndex].prepTime + recipes[selectedIndex].cookTime | timePipe}}</p>-->
-      <!--</md-list-item>-->
-
-      <!--</md-list>-->
-
       <div class="recipe-image-card-title">
-        <h2>{{recipes[selectedIndex].name | titlecase }}</h2>
+        <h2>{{recipes[currentRecipeIndex].name | titlecase }}</h2>
       </div>
 
-      <p>{{recipes[selectedIndex].description}}</p>
+      <p>{{recipes[currentRecipeIndex].description}}</p>
 
     </div>
 
   </div>
 
-  <div fxLayoutWrap fxLayoutAlign="center" *ngIf="this.selectedIndex === null">
+  <!--<div *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index"-->
+       <!--fxFlex="1 0 auto"-->
+       <!--fxLayout="column"-->
+       <!--class="recipe-image-card" [ngClasscurrentRecipeIndexecipe-card': i=== selectedIndex}">-->
+
+    <!--<div class="recipe-image-card-content" fxFlex="1 1 auto" fxLayout="column">-->
+
+      <!--<div fxFlex></div>-->
+
+      <!--<div class="recipe-image-card-title" (click)="onSelected(i)">-->
+        <!--<h2>{{recipe.name | titlecase }}</h2>-->
+      <!--</div>-->
+
+    <!--</div>-->
+
+  <!--</div>-->
+
+  <div fxLayoutWrap fxLayoutAlign="center" *ngIf="this.currentRecipeIndex === null">
     <button md-raised-button
             class="new-recipe-btn"
             color="accent"

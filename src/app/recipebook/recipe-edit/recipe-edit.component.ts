@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RecipebookService } from '../../shared/recipebook.service';
+import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
 import { Recipe } from '../recipe.model';
 import { validateReasonableTime } from '../recipebook-time-validator';
 import { TitleCasePipe } from '@angular/common';
@@ -20,7 +20,7 @@ export class RecipeEditComponent implements OnInit {
   editMode = false; // true if we are editing an existing currentRecipe false if we are creating a new one
 
   constructor( private route: ActivatedRoute,
-               private recipeService: RecipebookService,
+               private recipeService: RecipeBookDataService,
                private router: Router) { }
 
   ngOnInit() {
@@ -105,13 +105,11 @@ export class RecipeEditComponent implements OnInit {
 
   getHours(time: number) {
     const result = Math.floor(time / 60);
-    console.log(time + ' minutes translates into ' + result + ' hours');
     return result;
   }
 
   getMinutes(time: number) {
     const result = time % 60;
-    console.log(time + ' minutes translates into ' + result + ' minutes left over');
     return time % 60;
   }
 
@@ -190,8 +188,6 @@ export class RecipeEditComponent implements OnInit {
     this.updateLocalRecipe();
 
     // determines whether to add a recipe or update an existing one
-    console.log(this.currentRecipe);
-    console.log(this.id);
     if (this.editMode) {
       this.recipeService.editRecipe(this.currentRecipe, this.id);
     } else {

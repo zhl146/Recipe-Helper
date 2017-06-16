@@ -14,11 +14,12 @@ import { AppComponent } from './app.component';
 
 import { ShoppinglistService } from './shared/shoppinglist.service';
 import { AppHttpService } from 'app/shared/http.service';
-import { RecipebookService } from 'app/shared/recipebook.service';
+import { RecipeBookDataService } from 'app/shared/recipe-book-data.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { OptionsService } from './shared/options.service';
 import { UserService } from './shared/user.service';
+import { RecipeBookNavService } from './recipebook/recipe-book-nav.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { UserService } from './shared/user.service';
   ],
   providers: [
     ShoppinglistService,
-    RecipebookService,
+    RecipeBookDataService,
+    RecipeBookNavService,
     AppHttpService,
     AuthService,
     OptionsService,

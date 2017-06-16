@@ -9,14 +9,19 @@ import { stockRecipes } from '../recipebook/stock-recipes.const';
 // this is the recipe data service
 // it holds the recipes array and shares it among all subscribers
 @Injectable()
-export class RecipebookService {
-  private recipeList = new BehaviorSubject<Recipe[]>([]);
+export class RecipeBookDataService {
   private stockRecipes = stockRecipes;
+
+  private recipeList = new BehaviorSubject<Recipe[]>([]);
 
   constructor( private http: AppHttpService ) {}
 
   getLocalRecipes() {
     return this.recipeList.asObservable();
+  }
+
+  getNumrecipes() {
+    return this.recipeList.getValue().length;
   }
 
   // returns a specific recipe

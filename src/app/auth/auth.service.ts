@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as firebase from 'firebase';
 
 import { ShoppinglistService } from '../shared/shoppinglist.service';
-import { RecipebookService } from '../shared/recipebook.service';
+import { RecipeBookDataService } from '../shared/recipe-book-data.service';
 import { OptionsService } from '../shared/options.service';
 import { UserService } from '../shared/user.service';
 import { User } from 'firebase/app';
@@ -23,7 +23,7 @@ export class AuthService {
 
   constructor( private router: Router,
                private shoppingService: ShoppinglistService,
-               private recipesService: RecipebookService,
+               private recipesService: RecipeBookDataService,
                private optionsService: OptionsService,
                private userService: UserService
   ) {}

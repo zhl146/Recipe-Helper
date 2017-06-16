@@ -2,12 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {RecipebookService} from '../../shared/recipebook.service';
+import {RecipeBookDataService} from '../../shared/recipe-book-data.service';
 import { OptionsService } from '../../shared/options.service';
 
 import { Recipe } from '../recipe.model';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Subject } from 'rxjs/Subject';
+import { RecipeBookNavService } from '../recipe-book-nav.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -23,7 +24,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipeInfo: boolean;
 
   // index of selected recipe
-  selectedIndex: number | null = null;
+  currentRecipeIndex: number | null = null;
 
   // this is 2 way bound to user input
   // user can filter the recipe list using this string
@@ -31,12 +32,13 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   recipes: Recipe[];
 
-  constructor( private recipeService: RecipebookService,
+  constructor( private recipeService: RecipeBookDataService,
                private router: Router,
                private route: ActivatedRoute,
                private optionsService: OptionsService,
                private fb: FormBuilder,
-               private media: ObservableMedia ) { }
+               private media: ObservableMedia,
+               private recipeNavService: RecipeBookNavService) { }
 
   // get the recipe and initializes the form for filtering
   ngOnInit() {
@@ -52,6 +54,14 @@ export class RecipeListComponent implements OnInit, OnDestroy {
         }
       );
 
+    this.recipeNavService.getCurrentRecipeObs()
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(
+        (currentRecipeIndex) => {
+          this.currentRecipeIndex = currentRecipeIndex;
+        }
+      );
+
     this.recipeForm = this.fb.group({
       filter: this.fb.control('')
     });
@@ -63,9 +73,9 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   }
 
   // shows the current recipe detail
-  onSelected(index: number) {
-    this.selectedIndex = index;
-    this.router.navigate([index], {relativeTo: this.route});
+  onSelected(selectedRecipeIndex: number) {
+    this.recipeNavService.currentRecipeIndex = selectedRecipeIndex;
+    this.router.navigate([selectedRecipeIndex], {relativeTo: this.route});
   }
 
   // clears the current user filter string
@@ -82,31 +92,31 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   // }
 
   listDisplay() {
-    return ( !this.media.isActive('xs') || this.selectedIndex === null );
+    return ( !this.media.isActive('xs') || this.currentRecipeIndex === null );
   }
 
   onRecipeClose() {
-    this.selectedIndex = null;
+    this.recipeNavService.currentRecipeIndex = null;
     this.router.navigate(['recipes']);
   }
 
   onNextRecipe() {
-    if ( (this.selectedIndex + 1) === this.recipes.length ) {
+    if ( (this.currentRecipeIndex + 1) === this.recipes.length ) {
       console.log('reached the end, going to start');
       this.onSelected(0);
     } else {
-      console.log('going to next ' + this.selectedIndex++);
-      this.onSelected(this.selectedIndex++);
+      console.log('going to next ' + this.currentRecipeIndex++);
+      this.onSelected(this.currentRecipeIndex++);
     }
   }
 
   onPreviousRecipe() {
-    if ( this.selectedIndex === 0 ) {
+    if ( this.currentRecipeIndex === 0 ) {
       console.log('reached the start, going to end: ' + (this.recipes.length - 1));
       this.onSelected(this.recipes.length - 1);
     } else {
-      console.log('going to previous ' + this.selectedIndex--);
-      this.onSelected(this.selectedIndex--);
+      console.log('going to previous ' + this.currentRecipeIndex--);
+      this.onSelected(this.currentRecipeIndex--);
     }
   }
 

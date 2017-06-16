@@ -16,6 +16,18 @@
   &:after  { content: ''; display:table; clear: both; }
 }
 
+.action-button-container {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  top: 0;
+  color: white;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
 .new-recipe-btn {
   margin-bottom: 7px;
 }

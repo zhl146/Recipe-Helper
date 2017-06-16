@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
-import { RecipebookService } from '../../shared/recipebook.service';
+import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,7 +33,7 @@ export class FabDropdownComponent {
   }
 
   constructor( private router: Router,
-               private recipeService: RecipebookService,
+               private recipeService: RecipeBookDataService,
                private elRef: ElementRef ) { }
 
   onDeleteAttempt() {

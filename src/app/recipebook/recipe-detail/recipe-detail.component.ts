@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { Recipe} from '../recipe.model';
 import { ShoppinglistService} from '../../shared/shoppinglist.service';
-import { RecipebookService } from '../../shared/recipebook.service';
+import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
 
 
 @Component({
@@ -24,12 +24,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   // this is here so that we can display detailed currentRecipe data when the user selects a specific currentRecipe
 
   constructor( private shoppingService: ShoppinglistService,
-               private recipeService: RecipebookService,
+               private recipeService: RecipeBookDataService,
                private route: ActivatedRoute,
                public snackBar: MdSnackBar) { }
 
   ngOnInit() {
-
     // gets the id from the parameters of the route
     // uses this id to grab the currentRecipe from the currentRecipe service
     this.route.params
@@ -67,7 +66,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   // adds a single ingredient to the shopping list
   onAddIngredient(newIngredient: string) {
-    this.openSnackBar('Ingredient added to list!', 'OK');
+    this.openSnackBar('Ingredient added to list!', '');
     this.shoppingService.addIngredient(newIngredient);
   }
 
