@@ -11,8 +11,7 @@ import {
   MdListModule,
   MdSlideToggleModule,
   MdSnackBarModule,
-  MdTabsModule,
-  MdToolbarModule
+  MdTabsModule
 } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -28,7 +27,6 @@ import { ImageFallbackDirective } from './image-fallback.directive';
     FlexLayoutModule,
 
     // material design
-    MdToolbarModule,
     MdButtonModule,
     MdInputModule,
     MdCardModule,
@@ -48,7 +46,6 @@ import { ImageFallbackDirective } from './image-fallback.directive';
     FlexLayoutModule,
 
     // material design
-    MdToolbarModule,
     MdButtonModule,
     MdInputModule,
     MdCardModule,

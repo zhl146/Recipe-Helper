@@ -1,0 +1,23 @@
+@import "../assets/sass-vars";
+
+$breakxs: 599px;
+
+@mixin respond-to($media) {
+  @if $media == xs {
+    @media only screen and (max-width: $breakxs) { @content; }
+  }
+  @else if $media == not-xs {
+    @media only screen and (min-width: $breakxs + 1) { @content; }
+  }
+}
+
+.content-container {
+  display: flex;
+  width: 100vw;
+  @include respond-to(xs) {margin-top: $toolbar-height + $navbar-height;}
+  @include respond-to(not-xs) {margin-top: $toolbar-height;}
+}
+
+.header-container {
+  display: flex;
+}

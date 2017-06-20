@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import * as firebase from 'firebase';
 
 import { Recipe } from '../recipebook/recipe.model';
+import { ShoppingListItem } from '../shoppinglist/shopping-list-item.model';
 import { UserService } from './user.service';
 
 
@@ -56,7 +57,7 @@ export class AppHttpService {
     return this.genericPut('recipes', data);
   }
 
-  saveList(data: string[]) {
+  saveList(data: ShoppingListItem[]) {
     return this.genericPut('list', data);
   }
 

@@ -24,10 +24,8 @@ export class RecipeBookNavService {
   onSelected(selectedRecipeIndex: number | null) {
     if ( selectedRecipeIndex !== null ) {
       this.currentRecipeStream.next(selectedRecipeIndex);
-      this.router.navigate(['recipes', selectedRecipeIndex]);
     } else {
       this.currentRecipeStream.next(null);
-      this.router.navigate(['recipes']);
     }
   }
 

@@ -10,11 +10,10 @@ import { RecipeBookComponent } from './recipebook.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { RecipeNavComponent } from './recipe-nav/recipe-nav.component';
 
 import { TimePipe } from './time.pipe';
 import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
-import { FabDropdownComponent } from './recipe-list/fab-dropdown.component';
-import { RecipeNavComponent } from './recipe-nav/recipe-nav.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import { RecipeNavComponent } from './recipe-nav/recipe-nav.component';
     RecipeStartComponent,
     TimePipe,
     RecipeFilterPipe,
-    FabDropdownComponent,
     RecipeNavComponent
   ],
   imports: [

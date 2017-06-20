@@ -1,4 +1,6 @@
 @import "../../../assets/sass-vars";
+@import "../../../assets/material-shadows";
+@import "../../../assets/basic-typography";
 
 // Helper function
 // Return null rather than throwing an error if index is outside list range.
@@ -6,7 +8,7 @@
   @return if(length($list) >= $index, nth($list, $index), null);
 }
 
-@mixin aspect-ratio($arglist... /*$width/$ratio, $height*/){
+@mixin aspect-ratio($arglist... /*$width/$ratio, $height*/) {
   $map : keywords($arglist);
   $height: map-get($map, height) or nth-or-null($arglist, 2);
   $width:  map-get($map, width)  or nth-or-null($arglist, 1);
@@ -16,74 +18,107 @@
   &:after  { content: ''; display:table; clear: both; }
 }
 
-.spacer {
-  flex: 1 1 auto;
-}
-
-.new-recipe-btn {
-  margin-bottom: 7px;
-}
+/* vars */
+$fab-right-indent: 16px;
+$card-image-aspect: 1.777;
 
 .recipe-list {
-  margin: 10px 5px 10px 5px;
-}
-
-.fab-container-nav {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  background: linear-gradient(
-      rgba(19, 27, 35, 0.65),
-      rgba(19, 27, 35, 0.65)
-  )
-}
-
-.fab-container-nav md-icon{
-  color: white;
-  font-size: 40px;
-  height: 40px;
-  width: 40px;
-  margin: 0 24px 0 24px;
-  cursor: pointer;
-}
-
-.fab-container-util {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.card-image-container {
   position: relative;
-  width: 100%;
-  @include aspect-ratio(1.778);
-  background-size: cover;
-  background-position: center center;
+
+  .card-image {
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    @include aspect-ratio($card-image-aspect);
+    background-size: cover;
+    background-position: center center;
+    @extend %md-shadow-2dp;
+    .floor-fade {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6) );
+    }
+
+    .title-overlay {
+      display: block;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      padding: 10px 24px ;
+      font-size: 18px;
+      color: white;
+      font-weight: 100;
+
+      md-icon {
+        display: block;
+      }
+    }
+
+    .card-fab-container {
+      position: absolute;
+      bottom: 10px;
+      right: $fab-right-indent;
+      z-index: 3;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      overflow: hidden;
+
+      button {
+        color: white;
+      }
+
+    }
+
+  }
+  .recipe-card {
+    max-width: 100%;
+    margin-bottom: 10px;
+    @extend %md-shadow-2dp;
+    position: relative;
+
+    md-card-title {
+      font-size: 18px;
+      font-weight: 100;
+    }
+
+    .tab-contents {
+      margin-top: 15px;
+    }
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      li {
+        padding-left: 10px;
+        display: flex;
+        margin: 10px 0;
+        font-size: 13px;
+        font-weight: 100;
+        flex-direction: row;
+        align-items: center
+      }
+    }
+
+  }
+
+  .card-padding {
+    display: block;
+    min-height: 10px;
+    width: 100%;
+  }
+
 }
 
-.recipe-image-card {
-  background-color: white;
-  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
-  will-change: box-shadow;
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-  border-radius: 2px;
-}
 
-.mobile-favorite-fab {
-  position: absolute;
-  bottom: -25px;
-  right: 16px;
-  z-index: 10;
-}
 
-md-list-item {
-  cursor: pointer;
-}
 
-.white-icon {
-  color: white;
-}
 
-.pink-icon {
-  color: red;
-}
+
+
+

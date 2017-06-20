@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { Recipe} from '../recipe.model';
 import { ShoppinglistService} from '../../shared/shoppinglist.service';
 import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
+import { ShoppingListItem } from '../../shoppinglist/shopping-list-item.model';
 
 
 @Component({
@@ -65,8 +66,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   // adds a single ingredient to the shopping list
-  onAddIngredient(newIngredient: string) {
+  onAddIngredient(ingredient: string) {
     this.openSnackBar('Ingredient added to list!', '');
+    const newIngredient = new ShoppingListItem(false, ingredient);
     this.shoppingService.addIngredient(newIngredient);
   }
 

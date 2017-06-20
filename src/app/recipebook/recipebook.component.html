@@ -1,4 +1,5 @@
-<div fxLayout="row"
+<div class="recipe-book"
+     fxLayout="row"
      fxLayoutAlign="center">
   <div fxFlex.lt-xl="100"
        fxFlex.gt-lg="1920px"
@@ -6,12 +7,12 @@
        fxLayoutAlign="center"
        fxLayoutWrap>
 
-    <div fxFlex.xs="100" fxFlex="38.2"
-         fxFlexOrder.gt-xs="2">
+    <div fxFlex.lt-md="100" fxFlex.md="50" fxFlex="38.2"
+         fxFlexOrder.gt-sm="2">
       <app-recipe-list></app-recipe-list>
     </div>
-    <div fxFlex.xs="100" fxFlex="61.8"
-         fxFlexOrder.gt-xs="1"
+    <div fxFlex.lt-md="100" fxFlex.md="50" fxFlex="61.8"
+         fxFlexOrder.gt-sm="1"
          id="recipeDetail">
       <router-outlet></router-outlet>
     </div>

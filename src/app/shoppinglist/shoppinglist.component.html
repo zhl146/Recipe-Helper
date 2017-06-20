@@ -17,17 +17,20 @@
       <md-icon md-list-icon>clear_all</md-icon>
     </button>
 
-    <div [@listAnimation]="getIngredientControls()?.length"
-             formArrayName="ingredients" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+    <div [@flyInOut]
+         formArrayName="shoppingListItems"
+         fxLayout="row"
+         fxLayoutAlign="center"
+         fxLayoutWrap>
 
-      <div *ngFor="let ingredientCtrl of getIngredientControls(); let i = index"
+      <div *ngFor="let listItemCtrl of getListItemControls(); let i = index"
                     fxFlex="100"
                     class="shopping-list-item"
                     fxLayoutAlign="center"
                     [formGroupName]="i"
                     [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
 
-        <md-checkbox *ngIf="!isLastElement(i)" class="shopping-icon"></md-checkbox>
+        <md-checkbox (change)="updateIngredient(i)" *ngIf="!isLastElement(i)" formControlName="checked" class="shopping-icon"></md-checkbox>
 
         <md-icon md-list-icon
                  class="shopping-icon"
@@ -55,14 +58,9 @@
                  md-list-icon>
           delete
         </md-icon>
-        {{i}}
-
       </div>
-
     </div>
   </form>
-
-
 
   <div fxFlex.lt-md="100"
        fxFlex.gt-sm="30"

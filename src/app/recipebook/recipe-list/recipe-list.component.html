@@ -1,74 +1,36 @@
 <div class="recipe-list"
      fxLayout="column">
+  <!--<md-card class="recipe-detail-container"-->
+  <!--*ngIf="recipeInfo"-->
+  <!--fxHide.gt-sm>-->
+  <!--<md-card-header>-->
+  <!--<md-card-title>-->
+  <!--<h2>Welcome to your recipe book!</h2>-->
+  <!--</md-card-title>-->
+  <!--</md-card-header>-->
+  <!--<md-card-content>-->
+  <!--<p>-->
+  <!--This recipe book comes with 3 recipes, but you can delete them-->
+  <!--and add your own if you like! The recipes are saved-->
+  <!--on a remote database, so they will be here when you return.-->
+  <!--</p>-->
+  <!--<p>-->
+  <!--Click on a recipe to view its details and edit them. You may also add some or all-->
+  <!--of its ingredients to your shopping list.-->
+  <!--</p>-->
+  <!--</md-card-content>-->
 
-  <md-card class="recipe-detail-container"
-           *ngIf="recipeInfo"
-           fxHide.gt-xs>
-    <md-card-header>
-      <md-card-title>
-        <h2>Welcome to your recipe book!</h2>
-      </md-card-title>
-    </md-card-header>
-    <md-card-content>
-      <p>
-        This recipe book comes with 3 recipes, but you can delete them
-        and add your own if you like! The recipes are saved
-        on a remote database, so they will be here when you return.
-      </p>
-      <p>
-        Click on a recipe to view its details and edit them. You may also add some or all
-        of its ingredients to your shopping list.
-      </p>
-    </md-card-content>
+  <!--<button md-raised-button-->
+  <!--(click)="onGotIt()"-->
+  <!--color="accent">-->
+  <!--Got it-->
+  <!--</button>-->
 
-    <button md-raised-button
-            (click)="onGotIt()"
-            color="accent">
-      Got it
-    </button>
+  <!--</md-card>-->
 
-  </md-card>
-
-  <ng-container *ngIf="currentRecipeIndex !== null">
-    <div fxFlex="1 0 auto"
-         fxLayout="column"
-         class="recipe-image-card">
-
-      <div class="card-image-container"
-           appDivImage
-           [src]="recipes[currentRecipeIndex].imagePath"
-           fallback="http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png">
-
-        <!--CHANGE THIS TO ACTUALLY BE SANE INSTEAD OF DOING IT THIS LAZY WAY-->
-        <button fxHide.gt-sm md-fab class="mobile-favorite-fab" (click)="onFavorite()">
-          <md-icon class="pink-icon"
-                   *ngIf="recipes[currentRecipeIndex].favorite">favorite</md-icon>
-          <md-icon class="white-icon"
-                   *ngIf="!recipes[currentRecipeIndex].favorite">favorite_border</md-icon>
-        </button>
-
-        <div class="fab-container-nav" fxHide.lt-md>
-          <app-recipe-nav fxLayout="row" fxLayoutAlign="center"></app-recipe-nav>
-        </div>
-      </div>
-
-
-
-    </div>
-
-    <md-card>
-      <md-card-header>
-        <md-card-title>
-          <h2>{{recipes[currentRecipeIndex].name | titlecase }}</h2>
-        </md-card-title>
-      </md-card-header>
-      <md-card-content>
-        <p>{{recipes[currentRecipeIndex].description}}</p>
-      </md-card-content>
-    </md-card>
-  </ng-container>
-
-  <div fxLayoutWrap fxLayoutAlign="center" *ngIf="this.currentRecipeIndex === null">
+  <div fxLayoutWrap fxLayoutAlign="center"
+       *ngIf="this.currentRecipeIndex === null"
+       [@slideCollapseTrigger]>
     <button md-raised-button
             class="new-recipe-btn"
             color="accent"
@@ -90,22 +52,71 @@
     </form>
   </div>
 
+  <ng-container *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
+    <div class="card-image"
+         appDivImage
+         [src]="recipe.imagePath"
+         fallback="http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png">
+      <ng-container *ngIf="i !== currentRecipeIndex">
+        <div class="floor-fade"></div>
+        <div class="title-overlay" [@fadeDownTrigger]>
+          <md-icon color="accent">favorite</md-icon> {{recipe.name | titlecase}}
+        </div>
+      </ng-container>
 
-  <md-list fxFlex="100" fxLayout="row" fxLayoutWrap  *ngIf="listDisplay()">
-    <div *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index"
-         fxFlex="100" fxLayout="row" fxLayoutWrap>
-
-      <md-list-item fxFlex="100"
-                    (click)="onSelected(i)">
-        <md-icon md-list-icon *ngIf="recipe.favorite" color="accent">favorite</md-icon>
-        <md-icon md-list-icon *ngIf="!recipe.favorite">favorite_border</md-icon>
-        <h4 md-line>{{recipe.name | titlecase}}</h4>
-        <p md-line>Ready in: {{ recipe.prepTime + recipe.cookTime | timePipe}}</p>
-      </md-list-item>
-
+      <div class="card-fab-container"
+           [@fabTranslateTrigger]="i === currentRecipeIndex ? 'down' : 'up'">
+        <button md-mini-fab
+                [@fabRotateTrigger]="i === currentRecipeIndex ? 'down' : 'up'"
+                (click)="onSelected(i)">
+          <md-icon>
+            keyboard_arrow_up
+          </md-icon>
+        </button>
+      </div>
     </div>
+    <md-card class="recipe-card" *ngIf="recipeExpanded[i]"
+             (@slideCollapseTrigger.done)="cleanDom($event, i)"
+             [@slideCollapseTrigger]="getRecipeCollapseState(i)">
+      <md-card-content>
+        <md-card-title>
+          {{recipe.name | titlecase}}
+        </md-card-title>
+        <div >
+          <md-card-subtitle>
+            {{recipe.description}}
+          </md-card-subtitle>
+          <md-tab-group [dynamicHeight]="true">
+            <md-tab label="INGREDIENTS">
+              <div class="tab-contents">
+                <ul>
+                  <li *ngFor="let ingredient of recipe.ingredients">
+                    <md-icon md-list-icon>add_shopping_cart</md-icon>
+                    {{ingredient}}
+                  </li>
+                </ul>
+                <button md-button color="primary">
+                  ADD ALL TO LIST
+                </button>
+              </div>
+            </md-tab>
+            <md-tab label="DIRECTIONS">
+              <div class="tab-contents">
+                <ul>
+                  <li *ngFor="let step of recipe.steps; let i = index">
+                    {{i+1}}) {{step}}
+                  </li>
+                </ul>
+              </div>
+            </md-tab>
+          </md-tab-group>
+        </div>
+      </md-card-content>
 
-  </md-list>
+    </md-card>
+
+    <div class="card-padding"></div>
+  </ng-container>
 
 </div>
 

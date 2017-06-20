@@ -1,17 +1,19 @@
-<div class="toolbar-extend .md-whiteframe-4dp"
-     fxLayout="row"
-     fxLayoutAlign="center center">
-  <md-toolbar color="primary"
-              fxFlex.gt-lg="1920px"
-              fxFlex.lt-xl="100"
-              fxFlexAlign="center center"
-              class="toolbar mat-toolbar">
+<div class="toolbar">
+  <div class="toolbar-content"
+       fxFlex.gt-lg="1920px"
+       fxFlex.lt-xl="100"
+       fxLayout="row"
+       fxLayoutAlign="start center"
+       fxFlexAlign="center center">
 
-   <span [routerLink]="['recipes']" fxLayoutAlign="center center">
+   <span [routerLink]="['recipes']"
+         class="brand"
+         fxLayout="row"
+         fxLayoutAlign="start center">
       <md-icon md-list-icon>
         book
       </md-icon>
-      Recipe Helper
+     Recipe Helper
    </span>
 
     <span class="toolbar-spacer"></span>
@@ -29,14 +31,14 @@
    </span>
 
     <span fxLayoutAlign="center center"
-      (click)="onLogOut()">
+          (click)="onLogOut()">
       <button md-button
               *ngIf="signedIn" fxHide.xs>
         Sign out
       </button>
 
       <md-icon md-list-icon
-               class="account-icon"
+               class="sign-out-icon"
                *ngIf="signedIn"
                fxHide
                fxShow.xs>
@@ -44,45 +46,22 @@
       </md-icon>
     </span>
 
-  </md-toolbar>
+  </div>
 </div>
 
-<div class="toolbar-padding"></div>
+<div class="mobile-nav"
+     *ngIf="showMobileNav()">
+  <nav md-tab-nav-bar
+       fxLayout.lt-md="row"
+       fxLayoutAlign.lt-md="center">
+    <a md-tab-link
+       *ngFor="let nav of navigation"
+       [routerLink]="nav.route"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      {{nav.displayText}}
+    </a>
 
-<ng-container *ngIf="showMobileNav()">
-  <div class="mobile-nav">
-    <nav md-tab-nav-bar
-         fxLayout.lt-md="row"
-         fxLayoutAlign.lt-md="center">
-      <a md-tab-link
-         *ngFor="let nav of navigation"
-         [routerLink]="nav.route"
-         routerLinkActive #rla="routerLinkActive"
-         [active]="rla.isActive">
-        {{nav.displayText}}
-      </a>
+  </nav>
 
-    </nav>
-
-  </div>
-
-  <div class="navbar-padding"></div>
-</ng-container>
-
-
-
-
-
-
-
-
-
-<!--<div *ngIf="false"-->
-     <!--class="loading-screen">-->
-  <!--<span class="d">I</span>-->
-  <!--<span class="d d-2">I</span>-->
-  <!--<span class="d d-3">I</span>-->
-  <!--<span class="d d-4">I</span>-->
-  <!--<span class="d d-5">I</span>-->
-<!--</div>-->
-
+</div>

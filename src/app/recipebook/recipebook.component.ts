@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ShoppinglistService } from '../shared/shoppinglist.service';
 import { RecipeBookNavService } from './recipe-book-nav.service';
@@ -10,7 +10,7 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./recipebook.component.scss']
 })
 
-export class RecipeBookComponent implements OnInit {
+export class RecipeBookComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<any> = new Subject<any>();
 
@@ -37,5 +37,11 @@ export class RecipeBookComponent implements OnInit {
           this.recipeDetailView = (currentRecipeIndex !== null );
         }
       );
+  }
+
+  ngOnDestroy() {
+    this.recipeNavService.onNavigateStop();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
