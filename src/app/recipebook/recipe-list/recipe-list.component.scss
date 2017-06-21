@@ -22,19 +22,36 @@
 /* vars */
 $fab-right-indent: 16px;
 $card-image-aspect: 1.777;
+$column-width: 100vw;
 
 .recipe-list {
   position: relative;
-  width: 100vw;
+  width: $column-width;
+  flex-direction: column;
 
-  .new-recipe-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 3;
+  .recipe-utils-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    align-items: center;
 
-    md-icon {
-      color: white;
+    form {
+      width: 80%;
+
+      /deep/ .mat-input-container {
+        width: 100%
+      }
+    }
+
+    .new-recipe-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 3;
+
+      md-icon {
+        color: white;
+      }
     }
   }
 
