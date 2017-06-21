@@ -7,26 +7,11 @@ import { ShoppinglistService } from '../shared/shoppinglist.service';
 import { OptionsService } from '../shared/options.service';
 import { ShoppingListItem } from './shopping-list-item.model';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-
-import { style, trigger, state, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-shoppinglist',
   templateUrl: './shoppinglist.component.html',
-  styleUrls: ['./shoppinglist.component.scss'],
-  animations: [
-    trigger('flyInOut', [
-      state('in', style({transform: 'translateX(0)'})),
-      transition('void => *', [
-        style({transform: 'translateX(-100%)'}),
-        animate(100)
-      ]),
-      transition('* => void', [
-        animate(100, style({transform: 'translateX(100%)'}))
-      ])
-    ])
-  ]
+  styleUrls: ['./shoppinglist.component.scss']
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
 
@@ -78,9 +63,11 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     // we only initialize the forms the first time the component is created
     // otherwise, we will have to blow up the entire form every time the data changes
     // populate input fields with existing ingredients
-    const itemFormGroups = this.shoppingService.getLocalList().map( item => this.fb.group(item));
+    const localList = this.shoppingService.getLocalList().filter(value => value.text !== '');
+    const itemFormGroups = localList.map( item => this.fb.group(item));
     const itemFormArray = this.fb.array(itemFormGroups);
     this.ingForm.setControl('shoppingListItems', itemFormArray);
+
     // always have an empty input at the end so user can add more items
     this.addListItem();
   }
@@ -145,19 +132,8 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   }
 
   onClear() {
-    Observable.timer(0, 100)
-      .take((<FormArray>this.ingForm.get('shoppingListItems')).length - 1)
-      .subscribe(
-        () => {
-          // we have -2 here so that we never remove the last empty input
-          const lastElement = (<FormArray>this.ingForm.get('shoppingListItems')).length - 2;
-          (<FormArray>this.ingForm.get('shoppingListItems')).removeAt(lastElement);
-        }
-      );
+    this.ingForm.setControl('shoppingListItems', this.fb.array([]));
+    this.addListItem();
     this.shoppingService.updateLocalList([]);
-  }
-
-  onGotIt() {
-    this.optionsService.disableShoppingInfo();
   }
 }

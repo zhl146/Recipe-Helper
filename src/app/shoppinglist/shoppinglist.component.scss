@@ -1,37 +1,75 @@
-md-icon {
-  cursor: pointer;
-}
-
-textarea {
-  font-size: 14px;
-  resize: none;
-}
-
-.last {
-  opacity: 0.35;
-}
-
-.shopping-icon {
-  margin: 0 15px 0 15px;
-}
-
 .shopping-container {
-  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+
+  .top-spacer {
+    width: 100%;
+    height: 10px;
+  }
+
+
+  .clear-all-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+  }
+
+  .last-list-item {
+    opacity: 0.35;
+  }
+
+  .shopping-list-item {
+    background-color: white;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    will-change: box-shadow;
+    padding: 0 15px;
+    margin: 5px 0;
+
+    .shopping-icon {
+      margin: 0 5px 0 15px;
+    }
+
+    .delete-icon {
+      margin-left: 10px;
+      color: gray;
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+    }
+
+    /deep/ .mat-input-wrapper {
+      margin: 10px 10px 5px 10px;
+      padding: 0;
+
+      /deep/ .mat-input-underline {
+        position: relative;
+        border: none;
+        margin-right: 20px;
+      }
+      /deep/ .mat-input-subscript-wrapper {
+        height: 0;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    md-icon {
+      cursor: pointer;
+    }
+
+    textarea {
+      font-size: 14px;
+      resize: none;
+    }
+
+  }
+
+
 }
 
-.shopping-info {
-  padding: 10px;
-}
 
-.shopping-list-item {
-  padding: 4px;
-  margin-bottom: 10px;
-  background-color: white;
-  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
-  will-change: box-shadow;
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-  border-radius: 2px;
-}
 
 
 

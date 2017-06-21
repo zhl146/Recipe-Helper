@@ -1,6 +1,7 @@
 @import "../../../assets/sass-vars";
 @import "../../../assets/material-shadows";
 @import "../../../assets/basic-typography";
+@import "../../../assets/material-theme";
 
 // Helper function
 // Return null rather than throwing an error if index is outside list range.
@@ -24,6 +25,17 @@ $card-image-aspect: 1.777;
 
 .recipe-list {
   position: relative;
+
+  .new-recipe-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 3;
+
+    md-icon {
+      color: white;
+    }
+  }
 
   .card-image {
     position: relative;
@@ -56,23 +68,16 @@ $card-image-aspect: 1.777;
       }
     }
 
-    .card-fab-container {
+    .card-fab {
       position: absolute;
-      bottom: 10px;
+      bottom: -28px;
       right: $fab-right-indent;
       z-index: 3;
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      overflow: hidden;
 
-      button {
+      md-icon {
         color: white;
       }
-
     }
-
   }
   .recipe-card {
     max-width: 100%;

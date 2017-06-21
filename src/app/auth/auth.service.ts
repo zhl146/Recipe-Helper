@@ -101,45 +101,18 @@ export class AuthService {
   }
 
   updateServerData() {
-    return new Promise(
-      (resolve) => {
-        const taskCounter = new BehaviorSubject(0);
-        taskCounter.subscribe(
-          (counter) => {
-            if (counter === 3) {
-              resolve(true);
-            }
-          }
-        );
-        this.shoppingService.updateServerList()
-          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
-        this.recipesService.updateServerRecipes()
-          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
-        this.optionsService.updateServerOptions()
-          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
-      }
-    );
+    return Promise.all([
+      this.shoppingService.updateServerList(),
+      this.recipesService.updateServerRecipes(),
+      this.optionsService.updateServerOptions()
+    ]);
   }
 
   getServerData() {
-    return new Promise(
-      (resolve) => {
-        const taskCounter = new BehaviorSubject(0);
-        taskCounter.subscribe(
-          (counter) => {
-            if (counter === 3) {
-              resolve(true);
-            }
-          }
-        );
-        this.shoppingService.getServerList()
-          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
-        this.recipesService.getServerRecipes()
-          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
-        this.optionsService.getServerOptions()
-          .then( () => taskCounter.next(taskCounter.getValue() + 1) );
-      }
-    );
+    return Promise.all([
+      this.shoppingService.getServerList(),
+      this.recipesService.getServerRecipes(),
+      this.optionsService.getServerOptions()
+    ]);
   }
-
 }

@@ -1,42 +1,17 @@
 <div class="recipe-list"
      fxLayout="column">
-  <!--<md-card class="recipe-detail-container"-->
-  <!--*ngIf="recipeInfo"-->
-  <!--fxHide.gt-sm>-->
-  <!--<md-card-header>-->
-  <!--<md-card-title>-->
-  <!--<h2>Welcome to your recipe book!</h2>-->
-  <!--</md-card-title>-->
-  <!--</md-card-header>-->
-  <!--<md-card-content>-->
-  <!--<p>-->
-  <!--This recipe book comes with 3 recipes, but you can delete them-->
-  <!--and add your own if you like! The recipes are saved-->
-  <!--on a remote database, so they will be here when you return.-->
-  <!--</p>-->
-  <!--<p>-->
-  <!--Click on a recipe to view its details and edit them. You may also add some or all-->
-  <!--of its ingredients to your shopping list.-->
-  <!--</p>-->
-  <!--</md-card-content>-->
-
-  <!--<button md-raised-button-->
-  <!--(click)="onGotIt()"-->
-  <!--color="accent">-->
-  <!--Got it-->
-  <!--</button>-->
-
-  <!--</md-card>-->
 
   <div fxLayoutWrap fxLayoutAlign="center"
        *ngIf="this.currentRecipeIndex === null"
-       [@slideCollapseTrigger]>
-    <button md-raised-button
+       [@slideCollapseTrigger]
+       [@childAnimateTrigger]>
+
+    <button md-fab
+            [@shrinkInOutTrigger]
             class="new-recipe-btn"
             color="accent"
-            routerLink="new"
-            fxFlex="100">
-      Create New Recipe
+            routerLink="new">
+      <md-icon>add</md-icon>
     </button>
 
     <form [formGroup]="recipeForm" fxFlex="80">
@@ -54,26 +29,25 @@
 
   <ng-container *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
     <div class="card-image"
+         (click)="onSelected(i)"
          appDivImage
          [src]="recipe.imagePath"
          fallback="http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png">
       <ng-container *ngIf="i !== currentRecipeIndex">
         <div class="floor-fade"></div>
-        <div class="title-overlay" [@fadeDownTrigger]>
+        <div class="title-overlay" [@fadeOutTrigger]>
           <md-icon color="accent">favorite</md-icon> {{recipe.name | titlecase}}
         </div>
       </ng-container>
 
-      <div class="card-fab-container"
-           [@fabTranslateTrigger]="i === currentRecipeIndex ? 'down' : 'up'">
-        <button md-mini-fab
-                [@fabRotateTrigger]="i === currentRecipeIndex ? 'down' : 'up'"
-                (click)="onSelected(i)">
-          <md-icon>
-            keyboard_arrow_up
-          </md-icon>
-        </button>
-      </div>
+      <button md-fab
+              class="card-fab"
+              *ngIf="i === currentRecipeIndex"
+              [@fabTranslateTrigger]>
+        <md-icon>
+          favorite
+        </md-icon>
+      </button>
     </div>
     <md-card class="recipe-card" *ngIf="recipeExpanded[i]"
              (@slideCollapseTrigger.done)="cleanDom($event, i)"

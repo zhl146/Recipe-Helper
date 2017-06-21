@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Subject } from 'rxjs/Subject';
@@ -9,18 +9,23 @@ import { RecipeBookNavService } from '../recipe-book-nav.service';
 
 import { Recipe } from '../recipe.model';
 
-import { fabRotate, fabTranslate, fadeDown, moveToTop, slideCollapseUpOut } from '../../shared/animations';
+import {
+  childAnimate, fabTranslate,
+  fadeOut,
+  shrinkInOut,
+  slideCollapseUpOut
+} from '../../shared/animations';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss'],
   animations: [
-    fabRotate,
     slideCollapseUpOut,
-    moveToTop,
     fabTranslate,
-    fadeDown
+    fadeOut,
+    shrinkInOut,
+    childAnimate
   ]
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
@@ -37,8 +42,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
 
   recipeExpanded: boolean[] = [];
-
-  animationStateTracker: [{animationDone: boolean, state: string}];
 
   constructor( private recipeService: RecipeBookDataService,
                private optionsService: OptionsService,
@@ -101,10 +104,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     this.filterString = '';
   }
 
-  onGotIt() {
-    this.optionsService.disableRecipeInfo();
-  }
-
   listDisplay() {
     return ( !(this.media.isActive('xs') || this.media.isActive('sm') ) || this.currentRecipeIndex === null );
   }
@@ -131,27 +130,24 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     return this.currentRecipeIndex === recipeIndex ? 'active' : 'inactive';
   }
 
-  activateRecipe(recipeIndex: number) {
-    this.recipeExpanded[recipeIndex] = true;
-  }
-
-  deactivateRecipe(recipeIndex: number) {
-    this.recipeExpanded[recipeIndex] = false;
-  }
-
-  getRecipeDetailDomState(recipeIndex: number) {
-    return this.recipeExpanded[recipeIndex];
-  }
-
+  // assigns state based on if recipe is the currently selected recipe
   getRecipeCollapseState(recipeIndex: number) {
     return (this.currentRecipeIndex === recipeIndex ? 'expanded' : 'collapsed');
   }
 
+  // we use this method in order to clean up the collapsed
+  // dom element instead of leaving it hidden
+  // it listens for the animation done event
   cleanDom(event, recipeIndex: number) {
-    console.log('cleaning dom')
     if (event.toState === 'collapsed') {
       this.recipeExpanded[recipeIndex] = false;
     }
+  }
+
+  // return down state if passed recipe is expanded
+  // return up state if passed recipe is collapsed
+  getFabState(recipeIndex: number) {
+    return (recipeIndex === this.currentRecipeIndex ? 'down' : 'up');
   }
 
 }

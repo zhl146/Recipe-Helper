@@ -14,6 +14,7 @@ $breakxs: 599px;
 .content-container {
   display: flex;
   width: 100vw;
+  background-color: #F5F5F5;
   @include respond-to(xs) {margin-top: $toolbar-height + $navbar-height;}
   @include respond-to(not-xs) {margin-top: $toolbar-height;}
 }

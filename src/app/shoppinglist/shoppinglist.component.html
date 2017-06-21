@@ -1,7 +1,13 @@
-<div class="shopping-container"
-     fxFlex="100"
-     fxLayoutAlign="space-around"
-     fxLayoutWrap="100">
+<div class="shopping-container">
+
+  <div class="top-spacer"></div>
+
+  <button md-fab
+          class="clear-all-fab"
+          (click)="onClear()"
+          type="button">
+    <md-icon md-list-icon>clear_all</md-icon>
+  </button>
 
   <form [formGroup]="ingForm"
         fxFlex.lt-md="100"
@@ -10,15 +16,7 @@
         novalidate
         (ngSubmit)="updateIngredients()">
 
-    <button md-button
-            (click)="onClear()"
-            type="button">
-      Clear all
-      <md-icon md-list-icon>clear_all</md-icon>
-    </button>
-
-    <div [@flyInOut]
-         formArrayName="shoppingListItems"
+    <div formArrayName="shoppingListItems"
          fxLayout="row"
          fxLayoutAlign="center"
          fxLayoutWrap>
@@ -30,11 +28,14 @@
                     [formGroupName]="i"
                     [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
 
-        <md-checkbox (change)="updateIngredient(i)" *ngIf="!isLastElement(i)" formControlName="checked" class="shopping-icon"></md-checkbox>
+        <md-checkbox (change)="updateIngredient(i)"
+                     *ngIf="!isLastElement(i)"
+                     formControlName="checked"
+                     class="shopping-icon">
+        </md-checkbox>
 
         <md-icon md-list-icon
                  class="shopping-icon"
-                 (click)="addListItem()"
                  *ngIf="isLastElement(i)">
           add
         </md-icon>
@@ -54,38 +55,13 @@
 
         <md-icon (click)="onDeleteClicked(i)"
                  *ngIf="!isLastElement(i)"
-                 class="shopping-icon"
+                 class="delete-icon"
                  md-list-icon>
-          delete
+          cancel
         </md-icon>
       </div>
     </div>
+
   </form>
-
-  <div fxFlex.lt-md="100"
-       fxFlex.gt-sm="30"
-       fxFlexOrder.lt-md="1"
-       *ngIf="shoppingInfo"
-       class="shopping-info">
-    <h2>Welcome to your shopping list!</h2>
-    <p>
-      Ingredients can be send here from your recipe book or you can add your own items.
-      To add an item, click on the plus sign or
-      just start typing.
-      You can check them off as you acquire your items or you can get rid of them
-      forever by clicking on the trash can item.
-    </p>
-    <p>
-      Don't worry about losing your data - it is saved automatically on
-      a remote server as soon as you navigate away.
-    </p>
-
-    <button md-raised-button
-            (click)="onGotIt()"
-            color="accent">
-      Got it
-    </button>
-
-  </div>
 
 </div>
