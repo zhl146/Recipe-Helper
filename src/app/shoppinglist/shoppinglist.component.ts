@@ -8,10 +8,15 @@ import { OptionsService } from '../shared/options.service';
 import { ShoppingListItem } from './shopping-list-item.model';
 import { Subject } from 'rxjs/Subject';
 
+import { growInOut } from '../shared/animations';
+
 @Component({
   selector: 'app-shoppinglist',
   templateUrl: './shoppinglist.component.html',
-  styleUrls: ['./shoppinglist.component.scss']
+  styleUrls: ['./shoppinglist.component.scss'],
+  animations: [
+    growInOut
+  ]
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
 

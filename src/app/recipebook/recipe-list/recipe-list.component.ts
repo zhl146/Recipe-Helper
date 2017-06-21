@@ -4,16 +4,18 @@ import { ObservableMedia } from '@angular/flex-layout';
 import { Subject } from 'rxjs/Subject';
 
 import {RecipeBookDataService} from '../../shared/recipe-book-data.service';
-import { OptionsService } from '../../shared/options.service';
 import { RecipeBookNavService } from '../recipe-book-nav.service';
 
 import { Recipe } from '../recipe.model';
 
 import {
-  childAnimate, fabTranslate,
+  childAnimate,
+  fabTranslate,
   fadeOut,
-  shrinkInOut,
-  slideCollapseUpOut
+  favIconTransition,
+  growInOut,
+  slideCollapseUpOut,
+  slideUpTop
 } from '../../shared/animations';
 
 @Component({
@@ -24,16 +26,16 @@ import {
     slideCollapseUpOut,
     fabTranslate,
     fadeOut,
-    shrinkInOut,
-    childAnimate
+    childAnimate,
+    favIconTransition,
+    slideUpTop,
+    growInOut
   ]
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   recipeForm: FormGroup;
-  // display the welcome box or not
-  recipeInfo: boolean;
   // index of selected recipe
   currentRecipeIndex: number | null = null;
   // this is 2 way bound to user input
@@ -44,7 +46,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipeExpanded: boolean[] = [];
 
   constructor( private recipeService: RecipeBookDataService,
-               private optionsService: OptionsService,
                private fb: FormBuilder,
                private media: ObservableMedia,
                private recipeNavService: RecipeBookNavService ) { }
@@ -55,21 +56,19 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
         (recipes: Recipe[]) => {
+          let init = false;
+          if (!this.recipes) {
+            init = true;
+          }
+
           this.recipes = recipes;
+
           // keep track of active recipe so we can remove elements from the dom
           // after animation is completed
-          for (let i = 0; i < recipes.length; i++) {
-              this.recipeExpanded[i] = false;
+          if (init) {
+            this.recipeExpanded = this.recipes.map( item => false );
           }
         });
-
-    this.optionsService.getOptionsObs()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(
-        (options) => {
-          this.recipeInfo = options.recipeInfo;
-        }
-      );
 
     this.recipeNavService.getCurrentRecipeObs()
       .takeUntil(this.ngUnsubscribe)
@@ -91,12 +90,14 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   // shows the current recipe detail
   onSelected(selectedRecipeIndex: number) {
-    if (this.currentRecipeIndex === selectedRecipeIndex) {
-      this.recipeNavService.onNavigateStop();
-    } else {
+    if (selectedRecipeIndex !== this.currentRecipeIndex) {
       this.recipeNavService.onSelected(selectedRecipeIndex);
       this.recipeExpanded[selectedRecipeIndex] = true;
     }
+  }
+
+  onExitRecipeDetail() {
+    this.recipeNavService.onSelected(null);
   }
 
   // clears the current user filter string
@@ -115,8 +116,8 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   // method returns strings corresponding to icons depending on whether the current recipe
   // is a favorite recipe or not
-  getFavIcon() {
-    return this.recipes[this.currentRecipeIndex].favorite ? 'favorite' : 'favorite_border';
+  getFavIcon(recipeIndex: number) {
+    return this.recipes[recipeIndex].favorite ? 'favorite' : 'favorite_border';
   }
 
   // gets the state depending on whether the current recipe is a favorite
@@ -143,11 +144,4 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       this.recipeExpanded[recipeIndex] = false;
     }
   }
-
-  // return down state if passed recipe is expanded
-  // return up state if passed recipe is collapsed
-  getFabState(recipeIndex: number) {
-    return (recipeIndex === this.currentRecipeIndex ? 'down' : 'up');
-  }
-
 }

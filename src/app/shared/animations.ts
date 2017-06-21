@@ -5,7 +5,7 @@ import {
   transition,
   state,
   query,
-  animateChild
+  animateChild, keyframes
 } from '@angular/animations';
 
 export const childAnimate =
@@ -17,15 +17,14 @@ export const childAnimate =
 
 export const fabTranslate =
   trigger('fabTranslateTrigger', [
-    state('in', style({transform: 'translateY(0) scale(1)'})),
-    transition(':enter', [
-      style({
-        transform: 'translateY(-300%) scale(0)'
-      }),
-      animate('300ms ease-in-out', style({
-        transform: 'translateY(0) scale(1)'
-      }))
-    ])
+    state('collapsed', style({
+      transform: 'scale(0)'
+    })),
+    state('expanded', style({
+      transform: 'scale(1)'
+    })),
+    transition('collapsed => expanded', animate('200ms ease-out')),
+    transition('expanded => collapsed', animate('200ms ease-in'))
   ]);
 
 export const fadeOut =
@@ -43,23 +42,54 @@ export const fadeOut =
     ])
   ]);
 
-export const shrinkInOut =
-  trigger('shrinkInOutTrigger', [
+export const growIn =
+  trigger('growInTrigger', [
     transition(':enter', [
       style({
         transform: 'scale(0)'
       }),
-      animate('5000ms ease-in-out', style({
+      animate('300ms ease-out', style({
         transform: 'scale(1)'
       }))
+    ])
+  ]);
+
+export const growInOut =
+  trigger('growInOutTrigger', [
+    transition(':enter', [
+      style({
+        transform: 'scale(.2)'
+      }),
+      animate('200ms ease-out')
     ]),
     transition(':leave', [
-      style({
-        transform: 'scale(1)'
-      }),
-      animate('5000ms ease-in-out', style({
+      animate('200ms ease-in', style({
         transform: 'scale(0)'
       }))
+    ])
+  ]);
+
+export const favIconTransition =
+  trigger('favIconTransitionTrigger', [
+    state('true', style({
+      color: '#FF1744'
+    })),
+    state('false', style({
+      color: 'white'
+    })),
+    transition('true => false', [
+      animate('300ms', keyframes([
+        style({color: '*', transform: 'scale(1)'}),
+        style({color: 'white', transform: 'scale(0)'}),
+        style({color: '*', transform: 'scale(1)'})
+      ]))
+    ]),
+    transition('false => true', [
+      animate('300ms', keyframes([
+        style({color: '*', transform: 'scale(1)'}),
+        style({color: '#FF1744', transform: 'scale(0)'}),
+        style({color: '*', transform: 'scale(1)'})
+      ]))
     ])
   ]);
 
@@ -85,5 +115,36 @@ export const slideCollapseUpOut =
         opacity: 0
       }),
       animate('200ms ease-in-out')
+    ])
+  ]);
+
+export const slideUpTop =
+  trigger('slideUpTopTrigger', [
+    state('expanded', style({
+      position: 'absolute',
+      top: 0,
+    })),
+    state('collapsed', style({
+      position: 'relative'
+    })),
+    transition('collapsed => expanded', [
+      animate(200, keyframes([
+        style({
+          position: 'relative',
+          transform: 'scale(1)',
+          offset: 0
+        }),
+        style({
+          position: 'relative',
+          transform: 'scale(.8)',
+          offset: .2
+        }),
+        style({
+          position: 'absolute',
+          top: 0,
+          transform: 'scale(1)',
+          offset: 1
+        })
+      ]))
     ])
   ]);

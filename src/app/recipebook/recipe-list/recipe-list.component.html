@@ -3,11 +3,10 @@
 
   <div fxLayoutWrap fxLayoutAlign="center"
        *ngIf="this.currentRecipeIndex === null"
-       [@slideCollapseTrigger]
-       [@childAnimateTrigger]>
+       @slideCollapseTrigger>
 
     <button md-fab
-            [@shrinkInOutTrigger]
+            @growInOutTrigger
             class="new-recipe-btn"
             color="accent"
             routerLink="new">
@@ -28,31 +27,59 @@
   </div>
 
   <ng-container *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
-    <div class="card-image"
-         (click)="onSelected(i)"
-         appDivImage
-         [src]="recipe.imagePath"
-         fallback="http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png">
-      <ng-container *ngIf="i !== currentRecipeIndex">
-        <div class="floor-fade"></div>
-        <div class="title-overlay" [@fadeOutTrigger]>
-          <md-icon color="accent">favorite</md-icon> {{recipe.name | titlecase}}
-        </div>
-      </ng-container>
+    <div class="recipe-image-card">
 
-      <button md-fab
-              class="card-fab"
-              *ngIf="i === currentRecipeIndex"
-              [@fabTranslateTrigger]>
-        <md-icon>
-          favorite
-        </md-icon>
-      </button>
+      <div class="recipe-exit-button"
+           *ngIf="currentRecipeIndex === i"
+           (click)="onExitRecipeDetail()">
+        <md-icon>arrow_back</md-icon>
+      </div>
+
+      <div class="card-image"
+           (click)="onSelected(i)"
+           appDivImage
+           [src]="recipe.imagePath"
+           fallback="http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png">
+
+        <ng-container *ngIf="i !== currentRecipeIndex">
+          <div class="floor-fade"></div>
+          <div class="title-overlay" [@fadeOutTrigger]>
+            {{recipe.name | titlecase}}
+          </div>
+        </ng-container>
+
+      </div>
     </div>
-    <md-card class="recipe-card" *ngIf="recipeExpanded[i]"
+
+    <md-card class="recipe-card"
+             *ngIf="recipeExpanded[i]"
              (@slideCollapseTrigger.done)="cleanDom($event, i)"
              [@slideCollapseTrigger]="getRecipeCollapseState(i)">
       <md-card-content>
+
+        <div class="fab-container"
+             (click)="onFavorite(i)"
+             *ngIf="recipe.favorite"
+             [@growInOutTrigger]>
+          <button md-fab
+                  class="card-fav-fab-red">
+            <md-icon>
+              favorite
+            </md-icon>
+          </button>
+        </div>
+        <div class="fab-container"
+             (click)="onFavorite(i)"
+             *ngIf="!recipe.favorite"
+             [@growInOutTrigger]>
+          <button md-fab
+                  class="card-fav-fab-white">
+            <md-icon>
+              favorite_border
+            </md-icon>
+          </button>
+        </div>
+
         <md-card-title>
           {{recipe.name | titlecase}}
         </md-card-title>
@@ -91,6 +118,8 @@
 
     <div class="card-padding"></div>
   </ng-container>
+
+  <div class="footer-padding"></div>
 
 </div>
 

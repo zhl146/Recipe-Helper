@@ -25,6 +25,7 @@ $card-image-aspect: 1.777;
 
 .recipe-list {
   position: relative;
+  width: 100vw;
 
   .new-recipe-btn {
     position: fixed;
@@ -37,53 +38,85 @@ $card-image-aspect: 1.777;
     }
   }
 
-  .card-image {
+  .recipe-image-card {
+    display: flex;
     position: relative;
-    width: 100%;
-    z-index: 2;
-    @include aspect-ratio($card-image-aspect);
-    background-size: cover;
-    background-position: center center;
-    @extend %md-shadow-2dp;
-    .floor-fade {
+    flex: 1 1 auto;
+
+    .recipe-exit-button{
       position: absolute;
-      top: 50%;
+      top: 5px;
+      left: 10px;
+      z-index: 2;
+      md-icon {
+        font-weight: 100;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, .6);
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        color: white
+      }
+    }
+
+    .card-image {
+      position: relative;
       width: 100%;
-      height: 50%;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6) );
-    }
+      @include aspect-ratio($card-image-aspect);
+      background-size: cover;
+      background-position: center center;
+      @extend %md-shadow-2dp;
 
-    .title-overlay {
-      display: block;
-      align-items: center;
-      position: absolute;
-      bottom: 0;
-      padding: 10px 24px ;
-      font-size: 18px;
-      color: white;
-      font-weight: 100;
+      .floor-fade {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6) );
+      }
 
-      md-icon {
+      .title-overlay {
         display: block;
-      }
-    }
-
-    .card-fab {
-      position: absolute;
-      bottom: -28px;
-      right: $fab-right-indent;
-      z-index: 3;
-
-      md-icon {
+        align-items: center;
+        position: absolute;
+        bottom: 0;
+        padding: 10px 24px ;
+        font-size: 18px;
         color: white;
+        font-weight: 100;
+
+        md-icon {
+          display: block;
+        }
       }
+
     }
   }
+
+
   .recipe-card {
     max-width: 100%;
     margin-bottom: 10px;
     @extend %md-shadow-2dp;
     position: relative;
+
+    .fab-container {
+      width: 56px;
+      height: 56px;
+      position: absolute;
+      top: -28px;
+      right: $fab-right-indent;
+      border-radius: 28px;
+      overflow: hidden;
+      z-index: 3;
+      @extend %md-shadow-3dp;
+
+      .card-fav-fab-red {
+        color: #FF1744;
+      }
+      .card-fav-fab-white {
+        color: white;
+      }
+    }
 
     md-card-title {
       font-size: 18px;
@@ -106,7 +139,7 @@ $card-image-aspect: 1.777;
         font-size: 13px;
         font-weight: 100;
         flex-direction: row;
-        align-items: center
+        align-items: center;
       }
     }
 
@@ -116,6 +149,11 @@ $card-image-aspect: 1.777;
     display: block;
     min-height: 10px;
     width: 100%;
+  }
+
+  .footer-padding {
+    display: block;
+    height: 100px;
   }
 
 }

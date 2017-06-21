@@ -7,24 +7,6 @@
        fxLayoutAlign="center"
        fxLayoutWrap>
 
-    <div fxFlex.lt-md="100" fxFlex.md="50" fxFlex="38.2"
-         fxFlexOrder.gt-sm="2">
-      <app-recipe-list></app-recipe-list>
-    </div>
-    <div fxFlex.lt-md="100" fxFlex.md="50" fxFlex="61.8"
-         fxFlexOrder.gt-sm="1"
-         id="recipeDetail">
       <router-outlet></router-outlet>
-    </div>
   </div>
 </div>
-
-<ng-container *ngIf="recipeDetailView">
-  <div class="recipe-nav-footer-padding" fxHide.gt-sm></div>
-  <div class="recipe-nav-footer-container"
-       fxHide.gt-sm>
-    <app-recipe-nav fxLayout="row" fxLayoutAlign="center"></app-recipe-nav>
-
-  </div>
-</ng-container>
-
