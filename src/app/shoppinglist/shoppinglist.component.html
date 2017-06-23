@@ -3,11 +3,11 @@
   <div class="top-spacer"></div>
 
   <button md-fab
-          @growInOutTrigger
+          [@growInOutTrigger]
           class="clear-all-fab"
           (click)="onClear()"
           type="button">
-    <md-icon md-list-icon>clear_all</md-icon>
+    <md-icon>clear_all</md-icon>
   </button>
 
   <form [formGroup]="ingForm"

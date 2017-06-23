@@ -6,7 +6,7 @@
 
 
 /* vars */
-$fab-right-indent: 16px;
+$fab-right-indent: 24px;
 $card-image-aspect: 1.777;
 $column-width: 100vw;
 $card-width: 100%;
@@ -17,10 +17,7 @@ $card-width: 100%;
   display: flex;
   left: 0;
   overflow: hidden;
-  transition: height 200ms ease-out,
-  top 200ms ease-out,
-  right 200ms ease-out,
-  width 75ms ease-in;
+  transition: all 200ms ease-in-out;
   z-index: 10;
   background-color: #F5F5F5;
 
