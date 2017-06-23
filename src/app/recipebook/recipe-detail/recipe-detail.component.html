@@ -1,61 +1,92 @@
-<div class="recipe-detail-container"
-     fxLayout="row"
-     fxLayoutWrap>
+<div class="recipe-detail" #container>
+  <div class="recipe-detail-card" #detail>
+    <div class="recipe-image-card">
 
-  <md-card>
-    <md-card-header>
-      <md-card-title>
-        <h3>Ingredients</h3>
-      </md-card-title>
-    </md-card-header>
-    <md-card-content>
-      <md-list dense
-               fxLayout.gt-md="column"
-               fxLayout.lt-lg="row"
-               fxLayoutWrap fxLayoutAlign="center">
-        <md-list-item *ngFor="let ingredient of currentRecipe.ingredients"
-                      fxFlex.gt-md="38"
-                      fxFlex.lt-lg="100">
-          <p>{{ingredient}}</p>
-          <div fxFlex></div>
-          <md-icon md-list-icon
-                   (click)="onAddIngredient(ingredient)"
-                   class="recipe-icon ingredient-icon">
-            add_shopping_cart
+      <div class="recipe-btn-container">
+        <div (click)="onBack()">
+          <md-icon class="back-btn">arrow_back</md-icon>
+        </div>
+        <div>
+          <md-icon class="edit-btn"
+                   [routerLink]="[currentRecipeIndex, 'edit']">
+            edit
           </md-icon>
-        </md-list-item>
-      </md-list>
-    </md-card-content>
-    <md-card-actions>
-      <button md-button color="primary"
-              (click)="onAddAllIngredients()">
-        ADD ALL INGREDIENTS
-      </button>
-    </md-card-actions>
-  </md-card>
+        </div>
+      </div>
 
-  <md-card fxFlex>
-    <md-card-header>
-      <md-card-title>
-        <h3>Directions</h3>
-      </md-card-title>
-    </md-card-header>
+      <div class="card-image"
+           appDivImage
+           [src]="currentRecipe.imagePath"
+           [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
+      </div>
+    </div>
 
-    <md-card-content>
-      <md-list dense
-               fxLayout.gt-md="column"
-               fxLayout.lt-lg="row"
-               fxLayoutWrap>
-        <md-list-item *ngFor="let step of currentRecipe.steps; let i = index"
-                      fxFlex.gt-md="62"
-                      fxFlex.lt-lg="100">
-          <p>{{i + 1}} - {{step}}</p>
-          <div fxFlex></div>
-          <md-checkbox></md-checkbox>
-        </md-list-item>
-      </md-list>
-    </md-card-content>
+    <md-card class="card-detail">
+      <md-card-content>
 
-  </md-card>
+        <div class="fab-container"
+             (click)="onFavorite()"
+             *ngIf="currentRecipe.favorite"
+             [@growInOutTrigger]>
+          <button md-fab
+                  class="card-fav-fab-red">
+            <md-icon>
+              favorite
+            </md-icon>
+          </button>
+        </div>
+        <div class="fab-container"
+             (click)="onFavorite()"
+             *ngIf="!currentRecipe.favorite"
+             [@growInOutTrigger]>
+          <button md-fab
+                  class="card-fav-fab-white">
+            <md-icon>
+              favorite_border
+            </md-icon>
+          </button>
+        </div>
+
+        <md-card-title>
+          {{currentRecipe.name | titlecase}}
+        </md-card-title>
+        <div >
+          <md-card-subtitle>
+            {{currentRecipe.description}}
+          </md-card-subtitle>
+          <md-tab-group [dynamicHeight]="true">
+            <md-tab [label]="'INGREDIENTS'">
+              <div class="tab-contents">
+                <ul>
+                  <li *ngFor="let ingredient of currentRecipe.ingredients">
+                    <md-icon (click)="onAddIngredient()"
+                             md-list-icon>
+                      add_shopping_cart
+                    </md-icon>
+                    {{ingredient}}
+                  </li>
+                </ul>
+                <button (click)="onAddAllIngredients()"
+                        md-button
+                        color="primary">
+                  ADD ALL TO LIST
+                </button>
+              </div>
+            </md-tab>
+            <md-tab [label]="'DIRECTIONS'">
+              <div class="tab-contents">
+                <ul>
+                  <li *ngFor="let step of currentRecipe.steps; let i = index">
+                    {{i+1}}) {{step}}
+                  </li>
+                </ul>
+              </div>
+            </md-tab>
+          </md-tab-group>
+        </div>
+      </md-card-content>
+
+    </md-card>
+  </div>
 
 </div>

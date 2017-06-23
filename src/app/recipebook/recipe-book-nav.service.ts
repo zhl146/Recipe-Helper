@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -10,19 +9,21 @@ export class RecipeBookNavService {
 
   private currentRecipeStream = new BehaviorSubject<number | null>(null);
 
-  constructor( private recipeDataService: RecipeBookDataService,
-               private router: Router ) { }
+  private recipeCardOffset;
+
+  constructor( private recipeDataService: RecipeBookDataService ) { }
 
   getCurrentRecipeObs() {
     return this.currentRecipeStream.asObservable();
   }
 
-  set currentRecipeIndex(recipeIndex: number | null) {
-    this.currentRecipeStream.next(recipeIndex);
-  }
-
   onSelected(selectedRecipeIndex: number | null) {
     this.currentRecipeStream.next(selectedRecipeIndex);
+    if (selectedRecipeIndex !== null) {
+      // this.router.navigate(['/recipes', selectedRecipeIndex]);
+    } else {
+      // this.router.navigate(['recipes']);
+    }
   }
 
   onNavigateNext() {
@@ -47,6 +48,14 @@ export class RecipeBookNavService {
 
   onNavigateStop() {
     this.onSelected(null);
+  }
+
+  saveCurrentRecipeCardOffset(element) {
+    this.recipeCardOffset = element.getBoundingClientRect();
+  }
+
+  getRecipeCardOffset() {
+    return this.recipeCardOffset;
   }
 
 }

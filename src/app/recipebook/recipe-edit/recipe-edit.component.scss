@@ -1,6 +1,5 @@
-img {
-  max-width: 400px;
-}
+@import "../../../assets/sass-mixins";
+@import "../../../assets/material-shadows";
 
 textarea {
   font-size: 14px;
@@ -21,4 +20,33 @@ md-card {
 
 .list-item {
   padding: 0 10px 0 10px;
+}
+
+.back-btn {
+  display: block;
+  margin-bottom: 15px;
+  flex: 1 1 auto;
+  width: 100%;
+  md-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    cursor: pointer;
+  }
+}
+
+.img-preview {
+  width: 320px;
+  @include aspect-ratio(1.77);
+  background-size: cover;
+  background-position: center center;
+  @extend %md-shadow-2dp;
+}
+
+.submit-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  color: white;
+  cursor: pointer;
 }

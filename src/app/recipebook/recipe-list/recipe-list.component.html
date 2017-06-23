@@ -1,12 +1,13 @@
 <div class="recipe-list">
-
-  <div class="recipe-utils-container"
-       *ngIf="this.currentRecipeIndex === null"
-       @slideCollapseTrigger>
+  <app-recipe-detail *ngIf="currentRecipeIndex !== null"
+                     [currentRecipe]="recipes[currentRecipeIndex]"
+                     [currentRecipeIndex]="currentRecipeIndex">
+  </app-recipe-detail>
+  <div class="recipe-utils-container">
 
     <button class="new-recipe-btn"
             md-fab
-            @growInOutTrigger
+            [@growInOutTrigger]="currentRecipeIndex !== null ? 'small' : 'big'"
             color="accent"
             routerLink="new">
       <md-icon>add</md-icon>
@@ -24,20 +25,16 @@
     </form>
   </div>
 
-  <ng-container *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
+  <div class="recipe-card"
+       #recipeCard
+       *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
     <div class="recipe-image-card">
-
-      <div class="recipe-exit-button"
-           *ngIf="currentRecipeIndex === i"
-           (click)="onExitRecipeDetail()">
-        <md-icon>arrow_back</md-icon>
-      </div>
 
       <div class="card-image"
            (click)="onSelected(i)"
            appDivImage
            [src]="recipe.imagePath"
-           fallback="http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png">
+           [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
 
         <ng-container *ngIf="i !== currentRecipeIndex">
           <div class="floor-fade"></div>
@@ -48,78 +45,9 @@
 
       </div>
     </div>
+  </div>
 
-    <md-card class="recipe-card"
-             *ngIf="recipeExpanded[i]"
-             (@slideCollapseTrigger.done)="cleanDom($event, i)"
-             [@slideCollapseTrigger]="getRecipeCollapseState(i)">
-      <md-card-content>
-
-        <div class="fab-container"
-             (click)="onFavorite(i)"
-             *ngIf="recipe.favorite"
-             [@growInOutTrigger]>
-          <button md-fab
-                  class="card-fav-fab-red">
-            <md-icon>
-              favorite
-            </md-icon>
-          </button>
-        </div>
-        <div class="fab-container"
-             (click)="onFavorite(i)"
-             *ngIf="!recipe.favorite"
-             [@growInOutTrigger]>
-          <button md-fab
-                  class="card-fav-fab-white">
-            <md-icon>
-              favorite_border
-            </md-icon>
-          </button>
-        </div>
-
-        <md-card-title>
-          {{recipe.name | titlecase}}
-        </md-card-title>
-        <div >
-          <md-card-subtitle>
-            {{recipe.description}}
-          </md-card-subtitle>
-          <md-tab-group [dynamicHeight]="true">
-            <md-tab label="INGREDIENTS">
-              <div class="tab-contents">
-                <ul>
-                  <li *ngFor="let ingredient of recipe.ingredients">
-                    <md-icon md-list-icon>add_shopping_cart</md-icon>
-                    {{ingredient}}
-                  </li>
-                </ul>
-                <button md-button color="primary">
-                  ADD ALL TO LIST
-                </button>
-              </div>
-            </md-tab>
-            <md-tab label="DIRECTIONS">
-              <div class="tab-contents">
-                <ul>
-                  <li *ngFor="let step of recipe.steps; let i = index">
-                    {{i+1}}) {{step}}
-                  </li>
-                </ul>
-              </div>
-            </md-tab>
-          </md-tab-group>
-        </div>
-      </md-card-content>
-
-    </md-card>
-
-    <div class="card-padding"></div>
-  </ng-container>
 
   <div class="footer-padding"></div>
 
 </div>
-
-
-

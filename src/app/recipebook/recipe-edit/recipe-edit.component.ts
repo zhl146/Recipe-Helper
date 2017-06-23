@@ -4,12 +4,15 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
 import { Recipe } from '../recipe.model';
 import { validateReasonableTime } from '../recipebook-time-validator';
-import { TitleCasePipe } from '@angular/common';
+import { growInOut } from '../../shared/animations';
 
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
-  styleUrls: ['./recipe-edit.component.scss']
+  styleUrls: ['./recipe-edit.component.scss'],
+  animations: [
+    growInOut
+  ]
 })
 export class RecipeEditComponent implements OnInit {
 
@@ -198,7 +201,7 @@ export class RecipeEditComponent implements OnInit {
   // updates the data model and routes the user on submit
   onSubmit() {
     this.updateRecipeServer();
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['recipes']);
   }
 
 }

@@ -7,6 +7,11 @@
            fxLayout="row"
            fxFlex="100"
            fxLayoutAlign="center center">
+
+    <div class="back-btn" [routerLink]="['/recipes']">
+      <md-icon class="back-btn">arrow_back</md-icon>
+    </div>
+
     <md-input-container fxFlex="100">
       <input type="text"
              placeholder="Recipe Name"
@@ -29,9 +34,11 @@
       </textarea>
     </md-input-container>
 
-    <img md-card-image
-         appImgFallback="http://i347.photobucket.com/albums/p476/zhl146/dummy-recipe-img_zps1tgdgkkf.png"
-         [src]="imgPath.value">
+    <div class="img-preview"
+         appDivImage
+         [src]="imgPath.value"
+         [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
+    </div>
 
     <md-input-container fxFlex="100">
     <textarea rows="1"
@@ -177,13 +184,11 @@
 
   </md-card>
 
-  <button md-raised-button color="primary" fxFlex="50">
-    Save Recipe
+  <button md-fab
+          [@growInOutTrigger]
+          class="submit-btn"
+          color="primary">
+    <md-icon>done</md-icon>
   </button>
-  <button type="button"
-          md-raised-button
-          color="accent"
-          fxFlex="50" [routerLink]="['/recipes', id]">
-    Cancel
-  </button>
+
 </form>

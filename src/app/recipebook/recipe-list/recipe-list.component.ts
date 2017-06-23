@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ObservableMedia } from '@angular/flex-layout';
 import { Subject } from 'rxjs/Subject';
 
 import {RecipeBookDataService} from '../../shared/recipe-book-data.service';
@@ -9,13 +8,9 @@ import { RecipeBookNavService } from '../recipe-book-nav.service';
 import { Recipe } from '../recipe.model';
 
 import {
-  childAnimate,
-  fabTranslate,
   fadeOut,
-  favIconTransition,
   growInOut,
-  slideCollapseUpOut,
-  slideUpTop
+  slideCollapseUpOut
 } from '../../shared/animations';
 
 @Component({
@@ -24,30 +19,28 @@ import {
   styleUrls: ['./recipe-list.component.scss'],
   animations: [
     slideCollapseUpOut,
-    fabTranslate,
     fadeOut,
-    childAnimate,
-    favIconTransition,
-    slideUpTop,
     growInOut
   ]
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  @ViewChildren('recipeCard') cardElRefs: QueryList<any>;
 
   recipeForm: FormGroup;
+
   // index of selected recipe
   currentRecipeIndex: number | null = null;
+
   // this is 2 way bound to user input
   // user can filter the recipe list using this string
   filterString: string;
   recipes: Recipe[];
 
-  recipeExpanded: boolean[] = [];
+  detailExpanded = false;
 
   constructor( private recipeService: RecipeBookDataService,
                private fb: FormBuilder,
-               private media: ObservableMedia,
                private recipeNavService: RecipeBookNavService ) { }
 
   // get the recipe and initializes the form for filtering
@@ -55,20 +48,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     this.recipeService.getLocalRecipes()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
-        (recipes: Recipe[]) => {
-          let init = false;
-          if (!this.recipes) {
-            init = true;
-          }
-
-          this.recipes = recipes;
-
-          // keep track of active recipe so we can remove elements from the dom
-          // after animation is completed
-          if (init) {
-            this.recipeExpanded = this.recipes.map( item => false );
-          }
-        });
+        ( recipes: Recipe[] ) => this.recipes = recipes );
 
     this.recipeNavService.getCurrentRecipeObs()
       .takeUntil(this.ngUnsubscribe)
@@ -88,25 +68,16 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  // shows the current recipe detail
+  // navigates to the current recipe detail
   onSelected(selectedRecipeIndex: number) {
-    if (selectedRecipeIndex !== this.currentRecipeIndex) {
-      this.recipeNavService.onSelected(selectedRecipeIndex);
-      this.recipeExpanded[selectedRecipeIndex] = true;
-    }
-  }
-
-  onExitRecipeDetail() {
-    this.recipeNavService.onSelected(null);
+    const currentElement = this.cardElRefs.toArray()[selectedRecipeIndex].nativeElement;
+    this.recipeNavService.saveCurrentRecipeCardOffset(currentElement);
+    this.recipeNavService.onSelected(selectedRecipeIndex);
   }
 
   // clears the current user filter string
   clearFilter() {
     this.filterString = '';
-  }
-
-  listDisplay() {
-    return ( !(this.media.isActive('xs') || this.media.isActive('sm') ) || this.currentRecipeIndex === null );
   }
 
   // toggles favorite status of current recipe
@@ -136,12 +107,16 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     return (this.currentRecipeIndex === recipeIndex ? 'expanded' : 'collapsed');
   }
 
-  // we use this method in order to clean up the collapsed
-  // dom element instead of leaving it hidden
-  // it listens for the animation done event
-  cleanDom(event, recipeIndex: number) {
-    if (event.toState === 'collapsed') {
-      this.recipeExpanded[recipeIndex] = false;
+  getRecipeCardFadeState(recipeIndex: number) {
+    if (this.currentRecipeIndex === null) {
+      return 'vivid';
+    } else {
+      return (this.currentRecipeIndex === recipeIndex ? 'vivid' : 'faded');
     }
   }
+
+  getSearchCollapseState() {
+    return (this.currentRecipeIndex === null ? 'expanded' : 'collapsed');
+  }
+
 }

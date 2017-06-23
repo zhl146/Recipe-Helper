@@ -1,42 +1,126 @@
-.recipe-icon {
-  color: dimgrey;
-  margin-right: 24px;
-}
+@import "../../../assets/sass-vars";
+@import "../../../assets/sass-mixins";
+@import "../../../assets/material-shadows";
+@import "../../../assets/basic-typography";
+@import "../../../assets/material-theme";
 
-.timer-icon {
-  margin-left: 6px;
-}
 
-.ingredient-icon {
-  cursor: pointer;
-}
+/* vars */
+$fab-right-indent: 16px;
+$card-image-aspect: 1.777;
+$column-width: 100vw;
+$card-width: 100%;
 
-.center-text {
-  text-align: center;
-}
+.recipe-detail {
+  position: fixed;
+  width: $column-width;
+  display: flex;
+  left: 0;
+  overflow: hidden;
+  transition: height 200ms ease-out,
+  top 200ms ease-out,
+  right 200ms ease-out,
+  width 75ms ease-in;
+  z-index: 10;
+  background-color: #F5F5F5;
 
-.spacer {
-  opacity: 0;
-}
+  .recipe-detail-card {
+    margin: 0 auto;
+    width: $card-width;
 
-.recipe-detail-container {
-  margin: 10px;
-  position: relative;
-}
+    .recipe-image-card {
+      position: relative;
 
-md-checkbox {
-  margin-left: 24px;
-}
+      .recipe-btn-container {
+        position: absolute;
+        width: 100%;
+        top: 5px;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
 
-md-card {
-  margin-bottom: 10px;
-}
+        .edit-btn {
+          font-size: 35px;
+          width: 35px;
+          height: 35px;
+        }
+        .back-btn {
+          font-size: 40px;
+          width: 40px;
+          height: 40px;
+        }
+        md-icon {
+          cursor: pointer;
+          margin: 0 10px;
+          font-weight: 100;
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, .6);
+          color: white
+        }
+      }
 
-md-list-item {
-  margin-bottom: 15px;
-}
+      .card-image {
+        position: relative;
+        width: 100%;
+        @include aspect-ratio($card-image-aspect);
+        background-size: cover;
+        background-position: center center;
+        @extend %md-shadow-2dp;
+      }
+    }
 
-img {
-  max-width: 350px;
-  max-height: 350px;
+    .card-detail {
+      width: 100%;
+      @extend %md-shadow-2dp;
+      position: relative;
+      transition: all .2s ease-in-out;
+
+      .fab-container {
+        width: 56px;
+        height: 56px;
+        position: absolute;
+        top: -28px;
+        right: $fab-right-indent;
+        border-radius: 28px;
+        overflow: hidden;
+        z-index: 3;
+        @extend %md-shadow-3dp;
+
+        .card-fav-fab-red {
+          color: #FF1744;
+        }
+        .card-fav-fab-white {
+          color: white;
+        }
+      }
+
+      md-card-title {
+        font-size: 18px;
+        font-weight: 100;
+      }
+
+      .tab-contents {
+        margin-top: 15px;
+        overflow: hidden;
+      }
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        li {
+          padding-left: 10px;
+          display: flex;
+          margin: 10px 0;
+          font-size: 13px;
+          font-weight: 100;
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+
+    }
+
+  }
 }
