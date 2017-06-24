@@ -79,44 +79,4 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   clearFilter() {
     this.filterString = '';
   }
-
-  // toggles favorite status of current recipe
-  onFavorite() {
-    this.recipeService.toggleRecipeFav(this.currentRecipeIndex);
-  }
-
-  // method returns strings corresponding to icons depending on whether the current recipe
-  // is a favorite recipe or not
-  getFavIcon(recipeIndex: number) {
-    return this.recipes[recipeIndex].favorite ? 'favorite' : 'favorite_border';
-  }
-
-  // gets the state depending on whether the current recipe is a favorite
-  getfavState() {
-    return this.recipes[this.currentRecipeIndex].favorite ? 'red' : 'white';
-  }
-
-  // returns active if the current recipe index matches the given index
-  // allows us to change animation states
-  getRecipeItemState(recipeIndex: number) {
-    return this.currentRecipeIndex === recipeIndex ? 'active' : 'inactive';
-  }
-
-  // assigns state based on if recipe is the currently selected recipe
-  getRecipeCollapseState(recipeIndex: number) {
-    return (this.currentRecipeIndex === recipeIndex ? 'expanded' : 'collapsed');
-  }
-
-  getRecipeCardFadeState(recipeIndex: number) {
-    if (this.currentRecipeIndex === null) {
-      return 'vivid';
-    } else {
-      return (this.currentRecipeIndex === recipeIndex ? 'vivid' : 'faded');
-    }
-  }
-
-  getSearchCollapseState() {
-    return (this.currentRecipeIndex === null ? 'expanded' : 'collapsed');
-  }
-
 }

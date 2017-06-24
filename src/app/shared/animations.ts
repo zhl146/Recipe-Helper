@@ -34,10 +34,10 @@ export const growInOut =
     transition('big => small', animate('200ms ease-in')),
     transition('small => big', animate('200ms ease-out')),
     transition(':enter', [
-      style({
-        transform: 'scale(0)'
-      }),
-      animate('180ms 150ms ease-out', style({transform: 'scale(1)'}))
+      style({transform: 'scale(0)'}),
+      animate('180ms 150 ms ease-out', style({
+        transform: 'scale(1)'
+      }))
     ]),
     transition(':leave', [
       style({transform: 'scale(1)'}),

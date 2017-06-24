@@ -52,6 +52,7 @@ export class RecipeBookNavService {
 
   saveCurrentRecipeCardOffset(element) {
     this.recipeCardOffset = element.getBoundingClientRect();
+    console.log(this.recipeCardOffset);
   }
 
   getRecipeCardOffset() {

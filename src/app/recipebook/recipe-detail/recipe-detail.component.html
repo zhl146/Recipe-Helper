@@ -8,7 +8,7 @@
         </div>
         <div>
           <md-icon class="edit-btn"
-                   [routerLink]="[currentRecipeIndex, 'edit']">
+                   (click)="onEdit()">
             edit
           </md-icon>
         </div>
@@ -20,7 +20,6 @@
            [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
       </div>
     </div>
-
     <md-card class="card-detail">
       <md-card-content>
 
@@ -50,43 +49,64 @@
         <md-card-title>
           {{currentRecipe.name | titlecase}}
         </md-card-title>
-        <div >
-          <md-card-subtitle>
-            {{currentRecipe.description}}
-          </md-card-subtitle>
-          <md-tab-group [dynamicHeight]="true">
-            <md-tab [label]="'INGREDIENTS'">
-              <div class="tab-contents">
-                <ul>
-                  <li *ngFor="let ingredient of currentRecipe.ingredients">
-                    <md-icon (click)="onAddIngredient()"
-                             md-list-icon>
-                      add_shopping_cart
-                    </md-icon>
-                    {{ingredient}}
-                  </li>
-                </ul>
-                <button (click)="onAddAllIngredients()"
-                        md-button
-                        color="primary">
-                  ADD ALL TO LIST
-                </button>
-              </div>
-            </md-tab>
-            <md-tab [label]="'DIRECTIONS'">
-              <div class="tab-contents">
-                <ul>
-                  <li *ngFor="let step of currentRecipe.steps; let i = index">
-                    {{i+1}}) {{step}}
-                  </li>
-                </ul>
-              </div>
-            </md-tab>
-          </md-tab-group>
-        </div>
-      </md-card-content>
+        <md-card-subtitle>
+          {{currentRecipe.description}}
 
+          <div class="recipe-time-container">
+
+            <div class="time-block left">
+              <div>Prep</div>
+              <div>{{currentRecipe.prepTime | timePipe}}</div>
+            </div>
+            <div class="time-block center">
+              <div>Cook</div>
+              <div>{{currentRecipe.cookTime | timePipe}}</div>
+            </div>
+            <div class="time-block right">
+              <div>Done in</div>
+              <div>{{currentRecipe.cookTime + currentRecipe.prepTime | timePipe}}</div>
+
+            </div>
+          </div>
+
+        </md-card-subtitle>
+
+
+        <md-tab-group [dynamicHeight]="true">
+          <md-tab [label]="'INGREDIENTS'">
+            <div class="tab-contents">
+              <ul>
+                <li *ngFor="let ingredient of currentRecipe.ingredients">
+                  <md-icon (click)="onAddIngredient()"
+                           md-list-icon>
+                    add_shopping_cart
+                  </md-icon>
+                  {{ingredient}}
+                </li>
+              </ul>
+              <button (click)="onAddAllIngredients()"
+                      md-button
+                      color="primary">
+                ADD ALL TO LIST
+              </button>
+            </div>
+          </md-tab>
+          <md-tab [label]="'DIRECTIONS'">
+            <div class="tab-contents">
+              <ul>
+                <li *ngFor="let step of currentRecipe.steps; let i = index">
+                  {{i+1}}) {{step}}
+                </li>
+              </ul>
+            </div>
+          </md-tab>
+        </md-tab-group>
+
+      </md-card-content>
     </md-card>
+
+
+
   </div>
 
 </div>

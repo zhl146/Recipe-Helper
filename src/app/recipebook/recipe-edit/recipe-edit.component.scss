@@ -1,5 +1,24 @@
 @import "../../../assets/sass-mixins";
 @import "../../../assets/material-shadows";
+@import "../../../assets/sass-vars";
+
+%card-width {
+  @include breakpoint(1col) {
+    width: 100vw;
+  }
+  @include breakpoint(2col) {
+    width: 60vw;
+  }
+  @include breakpoint(3col) {
+    width: 50vw;
+  }
+  @include breakpoint(4col) {
+    width: 40vw;
+  }
+  @include breakpoint(5col) {
+    width: 30vw;
+  }
+}
 
 textarea {
   font-size: 14px;
@@ -7,10 +26,15 @@ textarea {
 }
 
 .recipe-detail-container {
-  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 md-card {
+  @extend %card-width;
   margin-bottom: 10px;
 }
 

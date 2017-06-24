@@ -6,102 +6,158 @@
 
 
 /* vars */
-$fab-right-indent: 16px;
 $card-image-aspect: 1.777;
-$column-width: 100vw;
-$card-width: 100%;
+%card-width {
+  @include breakpoint(1col) {
+    width: calc(100vw - 20px);
+  }
+  @include breakpoint(2col) {
+    width: calc(50vw - 20px);
+  }
+  @include breakpoint(3col) {
+    width: calc(33.33vw - 20px);
+  }
+  @include breakpoint(4col) {
+    width: calc(25vw - 20px);
+  }
+  @include breakpoint(5col) {
+    width: calc(20vw - 20px);
+  }
+}
 
+/* the base component */
 .recipe-list {
   position: relative;
-  width: $column-width;
+  width: 100vw;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: center;
+}
 
-  .recipe-utils-container {
+/* contains the new recipe btn and edit btns */
+
+.recipe-utils-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  justify-content: center;
+
+  form {
+    @extend %card-width;
+
+    /deep/ .mat-input-container {
+      width: 100%
+    }
+  }
+}
+
+.new-recipe-btn {
+  position: fixed;
+  bottom: 24px;
+  @include breakpoint(1col) {
+    right: 16px;
+  }
+  @media screen and (min-width: 768px) {
+    right: 24px;
+  }
+  z-index: 3;
+
+  md-icon {
+    color: white;
+  }
+}
+
+.search-bar {
+  margin-top: 5px;
+  /deep/ md-input-container {
     display: flex;
     flex-direction: row;
-    width: 100vw;
     justify-content: center;
 
-    form {
-      width: $card-width;
+    /deep/ .mat-input-wrapper {
+      width: 80%;
 
-      /deep/ .mat-input-container {
-        width: 100%
+      /deep/ .mat-input-underline {
+        width: 80%;
       }
     }
+  }
+}
 
-    .new-recipe-btn {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 3;
+/* in this view, this is the image and overlay */
+
+.recipe-image-card {
+  margin: 10px;
+  @extend %card-width;
+  display: inline-block;
+  transition: all .2s ease-out;
+  position: relative;
+
+  .card-image {
+    position: relative;
+    width: 100%;
+    @include aspect-ratio($card-image-aspect);
+    background-size: cover;
+    background-position: center center;
+    @extend %md-shadow-2dp;
+
+    .favorite-indicator {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .floor-fade {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4) );
+    }
+
+    .title-overlay {
+      display: block;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      padding: 10px 24px ;
+      font-size: 18px;
+      color: white;
+      font-weight: 100;
 
       md-icon {
-        color: white;
+        display: block;
       }
     }
+
   }
+}
 
-  .recipe-card {
-    margin: 10px;
-    width: $card-width;
-    display: inline-block;
-    transition: all .2s ease-out;
+/* just some empty space at the bottom of the page */
+.footer-padding {
+  height: 100px;
+  display: block;
+  width: 100%;
+}
 
-    .recipe-image-card {
-      position: relative;
+/* hover shadow effects */
+md-card::after {
+  @extend %md-shadow-8dp;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
 
-      .card-image {
-        position: relative;
-        width: 100%;
-        @include aspect-ratio($card-image-aspect);
-        background-size: cover;
-        background-position: center center;
-        @extend %md-shadow-2dp;
+md-card:hover::after {
+  opacity: 1;
+}
 
-        .floor-fade {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5) );
-        }
+.fav {
+  color: #FF1744;
+}
+.no-fav {
+  color: white;
+}
 
-        .title-overlay {
-          display: block;
-          align-items: center;
-          position: absolute;
-          bottom: 0;
-          padding: 10px 24px ;
-          font-size: 18px;
-          color: white;
-          font-weight: 100;
-
-          md-icon {
-            display: block;
-          }
-        }
-
-      }
-    }
-  }
-
-  .footer-padding {
-    height: 100px;
-    display: block;
-    width: 100%;
-  }
-
-  md-card::after {
-    @extend %md-shadow-8dp;
-    opacity: 0;
-    transition: opacity .2s ease-in-out;
-  }
-
-  md-card:hover::after {
-    opacity: 1;
-  }
-
+.no-fav-blk {
+  color: black;
 }

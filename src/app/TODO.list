@@ -1,0 +1,25 @@
+// ------------------------------------------------------
+// FEATURE
+// ------------------------------------------------------
+
+// TODO change editing to be more intuitive and in-line
+
+// TODO implement responsive layout
+
+// ------------------------------------------------------
+// ANIMATIONS
+// ------------------------------------------------------
+
+// TODO make animations more choreographed and smooth
+
+// TODO add ripple animation to card
+
+// TODO add shadow animation to card
+
+// ------------------------------------------------------
+// REFACTORING
+// ------------------------------------------------------
+
+// TODO clean up routing
+
+// TODO clean up css - maybe remove flex layout

@@ -3,6 +3,7 @@
                      [currentRecipe]="recipes[currentRecipeIndex]"
                      [currentRecipeIndex]="currentRecipeIndex">
   </app-recipe-detail>
+
   <div class="recipe-utils-container">
 
     <button class="new-recipe-btn"
@@ -13,7 +14,7 @@
       <md-icon>add</md-icon>
     </button>
 
-    <form [formGroup]="recipeForm">
+    <form [formGroup]="recipeForm" class="search-bar">
       <md-input-container>
         <input mdInput
                formControlName="filter"
@@ -25,10 +26,11 @@
     </form>
   </div>
 
-  <div class="recipe-card"
-       #recipeCard
-       *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
-    <div class="recipe-image-card">
+
+  <div class="recipe-gallery">
+    <div class="recipe-image-card"
+         #recipeCard
+         *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
 
       <div class="card-image"
            (click)="onSelected(i)"
@@ -37,6 +39,10 @@
            [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
 
         <ng-container *ngIf="i !== currentRecipeIndex">
+          <div class="favorite-indicator">
+            <md-icon *ngIf="recipe.favorite" class="fav">favorite</md-icon>
+            <md-icon *ngIf="!recipe.favorite" class="no-fav">favorite_border</md-icon>
+          </div>
           <div class="floor-fade"></div>
           <div class="title-overlay" [@fadeOutTrigger]>
             {{recipe.name | titlecase}}
@@ -46,7 +52,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="footer-padding"></div>
 
