@@ -9,7 +9,6 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RecipeBookComponent } from './recipebook.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
-import { RecipeNavComponent } from './recipe-nav/recipe-nav.component';
 
 import { TimePipe } from './time.pipe';
 import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
@@ -21,8 +20,7 @@ import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
     RecipeDetailComponent,
     RecipeListComponent,
     TimePipe,
-    RecipeFilterPipe,
-    RecipeNavComponent
+    RecipeFilterPipe
   ],
   imports: [
     CommonModule,

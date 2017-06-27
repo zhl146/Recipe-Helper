@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as firebase from 'firebase';
 
 import { ShoppinglistService } from '../shared/shoppinglist.service';
 import { RecipeBookDataService } from '../shared/recipe-book-data.service';
-import { OptionsService } from '../shared/options.service';
 import { UserService } from '../shared/user.service';
 import { User } from 'firebase/app';
 
@@ -24,7 +22,6 @@ export class AuthService {
   constructor( private router: Router,
                private shoppingService: ShoppinglistService,
                private recipesService: RecipeBookDataService,
-               private optionsService: OptionsService,
                private userService: UserService
   ) {}
 
@@ -103,16 +100,14 @@ export class AuthService {
   updateServerData() {
     return Promise.all([
       this.shoppingService.updateServerList(),
-      this.recipesService.updateServerRecipes(),
-      this.optionsService.updateServerOptions()
+      this.recipesService.updateServerRecipes()
     ]);
   }
 
   getServerData() {
     return Promise.all([
       this.shoppingService.getServerList(),
-      this.recipesService.getServerRecipes(),
-      this.optionsService.getServerOptions()
+      this.recipesService.getServerRecipes()
     ]);
   }
 }

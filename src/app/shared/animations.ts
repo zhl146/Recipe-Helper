@@ -8,8 +8,8 @@ import {
   animateChild, keyframes
 } from '@angular/animations';
 
-export const fadeOut =
-  trigger('fadeOutTrigger', [
+export const fadeInOut =
+  trigger('fadeInOutTrigger', [
     transition(':leave', [
       animate('200ms ease-in', style({
         opacity: 0
@@ -35,7 +35,7 @@ export const growInOut =
     transition('small => big', animate('200ms ease-out')),
     transition(':enter', [
       style({transform: 'scale(0)'}),
-      animate('180ms 150 ms ease-out', style({
+      animate('180ms 150ms ease-out', style({
         transform: 'scale(1)'
       }))
     ]),

@@ -1,5 +1,5 @@
 <div class="recipe-detail" #container>
-  <div class="recipe-detail-card" #detail>
+  <div class="recipe-detail-card" #card>
     <div class="recipe-image-card">
 
       <div class="recipe-btn-container">
@@ -20,8 +20,8 @@
            [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
       </div>
     </div>
-    <md-card class="card-detail">
-      <md-card-content>
+    <div class="card-detail">
+      <div>
 
         <div class="fab-container"
              (click)="onFavorite()"
@@ -46,10 +46,10 @@
           </button>
         </div>
 
-        <md-card-title>
+        <div class="card-title">
           {{currentRecipe.name | titlecase}}
-        </md-card-title>
-        <md-card-subtitle>
+        </div>
+        <div class="card-subtitle">
           {{currentRecipe.description}}
 
           <div class="recipe-time-container">
@@ -69,7 +69,7 @@
             </div>
           </div>
 
-        </md-card-subtitle>
+        </div>
 
 
         <md-tab-group [dynamicHeight]="true">
@@ -102,8 +102,8 @@
           </md-tab>
         </md-tab-group>
 
-      </md-card-content>
-    </md-card>
+      </div>
+    </div>
 
 
 

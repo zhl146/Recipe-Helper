@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ShoppinglistService } from '../shared/shoppinglist.service';
-import { RecipeBookNavService } from './recipe-book-nav.service';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -14,10 +13,7 @@ export class RecipeBookComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<any> = new Subject<any>();
 
-  private recipeDetailView = false;
-
-  constructor( private shoppingService: ShoppinglistService,
-               private recipeNavService: RecipeBookNavService) {}
+  constructor( private shoppingService: ShoppinglistService ) {}
 
   ngOnInit() {
     // have to get the shopping list from the server even when we
@@ -29,18 +25,9 @@ export class RecipeBookComponent implements OnInit, OnDestroy {
     if ( !this.shoppingService.getLocalList() ) {
       this.shoppingService.getServerList();
     }
-
-    this.recipeNavService.getCurrentRecipeObs()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(
-        (currentRecipeIndex) => {
-          this.recipeDetailView = (currentRecipeIndex !== null );
-        }
-      );
   }
 
   ngOnDestroy() {
-    this.recipeNavService.onNavigateStop();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

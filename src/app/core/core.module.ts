@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { OptionsDialogComponent } from './options-dialog/options-dialog.component';
+import { SignOutDialogComponent } from './sign-out-dialog/sign-out-dialog.component';
 
 @NgModule({
   imports: [
@@ -19,10 +19,10 @@ import { OptionsDialogComponent } from './options-dialog/options-dialog.componen
   declarations: [
     HeaderComponent,
     FooterComponent,
-    OptionsDialogComponent
+    SignOutDialogComponent
   ],
   entryComponents: [
-    OptionsDialogComponent
+    SignOutDialogComponent
     ],
   exports: [
     AppRoutingModule,

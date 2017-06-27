@@ -5,7 +5,7 @@ import { AppNav } from '../../navigation.model';
 
 import { AuthService } from '../../auth/auth.service';
 
-import { OptionsDialogComponent } from '../options-dialog/options-dialog.component';
+import { SignOutDialogComponent } from '../sign-out-dialog/sign-out-dialog.component';
 import { ObservableMedia } from '@angular/flex-layout';
 import { UserService } from '../../shared/user.service';
 import { Subject } from 'rxjs/Subject';
@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // this caused a app breaking bug since the user is signed out before the shopping component has
   // the opportunity to save itself to the server
   onLogOut() {
-    const optionsDialog = this.dialog.open(OptionsDialogComponent);
+    const optionsDialog = this.dialog.open(SignOutDialogComponent);
     optionsDialog.afterClosed()
       .subscribe(
         (result) => {

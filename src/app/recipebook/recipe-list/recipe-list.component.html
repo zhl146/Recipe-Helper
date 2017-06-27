@@ -1,8 +1,4 @@
 <div class="recipe-list">
-  <app-recipe-detail *ngIf="currentRecipeIndex !== null"
-                     [currentRecipe]="recipes[currentRecipeIndex]"
-                     [currentRecipeIndex]="currentRecipeIndex">
-  </app-recipe-detail>
 
   <div class="recipe-utils-container">
 
@@ -33,7 +29,8 @@
          *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
 
       <div class="card-image"
-           (click)="onSelected(i)"
+           [routerLink]="i"
+           [ngStyle]="{'visibility': i === currentRecipeIndex ? 'hidden' : 'visible'}"
            appDivImage
            [src]="recipe.imagePath"
            [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
@@ -44,7 +41,7 @@
             <md-icon *ngIf="!recipe.favorite" class="no-fav">favorite_border</md-icon>
           </div>
           <div class="floor-fade"></div>
-          <div class="title-overlay" [@fadeOutTrigger]>
+          <div class="title-overlay" [@fadeInOutTrigger]>
             {{recipe.name | titlecase}}
           </div>
         </ng-container>

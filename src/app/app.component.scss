@@ -12,11 +12,14 @@ $breakxs: 599px;
 }
 
 .content-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
   display: flex;
-  width: 100vw;
   background-color: #F5F5F5;
-  @include respond-to(xs) {margin-top: $toolbar-height + $navbar-height;}
-  @include respond-to(not-xs) {margin-top: $toolbar-height;}
+  @include respond-to(xs) {top: $toolbar-height + $navbar-height;}
+  @include respond-to(not-xs) {top: $toolbar-height;}
 }
 
 .header-container {

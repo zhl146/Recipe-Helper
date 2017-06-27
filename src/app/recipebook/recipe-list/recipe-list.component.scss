@@ -9,29 +9,51 @@
 $card-image-aspect: 1.777;
 %card-width {
   @include breakpoint(1col) {
-    width: calc(100vw - 20px);
+    width: 100vw;
   }
   @include breakpoint(2col) {
-    width: calc(50vw - 20px);
+    width: 50vw;
   }
   @include breakpoint(3col) {
-    width: calc(33.33vw - 20px);
+    width: calc(33.33vw - 40px);
   }
   @include breakpoint(4col) {
-    width: calc(25vw - 20px);
-  }
-  @include breakpoint(5col) {
-    width: calc(20vw - 20px);
+    width: calc(25vw - 40px);
   }
 }
+
+%card-margin {
+  @include breakpoint(1col) {
+    margin: 10px 0;
+  }
+  @include breakpoint(2colplus) {
+    margin: 10px 0;
+  }
+}
+
 
 /* the base component */
 .recipe-list {
   position: relative;
   width: 100vw;
   display: flex;
+  flex-direction: column;
+}
+
+.recipe-gallery {
+  display: flex;
   flex-flow: row wrap;
   justify-content: center;
+}
+
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, .6);
 }
 
 /* contains the new recipe btn and edit btns */
@@ -87,10 +109,10 @@ $card-image-aspect: 1.777;
 /* in this view, this is the image and overlay */
 
 .recipe-image-card {
-  margin: 10px;
+  @extend %card-margin;
   @extend %card-width;
   display: inline-block;
-  transition: all .2s ease-out;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   position: relative;
 
   .card-image {
@@ -131,6 +153,11 @@ $card-image-aspect: 1.777;
     }
 
   }
+}
+
+.recipe-image-card:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  cursor: pointer;
 }
 
 /* just some empty space at the bottom of the page */

@@ -4,7 +4,6 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ShoppinglistService } from '../shared/shoppinglist.service';
-import { OptionsService } from '../shared/options.service';
 import { ShoppingListItem } from './shopping-list-item.model';
 import { Subject } from 'rxjs/Subject';
 
@@ -22,15 +21,10 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
-  private optionsSub: Subscription;
-
-  shoppingInfo: boolean;
-
   ingForm: FormGroup;
 
   constructor( private shoppingService: ShoppinglistService,
-               private fb: FormBuilder,
-               private optionsService: OptionsService ) {
+               private fb: FormBuilder) {
   }
 
   // LIFECYCLE
@@ -38,14 +32,6 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.createForm();
     this.initFormData();
-
-    this.optionsSub = this.optionsService.getOptionsObs()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(
-        (options) => {
-          this.shoppingInfo = options.shoppingInfo;
-        }
-      );
   }
 
   // clean up to prevent memory leak

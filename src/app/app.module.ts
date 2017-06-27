@@ -17,9 +17,7 @@ import { AppHttpService } from 'app/shared/http.service';
 import { RecipeBookDataService } from 'app/shared/recipe-book-data.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
-import { OptionsService } from './shared/options.service';
 import { UserService } from './shared/user.service';
-import { RecipeBookNavService } from './recipebook/recipe-book-nav.service';
 
 @NgModule({
   declarations: [
@@ -38,10 +36,8 @@ import { RecipeBookNavService } from './recipebook/recipe-book-nav.service';
   providers: [
     ShoppinglistService,
     RecipeBookDataService,
-    RecipeBookNavService,
     AppHttpService,
     AuthService,
-    OptionsService,
     UserService,
     AuthGuard
   ],
