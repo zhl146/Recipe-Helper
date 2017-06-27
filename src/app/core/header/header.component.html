@@ -38,9 +38,7 @@
 
 <div class="mobile-nav"
      *ngIf="signedIn">
-  <nav md-tab-nav-bar
-       fxLayout.lt-md="row"
-       fxLayoutAlign.lt-md="center">
+  <nav md-tab-nav-bar>
     <a md-tab-link
        *ngFor="let nav of navigation"
        [routerLink]="nav.route"

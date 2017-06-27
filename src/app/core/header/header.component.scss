@@ -53,19 +53,17 @@
   @extend %max-window-width;
 }
 
-.navbar-padding {
-  display: inline-block;
-  height: $navbar-height;
-}
-
 .mobile-nav {
-  @extend %mobile-show;
+  flex-direction: row;
+  justify-content: center;
   position: fixed;
   top: $toolbar-height;
   width: 100%;
   background-color: white;
   z-index: 4;
+  border-radius: 2px;
   transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
   @extend %md-shadow-2dp;
-  border-radius: 2px;
+  @extend %mobile-show;
+
 }

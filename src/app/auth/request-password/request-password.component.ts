@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-password',
@@ -11,7 +12,7 @@ export class RequestPasswordComponent implements OnInit {
 
   requestForm: FormGroup;
 
-  constructor( public auth: AuthService ) { }
+  constructor( public auth: AuthService, private router: Router ) { }
 
   // initialize the form
   // both controls are required
@@ -36,5 +37,6 @@ export class RequestPasswordComponent implements OnInit {
   onSubmit() {
     const email = this.requestForm.get('email').value;
     this.auth.sendPasswordEmail(email);
+    this.router.navigate(['auth', 'reset']);
   }
 }

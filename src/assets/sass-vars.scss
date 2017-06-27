@@ -25,6 +25,9 @@ $mobile-break: 600px;
   @media screen and (min-width: 600px) {
     display: none;
   }
+  @media screen and (max-width: 599px) {
+    display: flex;
+  }
 }
 
 %mobile-hide {
