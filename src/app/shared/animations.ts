@@ -4,8 +4,6 @@ import {
   trigger,
   transition,
   state,
-  query,
-  animateChild, keyframes
 } from '@angular/animations';
 
 export const fadeInOut =
@@ -19,7 +17,23 @@ export const fadeInOut =
       style({
         opacity: 0
       }),
-      animate('200ms ease-out')
+      animate('200ms ease-out', style({
+        opacity: 1
+      }))
+    ])
+  ]);
+
+export const slideInBottom =
+  trigger('slideInBottomTrigger', [
+    transition('void => *', [
+      style({
+        transform: 'translateY(-100%)',
+        opacity: 0
+      }),
+      animate('2000ms ease-out', style({
+        transform: 'translateY(0)',
+        opacity: 1
+      }))
     ])
   ]);
 
@@ -76,18 +90,5 @@ export const slideCollapseUpOut =
         opacity: 0
       }),
       animate('200ms ease-in-out')
-    ])
-  ]);
-
-export const testAnimation =
-  trigger('testAnimationTrigger', [
-    state('state1', style({
-      left: '*'
-    })),
-    state('state2', style({
-      left: '*'
-    })),
-    transition('* => *', [
-      animate(200)
     ])
   ]);

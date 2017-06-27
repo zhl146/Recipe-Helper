@@ -6,7 +6,6 @@ import { AppNav } from '../../navigation.model';
 import { AuthService } from '../../auth/auth.service';
 
 import { SignOutDialogComponent } from '../sign-out-dialog/sign-out-dialog.component';
-import { ObservableMedia } from '@angular/flex-layout';
 import { UserService } from '../../shared/user.service';
 import { Subject } from 'rxjs/Subject';
 
@@ -24,7 +23,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor( private auth: AuthService,
                private dialog: MdDialog,
-               private media: ObservableMedia,
                private userService: UserService ) {}
 
   // get the status of sign in so the correct links can be displayed
@@ -59,11 +57,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.signedIn = signedIn;
         }
       );
-  }
-
-  // only show the sliding nav on xs devices after sign in
-  showMobileNav() {
-    return (this.media.isActive('xs') && this.signedIn);
   }
 
   // make sure that we save the shopping list if the user happens to logout from the shopping component

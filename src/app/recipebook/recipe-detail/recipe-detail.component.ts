@@ -6,7 +6,7 @@ import { ShoppinglistService} from '../../shared/shoppinglist.service';
 import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
 import { ShoppingListItem } from '../../shoppinglist/shopping-list-item.model';
 
-import { fadeInOut, growInOut } from '../../shared/animations';
+import { growInOut, slideInBottom } from '../../shared/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -15,13 +15,12 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
   animations: [
-    fadeInOut,
+    slideInBottom,
     growInOut
-  ],
-  host: { '[@fadeInOutTrigger]': '' }
+  ]
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-
+  @HostBinding('@slideInBottomTrigger') routeAnimation = true;
   currentRecipeIndex: number;
   currentRecipe: Recipe;
 

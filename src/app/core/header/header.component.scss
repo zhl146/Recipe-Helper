@@ -2,42 +2,55 @@
 @import '../../../assets/material-shadows.scss';
 @import "../../../assets/sass-vars";
 
-.toolbar-spacer {
-  flex: 1 1 auto;
-}
-
 .active {
   border: 0.5px solid white;
 }
 
 .brand {
+  display: flex;
+  align-items: center;
   font-size: 16px;
   font-weight: 100;
+  cursor: pointer;
 }
 
 .sign-out-icon {
   font-size: 30px;
   height: 30px;
   width: 30px;
+  @extend %mobile-show;
 }
 
-.toolbar-content {
-  max-width: 1920px;
-  height: $toolbar-height;
-  color: white;
-  padding: 0 24px;
+.sign-out-text {
+  @extend %mobile-hide;
+}
+
+.nav-btn {
+  @extend %mobile-hide;
 }
 
 .toolbar {
   position: fixed;
+  display: flex;
+  justify-content: center;
   top: 0;
   width: 100vw;
   z-index: 8;
   background-color: mat-color($app-primary);
   border-radius: 2px;
   transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
-  will-change: box-shadow;
   @extend %md-shadow-2dp;
+}
+
+.toolbar-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: $toolbar-height;
+  color: white;
+  padding: 0 24px;
+  @extend %max-window-width;
 }
 
 .navbar-padding {
@@ -46,13 +59,13 @@
 }
 
 .mobile-nav {
+  @extend %mobile-show;
   position: fixed;
   top: $toolbar-height;
   width: 100%;
   background-color: white;
   z-index: 4;
   transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
-  will-change: box-shadow;
   @extend %md-shadow-2dp;
   border-radius: 2px;
 }

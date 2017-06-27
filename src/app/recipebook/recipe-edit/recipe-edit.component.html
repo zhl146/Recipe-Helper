@@ -1,27 +1,23 @@
 <form [formGroup]="recipeForm"
       novalidate
       class="recipe-detail-container"
-      (ngSubmit)='onSubmit()' fxLayoutWrap>
+      (ngSubmit)='onSubmit()'>
 
-  <md-card fxLayoutWrap
-           fxLayout="row"
-           fxLayoutAlign="center center">
+  <div class="title-card">
 
-    <div class="back-btn" [routerLink]="['/recipes']">
+    <div class="back-btn" [routerLink]="['../']">
       <md-icon class="back-btn">arrow_back</md-icon>
     </div>
 
-    <md-input-container fxFlex="100">
+    <md-input-container>
       <input type="text"
              placeholder="Recipe Name"
-             fxFlex="100"
              mdInput
              formControlName="recName">
     </md-input-container>
 
-    <md-input-container fxFlex="100">
+    <md-input-container>
         <textarea rows="1"
-                  fxFlex="100"
                   placeholder="Recipe Image Path"
                   mdTextareaAutosize
                   mdAutosizeMinRows="1"
@@ -39,120 +35,109 @@
          [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
     </div>
 
-    <md-input-container fxFlex="100">
+    <md-input-container>
     <textarea rows="1"
-              fxFlex="100"
               placeholder="Recipe Description"
               mdTextareaAutosize
               mdAutosizeMinRows="1"
               mdInput
               name="textarea"
               formControlName="recDescription">
-
       </textarea>
     </md-input-container>
 
-  </md-card>
+    <div class="time-card">
 
-  <md-card fxLayout="row" fxLayoutWrap>
+      <div class="time-group">
+        <div class="time-label">
+          Preparation time
+        </div>
+        <md-input-container>
+          <input mdInput
+                 placeholder="Hours"
+                 class="form-control"
+                 type="text"
+                 formControlName="recPrepHours">
+        </md-input-container>
+        <md-input-container>
+          <input mdInput
+                 placeholder="Minutes"
+                 class="form-control"
+                 type="text"
+                 formControlName="recPrepMinutes">
+        </md-input-container>
+      </div>
 
-    <div fxFlex="100">
-      Preparation time
+      <div class="time-group">
+        <div class="time-label">
+          Cook time
+        </div>
+        <md-input-container>
+          <input mdInput
+                 placeholder="Hours"
+                 class="form-control"
+                 type="text"
+                 formControlName="recCookHours">
+        </md-input-container>
+        <md-input-container>
+          <input mdInput
+                 placeholder="Minutes"
+                 class="form-control"
+                 type="text"
+                 formControlName="recCookMinutes">
+        </md-input-container>
+      </div>
+
     </div>
-    <md-input-container fxFlex="50">
-      <input fxFlex="100"
-             mdInput
-             placeholder="Hours"
-             class="form-control"
-             type="text"
-             formControlName="recPrepHours">
-    </md-input-container>
-    <md-input-container fxFlex="50">
-      <input fxFlex="100"
-             mdInput
-             placeholder="Minutes"
-             class="form-control"
-             type="text"
-             formControlName="recPrepMinutes">
-    </md-input-container>
-    <div fxFlex="100">
-      Cook time
-    </div>
-    <md-input-container fxFlex="50">
-      <input fxFlex="100"
-             mdInput
-             placeholder="Hours"
-             class="form-control"
-             type="text"
-             formControlName="recCookHours">
-    </md-input-container>
-    <md-input-container fxFlex="50">
-      <input fxFlex="100"
-             mdInput
-             placeholder="Minutes"
-             class="form-control"
-             type="text"
-             formControlName="recCookMinutes">
-    </md-input-container>
-  </md-card>
 
+  </div>
 
-  <md-card formArrayName="recIng"
-           fxLayout="row"
-           fxLayoutAlign="center"
-           fxLayoutWrap>
-    <md-card-header fxFlex="100">
+  <div formArrayName="recIng" class="list-card">
+    <div class="card-title">
       Ingredients
-    </md-card-header>
+    </div>
 
-    <div fxFlex="100"
-         *ngFor="let ingCtrl of getFormArrayControls('recIng'); let i=index"
+    <div *ngFor="let ingCtrl of getFormArrayControls('recIng'); let i=index"
          [formGroupName]="i"
          [ngClass]="{last: isLastElement(i, 'recIng')}"
-         fxLayoutAlign="center center">
+         class="list-item">
 
       <md-icon (click)="addItemFuncFactory('recIng')()"
                *ngIf="isLastElement(i, 'recIng')"
                md-list-icon>
-          add
-        </md-icon>
+        add
+      </md-icon>
 
-        <md-input-container fxFlex="100">
-        <textarea type="text"
-                  rows="1"
+      <md-input-container>
+        <textarea rows="1"
                   mdTextareaAutosize
                   mdAutosizeMinRows="1"
                   mdInput
                   formControlName="text"
                   (keyup)="autoAddNewItem(i, 'recIng')">
         </textarea>
-        </md-input-container>
+      </md-input-container>
 
-          <md-icon (click)="onDeleteClicked(i, 'recIng')"
-                   *ngIf="!isLastElement(i, 'recIng')"
-                   md-list-icon>
-            delete
-          </md-icon>
+      <md-icon (click)="onDeleteClicked(i, 'recIng')"
+               *ngIf="!isLastElement(i, 'recIng')"
+               md-list-icon>
+        delete
+      </md-icon>
 
-      </div>
+    </div>
 
 
-  </md-card>
+  </div>
 
-  <md-card formArrayName="recStep"
-           fxLayout="row"
-           fxLayoutAlign="center"
-           fxLayoutWrap>
-
-    <md-card-header fxFlex="100">
+  <div formArrayName="recStep" class="list-card">
+    <div class="card-title">
       Directions
-    </md-card-header>
+    </div>
 
-    <div fxFlex="100"
-         *ngFor="let stepCtrl of getFormArrayControls('recStep'); let i=index"
+    <div *ngFor="let stepCtrl of getFormArrayControls('recStep'); let i=index"
          [formGroupName]="i"
          [ngClass]="{last: isLastElement(i, 'recStep')}"
-         fxLayoutAlign="center center">
+         class="list-item">
 
       <md-icon (click)="addItemFuncFactory('recStep')()"
                *ngIf="isLastElement(i, 'recStep')"
@@ -160,9 +145,8 @@
         add
       </md-icon>
 
-      <md-input-container fxFlex="100">
-        <textarea type="text"
-                  rows="1"
+      <md-input-container>
+        <textarea rows="1"
                   mdTextareaAutosize
                   mdAutosizeMinRows="1"
                   mdInput
@@ -171,15 +155,15 @@
         </textarea>
       </md-input-container>
 
-        <md-icon (click)="onDeleteClicked(i, 'recStep')"
-                 *ngIf="!isLastElement(i, 'recStep')"
-                 md-list-icon>
-          delete
-        </md-icon>
+      <md-icon (click)="onDeleteClicked(i, 'recStep')"
+               *ngIf="!isLastElement(i, 'recStep')"
+               md-list-icon>
+        delete
+      </md-icon>
 
     </div>
 
-  </md-card>
+  </div>
 
   <button md-fab
           [@growInOutTrigger]

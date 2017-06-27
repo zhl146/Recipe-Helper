@@ -5,38 +5,36 @@
 @import "../../../assets/material-theme";
 
 $card-image-aspect: 1.777;
-
-.fullscreen-overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 10;
-  opacity: 0;
-  transition: all 150ms ease-out;
+%card-width {
+  @include breakpoint(1col) {
+    width: 100%;
+  }
+  @include breakpoint(2col) {
+    width: 75%;
+  }
+  @include breakpoint(3col) {
+    width: 50%;
+  }
+  @include breakpoint(4col) {
+    width: 35%;
+  }
 }
 
 // container that holds everything
-// has a semi transparent overlay background
 .recipe-detail {
-  position: absolute;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  z-index: 15;
-  transition: width 200ms ease-in-out, height 2000ms ease-in-out;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 // the card itself
 .recipe-detail-card {
-  position: relative;
-  margin: 0;
+  @extend %card-width;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  z-index: 200;
+  transition: all 2000ms ease-in-out;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 // holds the image and a few buttons

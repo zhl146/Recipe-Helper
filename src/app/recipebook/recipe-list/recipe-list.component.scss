@@ -9,16 +9,16 @@
 $card-image-aspect: 1.777;
 %card-width {
   @include breakpoint(1col) {
-    width: 100vw;
+    width: 100%;
   }
   @include breakpoint(2col) {
-    width: 50vw;
+    width: calc(50% - 20px);
   }
   @include breakpoint(3col) {
-    width: calc(33.33vw - 40px);
+    width: calc(33.33% - 40px);
   }
   @include breakpoint(4col) {
-    width: calc(25vw - 40px);
+    width: calc(25% - 40px);
   }
 }
 
@@ -27,7 +27,7 @@ $card-image-aspect: 1.777;
     margin: 10px 0;
   }
   @include breakpoint(2colplus) {
-    margin: 10px 0;
+    margin: 5px;
   }
 }
 
@@ -35,7 +35,7 @@ $card-image-aspect: 1.777;
 /* the base component */
 .recipe-list {
   position: relative;
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -46,22 +46,12 @@ $card-image-aspect: 1.777;
   justify-content: center;
 }
 
-.fullscreen-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, .6);
-}
-
 /* contains the new recipe btn and edit btns */
 
 .recipe-utils-container {
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: 100%;
   justify-content: center;
 
   form {

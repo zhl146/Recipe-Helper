@@ -1,5 +1,5 @@
-@import '../../assets/material-theme';
+@import '../../assets/sass-vars';
 
 .recipe-book {
-  width: 100vw;
+  @extend %max-window-width;
 }

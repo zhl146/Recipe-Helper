@@ -1,33 +1,32 @@
-<md-card fxFlex.xs="100"
-         class="auth-card auth-login">
+<div class="auth-card auth-login">
 
     <form [formGroup]="signinForm"
-          fxLayoutWrap
           novalidate
-          (ngSubmit)="onSubmit()">
+          (ngSubmit)="onSubmit()"
+          class="auth-form">
 
       <div *ngIf="auth.errorMessage">
         <p>{{auth.errorMessage}}</p>
       </div>
 
-      <md-input-container fxFlex="100">
+      <md-input-container>
         <input mdInput
                type="email"
                formControlName="email"
                placeholder="e-mail">
 
-        <md-error fxFlex="100" *ngIf="!auth.errorMessage && emailTouched() && !emailValid()">
+        <md-error *ngIf="!auth.errorMessage && emailTouched() && !emailValid()">
           <p>Please enter a vaid e-mail address</p>
         </md-error>
 
       </md-input-container>
 
-      <md-input-container fxFlex="100">
+      <md-input-container>
         <input mdInput
                type="password"
                formControlName="password"
                placeholder="password">
-        <md-hint align="end" (click)="goToPasswordReset()"><a>forgot password?</a></md-hint>
+        <md-hint class="forgot-password" align="end" (click)="goToPasswordReset()"><a>forgot password?</a></md-hint>
 
         <md-error
                   *ngIf="!auth.errorMessage && passwordTouched() && !passwordValid()">
@@ -37,13 +36,11 @@
       </md-input-container>
 
       <button md-raised-button
-              fxFlex="100"
               color="primary"
               type="submit">
         Sign in
       </button>
       <button md-raised-button
-              fxFlex="100"
               color="accent"
               type="button"
               (click)="gotoSignUp()">
@@ -51,4 +48,4 @@
       </button>
 
     </form>
-</md-card>
+</div>

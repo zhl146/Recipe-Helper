@@ -4,20 +4,36 @@
 
 %card-width {
   @include breakpoint(1col) {
-    width: 100vw;
+    width: 100%;
   }
   @include breakpoint(2col) {
-    width: 60vw;
+    width: 75%;
   }
   @include breakpoint(3col) {
-    width: 50vw;
+    width: 50%;
   }
   @include breakpoint(4col) {
-    width: 40vw;
+    width: 35%;
   }
-  @include breakpoint(5col) {
-    width: 30vw;
-  }
+}
+
+%card {
+  @extend %card-width;
+  margin: 0 auto 10px auto;
+  padding: 24px;
+  @extend %md-shadow-3dp;
+}
+
+.card-title {
+  font-size: 1.5em;
+  font-weight: 200;
+  padding: .5em;
+}
+
+.recipe-detail-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 textarea {
@@ -25,25 +41,11 @@ textarea {
   resize: none;
 }
 
-.recipe-detail-container {
+.title-card {
+  @extend %card;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-md-card {
-  @extend %card-width;
-  margin-bottom: 10px;
-}
-
-.last-list-item {
-  opacity: 0.35;
-}
-
-.list-item {
-  padding: 0 10px 0 10px;
+  align-items: stretch;
 }
 
 .back-btn {
@@ -60,11 +62,49 @@ md-card {
 }
 
 .img-preview {
+  align-self: center;
   width: 320px;
   @include aspect-ratio(1.77);
   background-size: cover;
   background-position: center center;
   @extend %md-shadow-2dp;
+}
+
+.time-card {
+  display: flex;
+  flex-flow: row;
+  .time-group {
+    width: 50%;
+    display: flex;
+    flex-flow: row wrap;
+    .time-label {
+      width: 100%;
+    }
+    md-input-container {
+      width: 40%;
+    }
+  }
+}
+
+.list-card {
+  @extend %card;
+  display: flex;
+  flex-direction: column;
+}
+
+.last-list-item {
+  opacity: 0.35;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 auto;
+  md-input-container {
+    width: 90%;
+  }
 }
 
 .submit-btn {

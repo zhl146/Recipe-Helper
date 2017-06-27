@@ -1,47 +1,34 @@
 <div class="toolbar">
-  <div class="toolbar-content"
-       fxFlex.gt-lg="1920px"
-       fxFlex.lt-xl="100"
-       fxLayout="row"
-       fxLayoutAlign="start center"
-       fxFlexAlign="center center">
+  <div class="toolbar-content">
 
    <span [routerLink]="['recipes']"
-         class="brand"
-         fxLayout="row"
-         fxLayoutAlign="start center">
+         class="brand">
       <md-icon md-list-icon>
         book
       </md-icon>
      Recipe Helper
    </span>
 
-    <span class="toolbar-spacer"></span>
-
-    <span fxShow
-          fxHide.xs>
-
-    <button md-button
-            *ngFor="let nav of navigation"
-            [routerLink]="nav.route"
-            routerLinkActive="active">
-      {{nav.displayText}}
-    </button>
-
-   </span>
-
-    <span fxLayoutAlign="center center"
-          (click)="onLogOut()">
+    <span>
       <button md-button
-              *ngIf="signedIn" fxHide.xs>
+              class="nav-btn"
+              *ngFor="let nav of navigation"
+              [routerLink]="nav.route"
+              routerLinkActive="active">
+        {{nav.displayText}}
+      </button>
+
+      <button md-button
+              (click)="onLogOut()"
+              class="sign-out-text"
+              *ngIf="signedIn">
         Sign out
       </button>
 
       <md-icon md-list-icon
+               (click)="onLogOut()"
                class="sign-out-icon"
-               *ngIf="signedIn"
-               fxHide
-               fxShow.xs>
+               *ngIf="signedIn">
         power_settings_new
       </md-icon>
     </span>
@@ -50,7 +37,7 @@
 </div>
 
 <div class="mobile-nav"
-     *ngIf="showMobileNav()">
+     *ngIf="signedIn">
   <nav md-tab-nav-bar
        fxLayout.lt-md="row"
        fxLayoutAlign.lt-md="center">
@@ -61,7 +48,5 @@
        [active]="rla.isActive">
       {{nav.displayText}}
     </a>
-
   </nav>
-
 </div>

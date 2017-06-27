@@ -107,12 +107,10 @@ export class RecipeEditComponent implements OnInit {
   }
 
   getHours(time: number) {
-    const result = Math.floor(time / 60);
-    return result;
+    return Math.floor(time / 60);
   }
 
   getMinutes(time: number) {
-    const result = time % 60;
     return time % 60;
   }
 
@@ -201,7 +199,7 @@ export class RecipeEditComponent implements OnInit {
   // updates the data model and routes the user on submit
   onSubmit() {
     this.updateRecipeServer();
-    this.router.navigate(['recipes']);
+    this.router.navigate(['..'], {relativeTo: this.route});
   }
 
 }

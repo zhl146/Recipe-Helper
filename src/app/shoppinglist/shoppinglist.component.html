@@ -11,9 +11,6 @@
   </button>
 
   <form [formGroup]="ingForm"
-        fxFlex.lt-md="100"
-        fxFlexOrder.lt-md="2"
-        fxFlex.gt-sm="76.4"
         novalidate
         (ngSubmit)="updateIngredients()">
 
@@ -23,9 +20,7 @@
          fxLayoutWrap>
 
       <div *ngFor="let listItemCtrl of getListItemControls(); let i = index"
-                    fxFlex="100"
                     class="shopping-list-item"
-                    fxLayoutAlign="center"
                     [formGroupName]="i"
                     [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
 
@@ -41,9 +36,8 @@
           add
         </md-icon>
 
-        <md-input-container fxFlex="100">
-        <textarea fxflex="100"
-                  rows="1"
+        <md-input-container>
+        <textarea rows="1"
                   mdTextareaAutosize
                   mdAutosizeMinRows="1"
                   mdInput
