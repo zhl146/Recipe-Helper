@@ -17,23 +17,21 @@ $toolbar-height: 64px;
   @else if $point == 2colplus {
     @media (min-width: 767px) { @content; }
   }
+  @else if $point == mobile {
+    @media (max-width: 599px) { @content; }
+  }
+  @else if $point == notmobile {
+    @media (min-width: 600px) { @content; }
+  }
 }
 
-$mobile-break: 600px;
-
 %mobile-show {
-  @media screen and (min-width: 600px) {
-    display: none;
-  }
-  @media screen and (max-width: 599px) {
-    display: flex;
-  }
+  @include breakpoint(notmobile) { display: none }
+  @include breakpoint(mobile) { display: flex }
 }
 
 %mobile-hide {
-  @media screen and (max-width: 599px) {
-    display: none;
-  }
+  @include breakpoint(mobile) { display: none }
 }
 
 $max-width: 1920px;
@@ -45,4 +43,8 @@ $max-width: 1920px;
   @media screen and (min-width: $max-width + 1) {
     width: 1920px;
   }
+}
+
+%splash-image-background {
+  /* put responsive image links here */
 }

@@ -32,13 +32,60 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background:
-    linear-gradient(
-        rgba(19, 27, 35, 0.55),
-        rgba(19, 27, 35, 0.55)
-    ),
-    url(../../assets/img/splash/splash-image_x51j2g_c_scale,w_1600.jpg);
-  background-size: cover;
+  @media screen and (max-width: 480px) {
+    background:
+      linear-gradient(
+          rgba(19, 27, 35, 0.55),
+          rgba(19, 27, 35, 0.55)
+      ),
+      url(../../assets/img/splash/splash_le4wef_c_scale,w_480.jpg);
+    background-size: cover;
+  }
+  @media screen and (min-width: 481px) and (max-width: 783px) {
+    background:
+      linear-gradient(
+          rgba(19, 27, 35, 0.55),
+          rgba(19, 27, 35, 0.55)
+      ),
+      url(../../assets/img/splash/splash_le4wef_c_scale,w_783.jpg);
+    background-size: cover;
+  }
+  @media screen and (min-width: 784px) and (max-width: 1027px) {
+    background:
+      linear-gradient(
+          rgba(19, 27, 35, 0.55),
+          rgba(19, 27, 35, 0.55)
+      ),
+      url(../../assets/img/splash/splash_le4wef_c_scale,w_1027.jpg);
+    background-size: cover;
+  }
+  @media screen and (min-width: 1028px) and (max-width: 1235px) {
+    background:
+      linear-gradient(
+          rgba(19, 27, 35, 0.55),
+          rgba(19, 27, 35, 0.55)
+      ),
+      url(../../assets/img/splash/splash_le4wef_c_scale,w_1235.jpg);
+    background-size: cover;
+  }
+  @media screen and (min-width: 1236px) and (max-width: 1623px) {
+    background:
+      linear-gradient(
+          rgba(19, 27, 35, 0.55),
+          rgba(19, 27, 35, 0.55)
+      ),
+      url(../../assets/img/splash/splash_le4wef_c_scale,w_1623.jpg);
+    background-size: cover;
+  }
+  @media screen and (min-width: 1624px) {
+    background:
+      linear-gradient(
+          rgba(19, 27, 35, 0.55),
+          rgba(19, 27, 35, 0.55)
+      ),
+      url(../../assets/img/splash/splash_le4wef_c_scale,w_1920.jpg);
+    background-size: cover;
+  }
   color: white;
   text-align: center;
   padding: 10px;

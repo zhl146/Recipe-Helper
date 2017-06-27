@@ -15,12 +15,11 @@ $breakxs: 599px;
   position: fixed;
   display: flex;
   justify-content: center;
+  top: 64px;
   bottom: 0;
   right: 0;
   left: 0;
   background-color: #F5F5F5;
-  @include respond-to(xs) {top: $toolbar-height + $navbar-height;}
-  @include respond-to(not-xs) {top: $toolbar-height;}
   overflow: auto;
   overflow-x: hidden;
 }

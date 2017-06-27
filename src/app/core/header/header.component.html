@@ -1,5 +1,7 @@
-<div class="toolbar">
-  <div class="toolbar-content">
+<ng-container>
+
+  <div class="toolbar">
+    <div class="toolbar-content">
 
    <span [routerLink]="['recipes']"
          class="brand">
@@ -9,7 +11,7 @@
      Recipe Helper
    </span>
 
-    <span>
+      <span>
       <button md-button
               class="nav-btn"
               *ngFor="let nav of navigation"
@@ -33,18 +35,20 @@
       </md-icon>
     </span>
 
+    </div>
   </div>
-</div>
 
-<div class="mobile-nav"
-     *ngIf="signedIn">
-  <nav md-tab-nav-bar>
-    <a md-tab-link
-       *ngFor="let nav of navigation"
-       [routerLink]="nav.route"
-       routerLinkActive #rla="routerLinkActive"
-       [active]="rla.isActive">
-      {{nav.displayText}}
-    </a>
-  </nav>
-</div>
+  <div class="mobile-nav"
+       *ngIf="signedIn">
+    <nav md-tab-nav-bar>
+      <a md-tab-link
+         *ngFor="let nav of navigation"
+         [routerLink]="nav.route"
+         routerLinkActive #rla="routerLinkActive"
+         [active]="rla.isActive">
+        {{nav.displayText}}
+      </a>
+    </nav>
+  </div>
+
+</ng-container>

@@ -92,3 +92,26 @@ export const slideCollapseUpOut =
       animate('200ms ease-in-out')
     ])
   ]);
+
+export const slideLeft =
+  trigger('slideLeftTrigger', [
+    transition(':enter', [
+      style({transform: 'translateX(100%)'}),
+        animate('2000ms ease-out')
+      ]),
+    // transition(':leave', [
+    //   animate('2000ms ease-in', style({transform: 'translateX(100%)'}))
+    // ])
+  ]);
+
+export const slideRight =
+  trigger('slideRightTrigger', [
+    transition(':enter', [
+      style({transform: 'translateX(-100%)'}),
+      animate('2000ms ease-out')
+    ]),
+    // transition('* => void', [
+    //   style({ transform: 'translateX(0)'}),
+    //   animate('2000ms ease-in', style({transform: 'translateX(-100%)'}))
+    // ])
+  ]);

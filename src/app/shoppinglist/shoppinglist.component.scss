@@ -20,6 +20,9 @@
   flex-direction: column;
   @extend %card-width;
   margin: auto;
+  position: relative;
+  @include breakpoint(mobile) { top: $navbar-height };
+  @include breakpoint(notmobile) { top: 0 };
 
   .top-spacer {
     width: 100%;

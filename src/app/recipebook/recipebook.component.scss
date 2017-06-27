@@ -1,5 +1,8 @@
 @import '../../assets/sass-vars';
 
 .recipe-book {
+  position: relative;
+  @include breakpoint(mobile) { top: $navbar-height };
+  @include breakpoint(notmobile) { top: 0 };
   @extend %max-window-width;
 }

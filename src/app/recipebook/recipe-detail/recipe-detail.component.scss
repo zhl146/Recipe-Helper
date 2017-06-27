@@ -25,6 +25,12 @@ $card-image-aspect: 1.777;
   width: 100%;
   display: flex;
   flex-direction: column;
+  @include breakpoint(mobile) {
+    padding: 0;
+  }
+  @include breakpoint(notmobile) {
+    padding: 24px;
+  }
 }
 
 // the card itself

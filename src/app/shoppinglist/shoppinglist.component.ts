@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import { Subscription } from 'rxjs/Subscription';
-
 import { ShoppinglistService } from '../shared/shoppinglist.service';
 import { ShoppingListItem } from './shopping-list-item.model';
 import { Subject } from 'rxjs/Subject';
@@ -14,7 +12,7 @@ import { growInOut } from '../shared/animations';
   templateUrl: './shoppinglist.component.html',
   styleUrls: ['./shoppinglist.component.scss'],
   animations: [
-    growInOut
+    growInOut,
   ]
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
