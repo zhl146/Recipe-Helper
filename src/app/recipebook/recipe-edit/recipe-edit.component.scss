@@ -54,17 +54,19 @@ textarea {
   align-items: stretch;
 }
 
-.back-btn {
-  display: block;
-  margin-bottom: 15px;
-  flex: 1 1 auto;
+.util-btn-container {
+  display: flex;
   width: 100%;
-  md-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 40px;
-    cursor: pointer;
-  }
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.util-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  cursor: pointer;
 }
 
 .img-preview {

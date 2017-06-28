@@ -2,16 +2,16 @@
 
 %card-width {
   @include breakpoint(1col) {
-    width: 100vw;
+    width: 100%;
   }
   @include breakpoint(2col) {
-    width: 75vw;
+    width: 75%;
   }
   @include breakpoint(3col) {
-    width: 65vw;
+    width: 65%;
   }
   @include breakpoint(4col) {
-    width: 55vw;
+    width: 55%;
   }
 }
 
@@ -21,8 +21,8 @@
   @extend %card-width;
   margin: auto;
   position: relative;
-  @include breakpoint(mobile) { top: $navbar-height };
-  @include breakpoint(notmobile) { top: 0 };
+  @include breakpoint(mobile) { top: $toolbar-height + $navbar-height };
+  @include breakpoint(notmobile) { top: $toolbar-height };
 
   .top-spacer {
     width: 100%;
@@ -35,7 +35,7 @@
     position: fixed;
     bottom: 24px;
     right: 24px;
-    z-index: 3;
+    border-radius: 28px;
   }
 
   .last {

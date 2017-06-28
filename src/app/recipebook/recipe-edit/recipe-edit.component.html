@@ -5,8 +5,15 @@
 
   <div class="title-card">
 
-    <div class="back-btn" [routerLink]="['../']">
-      <md-icon class="back-btn">arrow_back</md-icon>
+    <div class="util-btn-container">
+      <md-icon class="util-btn" [routerLink]="['../']">arrow_back</md-icon>
+      <md-icon *ngIf="deleteIntent === false"
+               class="util-btn"
+               (click)="onDeleteIntent()">delete</md-icon>
+      <md-icon *ngIf="deleteIntent === true"
+               class="util-btn"
+               color="warn"
+               (click)="onDelete()">delete</md-icon>
     </div>
 
     <md-input-container>

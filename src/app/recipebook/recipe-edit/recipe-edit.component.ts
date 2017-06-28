@@ -5,6 +5,7 @@ import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
 import { Recipe } from '../recipe.model';
 import { validateReasonableTime } from '../recipebook-time-validator';
 import { growInOut } from '../../shared/animations';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -19,12 +20,14 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
   currentRecipe: Recipe;
 
+  deleteIntent = false;
+
   id: number; // array id of the currentRecipe we are looking at if we are editing
   editMode = false; // true if we are editing an existing currentRecipe false if we are creating a new one
 
   constructor( private route: ActivatedRoute,
                private recipeService: RecipeBookDataService,
-               private router: Router) { }
+               private router: Router, private snackBar: MdSnackBar) { }
 
   ngOnInit() {
     // parse the route to see if we are editing and if so which currentRecipe we are editing
@@ -210,5 +213,18 @@ export class RecipeEditComponent implements OnInit {
   onPlusStep(index: number) {
     (<HTMLElement>document.getElementById('step' + index)
       .firstElementChild.firstElementChild.firstElementChild.firstElementChild).focus();
+  }
+
+  // first click on black delete button
+  onDeleteIntent() {
+    this.deleteIntent = true;
+    setTimeout( () => { this.deleteIntent = false; }, 1500);
+  }
+
+  // second click actually deletes recipe
+  onDelete() {
+    this.recipeService.deleteRecipe(this.id);
+    this.snackBar.open('Recipe deleted!', '', {duration: 1500});
+    this.router.navigate(['recipes']);
   }
 }

@@ -1,4 +1,5 @@
 @import "../../assets/material-shadows";
+@import "../../assets/sass-vars";
 
 .auth-login {
   min-width: 250px;
@@ -28,7 +29,7 @@
 
 .splash-card {
   position: absolute;
-  top: 0;
+  top: $toolbar-height;
   bottom: 0;
   left: 0;
   right: 0;

@@ -38,7 +38,7 @@ $max-width: 1920px;
 
 %max-window-width {
   @media screen and (max-width: $max-width) {
-    width: 100vw;
+    width: 100%;
   }
   @media screen and (min-width: $max-width + 1) {
     width: 1920px;

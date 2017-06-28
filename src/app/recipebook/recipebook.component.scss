@@ -2,7 +2,7 @@
 
 .recipe-book {
   position: relative;
-  @include breakpoint(mobile) { top: $navbar-height };
-  @include breakpoint(notmobile) { top: 0 };
+  @include breakpoint(mobile) { top: $toolbar-height + $navbar-height };
+  @include breakpoint(notmobile) { top: $toolbar-height };
   @extend %max-window-width;
 }

@@ -36,6 +36,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       console.log(this.currentRecipeIndex);
       this.currentRecipe = this.recipeService.getLocalRecipebyIndex(this.currentRecipeIndex);
     });
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {
