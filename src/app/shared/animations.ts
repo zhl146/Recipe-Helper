@@ -3,39 +3,8 @@ import {
   style,
   trigger,
   transition,
-  state,
+  state, keyframes,
 } from '@angular/animations';
-
-export const fadeInOut =
-  trigger('fadeInOutTrigger', [
-    transition(':leave', [
-      animate('200ms ease-in', style({
-        opacity: 0
-      }))
-    ]),
-    transition(':enter', [
-      style({
-        opacity: 0
-      }),
-      animate('200ms ease-out', style({
-        opacity: 1
-      }))
-    ])
-  ]);
-
-export const slideInBottom =
-  trigger('slideInBottomTrigger', [
-    transition('void => *', [
-      style({
-        transform: 'translateY(-100%)',
-        opacity: 0
-      }),
-      animate('2000ms ease-out', style({
-        transform: 'translateY(0)',
-        opacity: 1
-      }))
-    ])
-  ]);
 
 export const growInOut =
   trigger('growInOutTrigger', [
@@ -61,57 +30,14 @@ export const growInOut =
     ])
   ]);
 
-export const slideCollapseUpOut =
-  trigger('slideCollapseTrigger', [
-    state('collapsed', style({
-      height: 0,
-      opacity: 0
-    })),
-    state('expanded', style({
-      height: '*',
-      opacity: 1
-    })),
-    transition('expanded => collapsed', [
-      animate('200ms ease-in', style({
-        height: 0,
-        opacity: 0
-      }))
-    ]),
-    transition('collapsed => expanded', [
-      style({
-        height: 0,
-        opacity: 0
-      }),
-      animate('200ms ease-out')
-    ]),
-    transition(':enter', [
-      style({
-        height: 0,
-        opacity: 0
-      }),
-      animate('200ms ease-in-out')
-    ])
-  ]);
-
-export const slideLeft =
-  trigger('slideLeftTrigger', [
-    transition(':enter', [
-      style({transform: 'translateX(100%)'}),
-        animate('2000ms ease-out')
-      ]),
-    // transition(':leave', [
-    //   animate('2000ms ease-in', style({transform: 'translateX(100%)'}))
-    // ])
-  ]);
-
-export const slideRight =
-  trigger('slideRightTrigger', [
-    transition(':enter', [
-      style({transform: 'translateX(-100%)'}),
-      animate('2000ms ease-out')
-    ]),
-    // transition('* => void', [
-    //   style({ transform: 'translateX(0)'}),
-    //   animate('2000ms ease-in', style({transform: 'translateX(-100%)'}))
-    // ])
+export const buttonClickFeedback =
+  trigger('buttonClickFeedbackTrigger', [
+    state('true', style({transform: 'scale(1)'})),
+    transition('* => true',
+      animate('250ms ease-in-out', keyframes([
+        style({ transform: 'scale(1)' }),
+        style({ color: 'green', transform: 'scale(1.4)' }),
+        style({ transform: 'scale(1)' })
+      ]))
+    )
   ]);

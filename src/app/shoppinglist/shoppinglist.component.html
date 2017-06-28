@@ -3,11 +3,22 @@
   <div class="top-spacer"></div>
 
   <button md-fab
+          *ngIf="clearState === false"
+          [@growInOutTrigger]
+          class="clear-all-fab"
+          (click)="onClearIntent()"
+          type="button">
+    <md-icon>clear_all</md-icon>
+  </button>
+
+  <button md-fab
+          *ngIf="clearState === true"
           [@growInOutTrigger]
           class="clear-all-fab"
           (click)="onClear()"
+          color="warn"
           type="button">
-    <md-icon>clear_all</md-icon>
+    <md-icon>delete</md-icon>
   </button>
 
   <form [formGroup]="ingForm"
@@ -20,9 +31,10 @@
          fxLayoutWrap>
 
       <div *ngFor="let listItemCtrl of getListItemControls(); let i = index"
-                    class="shopping-list-item"
-                    [formGroupName]="i"
-                    [ngClass]="{last: isLastElement(i)}">
+           class="shopping-list-item"
+           [formGroupName]="i"
+           #listItems
+           [ngClass]="{last: isLastElement(i)}">
 
         <md-checkbox (change)="updateIngredient(i)"
                      *ngIf="!isLastElement(i)"
@@ -32,6 +44,7 @@
 
         <md-icon md-list-icon
                  class="shopping-icon"
+                 (click)="onPlus()"
                  *ngIf="isLastElement(i)">
           add
         </md-icon>

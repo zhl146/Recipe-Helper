@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 
 import { Recipe} from '../recipe.model';
@@ -6,7 +6,7 @@ import { ShoppinglistService} from '../../shared/shoppinglist.service';
 import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
 import { ShoppingListItem } from '../../shoppinglist/shopping-list-item.model';
 
-import { growInOut, slideInBottom } from '../../shared/animations';
+import { buttonClickFeedback, growInOut } from '../../shared/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -15,14 +15,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
   animations: [
-    slideInBottom,
-    growInOut
+    growInOut,
+    buttonClickFeedback
   ]
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-  @HostBinding('@slideInBottomTrigger') routeAnimation = true;
   currentRecipeIndex: number;
   currentRecipe: Recipe;
+  clickedItem: number | null;
 
   constructor( private shoppingService: ShoppinglistService,
                private recipeService: RecipeBookDataService,
@@ -64,10 +64,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   // adds a single ingredient to the shopping list
-  onAddIngredient(ingredient: string) {
+  onAddIngredient(ingredient: string, index: number) {
     this.openSnackBar('Ingredient added to list!', '');
     const newIngredient = new ShoppingListItem(false, ingredient);
     this.shoppingService.addIngredient(newIngredient);
+    this.onClickedItem(index);
   }
 
   // snackbar notification that user added something to shopping list
@@ -76,5 +77,11 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  // controls the animation for button feedback when adding single ingredients
+  onClickedItem(index: number) {
+    this.clickedItem = index;
+    setTimeout( () => { this.clickedItem = null; }, 250);
   }
 }

@@ -10,7 +10,8 @@
       <md-icon>add</md-icon>
     </button>
 
-    <form [formGroup]="recipeForm" class="search-bar">
+    <form [formGroup]="recipeForm"
+          class="search-bar">
       <md-input-container>
         <input mdInput
                formControlName="filter"
@@ -33,7 +34,7 @@
            [ngStyle]="{'visibility': i === currentRecipeIndex ? 'hidden' : 'visible'}"
            appDivImage
            [src]="recipe.imagePath"
-           [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
+           [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/image-placeholder_zpsffamsqm7.jpg'">
 
         <ng-container *ngIf="i !== currentRecipeIndex">
           <div class="favorite-indicator">
@@ -41,7 +42,7 @@
             <md-icon *ngIf="!recipe.favorite" class="no-fav">favorite_border</md-icon>
           </div>
           <div class="floor-fade"></div>
-          <div class="title-overlay" [@fadeInOutTrigger]>
+          <div class="title-overlay">
             {{recipe.name | titlecase}}
           </div>
         </ng-container>

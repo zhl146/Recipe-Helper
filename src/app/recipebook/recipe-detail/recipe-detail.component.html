@@ -17,7 +17,7 @@
       <div class="card-image"
            appDivImage
            [src]="currentRecipe.imagePath"
-           [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
+           [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/image-placeholder_zpsffamsqm7.jpg'">
       </div>
     </div>
     <div class="card-detail">
@@ -76,8 +76,10 @@
           <md-tab [label]="'INGREDIENTS'">
             <div class="tab-contents">
               <ul>
-                <li *ngFor="let ingredient of currentRecipe.ingredients">
-                  <md-icon (click)="onAddIngredient(ingredient)"
+                <li *ngFor="let ingredient of currentRecipe.ingredients; let i = index">
+                  <md-icon class="add-ingredient-btn"
+                           (click)="onAddIngredient(ingredient, i)"
+                           [@buttonClickFeedbackTrigger]="clickedItem === i ? 'true' : 'false' "
                            md-list-icon>
                     add_shopping_cart
                   </md-icon>

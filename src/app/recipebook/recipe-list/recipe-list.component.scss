@@ -31,7 +31,6 @@ $card-image-aspect: 1.777;
   }
 }
 
-
 /* the base component */
 .recipe-list {
   position: relative;
@@ -47,7 +46,6 @@ $card-image-aspect: 1.777;
 }
 
 /* contains the new recipe btn and edit btns */
-
 .recipe-utils-container {
   display: flex;
   flex-direction: row;
@@ -86,6 +84,12 @@ $card-image-aspect: 1.777;
     flex-direction: row;
     justify-content: center;
 
+    /deep/ .mat-input-infix {
+      display: flex;
+    }
+    input {
+      flex: 1 1 auto;
+    }
     /deep/ .mat-input-wrapper {
       width: 80%;
 
@@ -97,7 +101,6 @@ $card-image-aspect: 1.777;
 }
 
 /* in this view, this is the image and overlay */
-
 .recipe-image-card {
   @extend %card-margin;
   @extend %card-width;

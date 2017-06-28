@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { ShoppinglistService } from '../shared/shoppinglist.service';
@@ -17,9 +17,16 @@ import { growInOut } from '../shared/animations';
 })
 export class ShoppinglistComponent implements OnInit, OnDestroy {
 
+  // using this so we can focus the proper input when the + is clicked
+  @ViewChildren('listItems') listItems: QueryList<any>;
+
   private ngUnsubscribe: Subject<any> = new Subject();
 
+  // the form
   ingForm: FormGroup;
+
+  // some feedback to prevent the user from accidentally clearing their list
+  clearState = false;
 
   constructor( private shoppingService: ShoppinglistService,
                private fb: FormBuilder) {
@@ -120,9 +127,23 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     }
   }
 
+  onClearIntent() {
+    this.clearState = true;
+    setTimeout( () => { this.clearState = false; }, 1500);
+  }
+
+  // clears the list
   onClear() {
     this.ingForm.setControl('shoppingListItems', this.fb.array([]));
     this.addListItem();
     this.shoppingService.updateLocalList([]);
+    this.clearState = false;
   }
+
+  // code is a bit convoluted, but it successfully selects and focuses the last list element
+  onPlus() {
+    this.listItems.last.nativeElement.children[1]
+      .firstElementChild.firstElementChild.firstElementChild.firstElementChild.focus();
+  }
+
 }

@@ -202,4 +202,13 @@ export class RecipeEditComponent implements OnInit {
     this.router.navigate(['..'], {relativeTo: this.route});
   }
 
+  onPlusIng(index: number) {
+    (<HTMLElement>document.getElementById('ing' + index)
+      .firstElementChild.firstElementChild.firstElementChild.firstElementChild).focus();
+  }
+
+  onPlusStep(index: number) {
+    (<HTMLElement>document.getElementById('step' + index)
+      .firstElementChild.firstElementChild.firstElementChild.firstElementChild).focus();
+  }
 }

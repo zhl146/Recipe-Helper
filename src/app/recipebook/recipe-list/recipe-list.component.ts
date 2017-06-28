@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 
@@ -7,9 +7,7 @@ import {RecipeBookDataService} from '../../shared/recipe-book-data.service';
 import { Recipe } from '../recipe.model';
 
 import {
-  fadeInOut,
   growInOut,
-  slideCollapseUpOut
 } from '../../shared/animations';
 
 @Component({
@@ -17,14 +15,11 @@ import {
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss'],
   animations: [
-    slideCollapseUpOut,
-    fadeInOut,
     growInOut
   ]
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  @ViewChildren('recipeCard') cardElRefs: QueryList<any>;
 
   recipeForm: FormGroup;
 
@@ -54,11 +49,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-  }
-
-  // navigates to the current recipe detail
-  onSelected(selectedRecipeIndex: number) {
-    this.currentRecipeIndex = selectedRecipeIndex;
   }
 
   // clears the current user filter string

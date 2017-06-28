@@ -32,7 +32,7 @@
     <div class="img-preview"
          appDivImage
          [src]="imgPath.value"
-         [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/recipe-placeholder_zpst2nnqbq6.png'">
+         [fallback]="'http://i347.photobucket.com/albums/p476/zhl146/image-placeholder_zpsffamsqm7.jpg'">
     </div>
 
     <md-input-container>
@@ -102,13 +102,13 @@
          [ngClass]="{last: isLastElement(i, 'recIng')}"
          class="list-item">
 
-      <md-icon (click)="addItemFuncFactory('recIng')()"
-               *ngIf="isLastElement(i, 'recIng')"
+      <md-icon *ngIf="isLastElement(i, 'recIng')"
+               (click)="onPlusIng(i)"
                md-list-icon>
         add
       </md-icon>
 
-      <md-input-container>
+      <md-input-container [attr.id]="'ing' + i">
         <textarea rows="1"
                   mdTextareaAutosize
                   mdAutosizeMinRows="1"
@@ -139,13 +139,13 @@
          [ngClass]="{last: isLastElement(i, 'recStep')}"
          class="list-item">
 
-      <md-icon (click)="addItemFuncFactory('recStep')()"
-               *ngIf="isLastElement(i, 'recStep')"
+      <md-icon *ngIf="isLastElement(i, 'recStep')"
+               (click)="onPlusStep(i)"
                md-list-icon>
         add
       </md-icon>
 
-      <md-input-container>
+      <md-input-container [attr.id]="'step' + i">
         <textarea rows="1"
                   mdTextareaAutosize
                   mdAutosizeMinRows="1"
