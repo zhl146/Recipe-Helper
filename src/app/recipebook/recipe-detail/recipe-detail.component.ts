@@ -33,7 +33,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.currentRecipeIndex = +params['id']; // (+) converts string 'id' to a number
-      console.log(this.currentRecipeIndex);
       this.currentRecipe = this.recipeService.getLocalRecipebyIndex(this.currentRecipeIndex);
     });
     window.scrollTo(0, 0);

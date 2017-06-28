@@ -13,10 +13,12 @@ import {
 } from '@angular/material';
 
 import { ImageFallbackDirective } from './image-fallback.directive';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
-    ImageFallbackDirective
+    ImageFallbackDirective,
+    ErrorDialogComponent
   ],
   imports: [
 
