@@ -42,6 +42,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
+  // navigates to the edit component
   onEdit() {
     this.router.navigate(['recipes', this.currentRecipeIndex, 'edit']);
   }

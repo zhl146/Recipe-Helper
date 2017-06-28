@@ -20,10 +20,6 @@ export class RecipeBookDataService {
     return this.recipeList.asObservable();
   }
 
-  getNumrecipes() {
-    return this.recipeList.getValue().length;
-  }
-
   // returns a specific recipe
   getLocalRecipebyIndex(recIndex: number): Recipe {
     return this.recipeList.getValue()[recIndex];
@@ -56,6 +52,7 @@ export class RecipeBookDataService {
     this.updateServerRecipes();
   }
 
+  // toggles the boolean that controls favorite hearts
   toggleRecipeFav(recipeIndex: number) {
     const updatedRecipes = this.recipeList.getValue();
     updatedRecipes[recipeIndex].favorite = !updatedRecipes[recipeIndex].favorite;

@@ -9,6 +9,8 @@ import * as firebase from 'firebase';
 })
 export class AppComponent implements OnInit {
   ngOnInit() {
+    // sets up firebase
+    // moved firebase config to its own file that is not on git
     firebase.initializeApp(FirebaseConfig.config);
   }
 }

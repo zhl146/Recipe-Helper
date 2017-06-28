@@ -5,7 +5,8 @@ import { RecipeBookDataService } from '../../shared/recipe-book-data.service';
 import { Recipe } from '../recipe.model';
 import { validateReasonableTime } from '../recipebook-time-validator';
 import { growInOut } from '../../shared/animations';
-import { MdSnackBar } from '@angular/material';
+import { MdDialog, MdSnackBar } from '@angular/material';
+import { RecipeDeleteDialogComponent } from '../recipe-delete-dialog/recipe-delete-dialog.component';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -20,14 +21,14 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
   currentRecipe: Recipe;
 
-  deleteIntent = false;
-
-  id: number; // array id of the currentRecipe we are looking at if we are editing
+  id: number| null; // array id of the currentRecipe we are looking at if we are editing
   editMode = false; // true if we are editing an existing currentRecipe false if we are creating a new one
 
   constructor( private route: ActivatedRoute,
                private recipeService: RecipeBookDataService,
-               private router: Router, private snackBar: MdSnackBar) { }
+               private router: Router,
+               private snackBar: MdSnackBar,
+               private dialog: MdDialog) { }
 
   ngOnInit() {
     // parse the route to see if we are editing and if so which currentRecipe we are editing
@@ -215,16 +216,23 @@ export class RecipeEditComponent implements OnInit {
       .firstElementChild.firstElementChild.firstElementChild.firstElementChild).focus();
   }
 
-  // first click on black delete button
-  onDeleteIntent() {
-    this.deleteIntent = true;
-    setTimeout( () => { this.deleteIntent = false; }, 1500);
-  }
-
   // second click actually deletes recipe
   onDelete() {
     this.recipeService.deleteRecipe(this.id);
     this.snackBar.open('Recipe deleted!', '', {duration: 1500});
     this.router.navigate(['recipes']);
+  }
+
+  // pops up the delete confirm dialog
+  onDeleteIntent() {
+    const optionsDialog = this.dialog.open(RecipeDeleteDialogComponent);
+    optionsDialog.afterClosed()
+      .subscribe(
+        (result) => {
+          if (result === 'yes') {
+            this.onDelete();
+          }
+        }
+      );
   }
 }

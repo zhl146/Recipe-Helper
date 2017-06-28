@@ -127,6 +127,8 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
     }
   }
 
+  // displays a new icon to the user for 1.5s to confirm clear
+  // so that user will not accidentally clear their list
   onClearIntent() {
     this.clearState = true;
     setTimeout( () => { this.clearState = false; }, 1500);
@@ -141,6 +143,7 @@ export class ShoppinglistComponent implements OnInit, OnDestroy {
   }
 
   // code is a bit convoluted, but it successfully selects and focuses the last list element
+  // there may be a way to do this using the material2 focus method, but I didn't figure out how
   onPlus() {
     this.listItems.last.nativeElement.children[1]
       .firstElementChild.firstElementChild.firstElementChild.firstElementChild.focus();

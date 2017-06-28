@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ShoppinglistService } from '../shared/shoppinglist.service';
-import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-recipe-book',
@@ -9,9 +8,7 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./recipebook.component.scss']
 })
 
-export class RecipeBookComponent implements OnInit, OnDestroy {
-
-  private ngUnsubscribe: Subject<any> = new Subject<any>();
+export class RecipeBookComponent implements OnInit {
 
   constructor( private shoppingService: ShoppinglistService ) {}
 
@@ -25,10 +22,5 @@ export class RecipeBookComponent implements OnInit, OnDestroy {
     if ( !this.shoppingService.getLocalList() ) {
       this.shoppingService.getServerList();
     }
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 }
