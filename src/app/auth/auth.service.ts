@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase';
@@ -10,7 +10,7 @@ import { User } from 'firebase/app';
 
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnInit {
 
 
   // keeps track of sign in state
@@ -25,48 +25,36 @@ export class AuthService {
                private userService: UserService
   ) {}
 
+  ngOnInit() {}
+
   signInUser(email: string, password: string) {
-    return new Promise(
-      (resolve) => {
-        firebase.auth().signInWithEmailAndPassword(email, password)
-          .then(
-            (currentUser: User) => {
-              currentUser.getIdToken()
-                .then(
-                  (token: string) => {
-                    this.userService.updateLocalToken(token);
-                    this.getServerData()
-                      .then(
-                        () => {
-                          this.userService.updateLocalUser(currentUser);
-                          this.router.navigate(['recipes'])
-                            .then(
-                              () => resolve(currentUser)
-                            );
-                        }
-                      );
-                  }
-                );
-            }
-          );
-      }
-    );
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(
+        (currentUser: User) => {
+          this.userService.updateLocalUser(currentUser);
+          return currentUser.getIdToken();
+        }
+      )
+      .then(
+        (token: string) => {
+          this.userService.updateLocalToken(token);
+          return this.getServerData();
+        }
+      )
+      .then(
+        () => {
+          return this.router.navigate([ 'recipes' ]);
+        }
+      );
   }
 
   signUpUser(email: string, password: string) {
-    return new Promise(
-      (resolve) => {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(
-            () => {
-              this.signInUser(email, password)
-                .then(
-                  () => resolve()
-                );
-            }
-          );
-      }
-    );
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(
+        () => {
+          return this.signInUser(email, password);
+        }
+      );
   }
 
   signInAsGuest() {
@@ -78,23 +66,15 @@ export class AuthService {
   }
 
   signOutUser() {
-    return new Promise(
-      (resolve) => {
-        this.updateServerData()
-          .then(() => {
-              firebase.auth().signOut()
-                .then(
-                  () => {
-                    this.userService.removeLocalUser();
-                    this.userService.removeLocalToken();
-                    this.router.navigate(['auth', 'signin']);
-                    resolve(true);
-                  }
-                );
-            }
-          );
-      }
-    );
+    this.updateServerData()
+      .then( () => {
+        return firebase.auth().signOut();
+      })
+      .then( () => {
+        this.userService.removeLocalUser();
+        this.userService.removeLocalToken();
+        return this.router.navigate(['auth', 'signin']);
+      });
   }
 
   updateServerData() {

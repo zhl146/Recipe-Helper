@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['../auth.component.scss']
+  styleUrls: ['../auth.component.scss'],
+  animations: [
+  ]
 })
 export class SignUpComponent implements OnInit {
 
