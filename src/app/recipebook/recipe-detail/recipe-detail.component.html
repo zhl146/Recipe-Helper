@@ -77,7 +77,7 @@
             <div class="tab-contents">
               <ul>
                 <li *ngFor="let ingredient of currentRecipe.ingredients">
-                  <md-icon (click)="onAddIngredient()"
+                  <md-icon (click)="onAddIngredient(ingredient)"
                            md-list-icon>
                     add_shopping_cart
                   </md-icon>

@@ -39,7 +39,7 @@ $card-image-aspect: 1.777;
   margin: auto;
   display: flex;
   flex-direction: column;
-  transition: all 2000ms ease-in-out;
+  transition: all 150ms ease-in-out;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
@@ -177,6 +177,7 @@ ul {
 
     md-icon {
       margin-right: 12px;
+      cursor: pointer;
     }
 
   }

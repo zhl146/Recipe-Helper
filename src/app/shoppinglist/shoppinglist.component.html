@@ -22,7 +22,7 @@
       <div *ngFor="let listItemCtrl of getListItemControls(); let i = index"
                     class="shopping-list-item"
                     [formGroupName]="i"
-                    [ngClass]="{last: isLastElement(i)}" fxLayoutAlign="center center">
+                    [ngClass]="{last: isLastElement(i)}">
 
         <md-checkbox (change)="updateIngredient(i)"
                      *ngIf="!isLastElement(i)"

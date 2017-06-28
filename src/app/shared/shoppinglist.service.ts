@@ -10,18 +10,8 @@ export class ShoppinglistService {
 
   constructor( private http: AppHttpService ) {}
 
-  getListSubject() {
-    return this.shoppingList.asObservable();
-  }
-
   getLocalList() {
     return this.shoppingList.getValue();
-  }
-
-  addIngredient(newIngredient: ShoppingListItem): void {
-    const updatedList = this.shoppingList.getValue();
-    updatedList.push(newIngredient);
-    this.shoppingList.next(updatedList);
   }
 
   // takes an index of the ingredients array and deletes it
@@ -34,10 +24,10 @@ export class ShoppinglistService {
     this.updateServerList();
   }
 
-  // deletes all list items and updates server
-  clearList(): void {
-    this.shoppingList.next([]);
-    this.updateServerList();
+  addIngredient(newIngredient: ShoppingListItem): void {
+    const updatedList = this.shoppingList.getValue();
+    updatedList.push(newIngredient);
+    this.shoppingList.next(updatedList);
   }
 
   // uses spread operator to concatenate two arrays
@@ -48,14 +38,6 @@ export class ShoppinglistService {
       const newListItem = new ShoppingListItem(false, ingredient);
       updatedList.push(newListItem);
     }
-    this.shoppingList.next(updatedList);
-  }
-
-  // uses spread operator to concatenate two arrays
-  // takes the ingredient array directly
-  addIngredients(items: ShoppingListItem[]): void {
-    const updatedList = this.shoppingList.getValue();
-    updatedList.push(...items);
     this.shoppingList.next(updatedList);
   }
 
