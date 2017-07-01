@@ -36,6 +36,7 @@
     bottom: 24px;
     right: 24px;
     border-radius: 28px;
+    z-index: 3;
   }
 
   .last {
@@ -53,6 +54,7 @@
     will-change: box-shadow;
     padding: 0 15px;
     margin: 5px 0;
+    z-index: 1;
 
     .shopping-icon {
       margin: 0 5px 0 15px;
