@@ -7,7 +7,7 @@ export const  stockRecipes: Recipe[] = [
     name: 'Best Steak Marinade in Existence',
     description: `This is a family recipe that has been developed only over the last 5 years. 
       In this short time it's made me famous in our close circle, but until now I've never shared it with anyone.`,
-    imagePath: 'http://i242.photobucket.com/albums/ff231/bour3/things%20I%20made%20then%20ate/steak-asparagus.jpg',
+    imagePath: 'assets/img/marinade.jpg',
     ingredients: [
       '1/3 cup soy sauce',
       '1/2 cup olive oil',
@@ -35,7 +35,7 @@ export const  stockRecipes: Recipe[] = [
   {
     name: 'Peach Cobbler',
     description: 'This is a wonderful Southern recipe...very easy and tastes great!',
-    imagePath: 'http://i91.photobucket.com/albums/k309/Davydd_2006/BEE%20Social%20LA/SmithsPeachCobbler.jpg',
+    imagePath: 'assets/img/peach-cobbler.jpg',
     ingredients: [
       '1 cup all-purpose flour',
       '1/2 cup brown sugar',
@@ -66,7 +66,7 @@ export const  stockRecipes: Recipe[] = [
     description: `This is an easy variation of a favorite. I used to prepare it the traditional way, with sour cream, 
       but I didn't have any one night, so I used cream cheese instead. 
       My husband and I liked it even better! Serve over hot, cooked egg noodles or rice.`,
-    imagePath: 'http://i305.photobucket.com/albums/nn211/hetroclite/Mouthwatering/East%20European/BeefStroganoff-CC_zpsordocvzc.jpg',
+    imagePath: 'assets/img/beef-strog.jpg',
     ingredients: [
       '1 pound cubed beef stew meat',
       '1 (10.75 oz) can of condensed golden mushroom soup',
