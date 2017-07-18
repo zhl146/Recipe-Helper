@@ -20,6 +20,7 @@
         <input mdInput
                formControlName="filter"
                [(ngModel)]="filterString"
+               (keyup)="filterRecipes()"
                placeholder="search">
         <md-icon *ngIf="filterString"
                  (click)="clearFilter()">clear</md-icon>
@@ -31,7 +32,8 @@
   <div class="recipe-gallery">
     <div class="recipe-image-card"
          #recipeCard
-         *ngFor="let recipe of recipes | recipeFilter: filterString; let i = index">
+         [ngStyle]="{'display': recipeVisible[i] ? 'flex' : 'none'}"
+         *ngFor="let recipe of recipes; let i = index">
 
       <div class="card-image"
            [routerLink]="i"

@@ -29,6 +29,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   // this is 2 way bound to user input
   // user can filter the recipe list using this string
   filterString: string;
+  recipeVisible: boolean[];
   recipes: Recipe[];
 
   constructor( private recipeService: RecipeBookDataService,
@@ -39,7 +40,10 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     this.recipeService.getLocalRecipes()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(
-        ( recipes: Recipe[] ) => this.recipes = recipes );
+        ( recipes: Recipe[] ) => {
+          this.recipes = recipes;
+          this.recipeVisible = this.recipes.map( () => true);
+        } );
 
     this.recipeForm = this.fb.group({
       filter: this.fb.control('')
@@ -54,5 +58,10 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   // clears the current user filter string
   clearFilter() {
     this.filterString = '';
+  }
+
+  filterRecipes() {
+      const reg = new RegExp(this.filterString, 'i');
+      this.recipeVisible = this.recipes.map( (recipe) => reg.test(recipe.name) );
   }
 }
