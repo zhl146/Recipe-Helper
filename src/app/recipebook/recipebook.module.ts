@@ -21,7 +21,6 @@ import { RecipeDeleteDialogComponent } from './recipe-delete-dialog/recipe-delet
     RecipeDetailComponent,
     RecipeListComponent,
     TimePipe,
-    RecipeFilterPipe,
     RecipeDeleteDialogComponent
   ],
   entryComponents: [
