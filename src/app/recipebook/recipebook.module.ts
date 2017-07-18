@@ -11,7 +11,6 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
 
 import { TimePipe } from './time.pipe';
-import { RecipeFilterPipe } from './recipe-list/recipe-filter.pipe';
 import { RecipeDeleteDialogComponent } from './recipe-delete-dialog/recipe-delete-dialog.component';
 
 @NgModule({
