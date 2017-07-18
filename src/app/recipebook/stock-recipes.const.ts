@@ -7,7 +7,7 @@ export const  stockRecipes: Recipe[] = [
     name: 'Best Steak Marinade in Existence',
     description: `This is a family recipe that has been developed only over the last 5 years. 
       In this short time it's made me famous in our close circle, but until now I've never shared it with anyone.`,
-    imagePath: 'assets/img/marinade.jpg',
+    imagePath: 'https://zhenlu.info/img/recipe-helper/marinade.jpg',
     ingredients: [
       '1/3 cup soy sauce',
       '1/2 cup olive oil',
@@ -35,7 +35,7 @@ export const  stockRecipes: Recipe[] = [
   {
     name: 'Peach Cobbler',
     description: 'This is a wonderful Southern recipe...very easy and tastes great!',
-    imagePath: 'assets/img/peach-cobbler.jpg',
+    imagePath: 'https://zhenlu.info/img/recipe-helper/peach-cobbler.jpg',
     ingredients: [
       '1 cup all-purpose flour',
       '1/2 cup brown sugar',
@@ -66,7 +66,7 @@ export const  stockRecipes: Recipe[] = [
     description: `This is an easy variation of a favorite. I used to prepare it the traditional way, with sour cream, 
       but I didn't have any one night, so I used cream cheese instead. 
       My husband and I liked it even better! Serve over hot, cooked egg noodles or rice.`,
-    imagePath: 'assets/img/beef-strog.jpg',
+    imagePath: 'https://zhenlu.info/img/recipe-helper/beef-strog.jpg',
     ingredients: [
       '1 pound cubed beef stew meat',
       '1 (10.75 oz) can of condensed golden mushroom soup',
