@@ -62,6 +62,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   filterRecipes() {
       const reg = new RegExp(this.filterString, 'i');
-      this.recipeVisible = this.recipes.map( (recipe) => reg.test(recipe.name) );
+      this.recipeVisible = this.recipes.map( recipe => reg.test(recipe.name) );
   }
 }
